@@ -144,9 +144,6 @@
     .comparison-label-ours{left:16px}
     .comparison-label-theirs{right:16px}
     .comparison-slider.dragging .comparison-handle{transform:translate(-50%,-50%) scale(1.1)}
-    /* Missing image placeholder */
-    .comparison-image-before img[src="assets/ours.png"]:not([data-loaded]),
-    .comparison-image-after img[src="assets/theirs.png"]:not([data-loaded]){background:linear-gradient(135deg,var(--accent),#00d4aa)}
 
     /* Policy */
     .section{margin-top:40px}
@@ -246,12 +243,19 @@
     .order-summary{background:#f8f9fb;border-radius:12px;padding:14px;margin-bottom:16px}
     .summary-row{display:flex;justify-content:space-between;margin-bottom:10px;font-size:13px}
     .summary-row:last-child{margin-bottom:0;padding-top:10px;border-top:1px solid var(--line);font-weight:700;font-size:15px}
+    .summary-row.delivery-row{color:var(--success)}
+    .summary-row.delivery-row.calculated{color:var(--success)}
 
-    .form-group{margin-bottom:12px}
+    .form-group{margin-bottom:12px;position:relative}
     .form-label{display:block;font-weight:600;font-size:11px;color:var(--muted);margin-bottom:5px;text-transform:uppercase}
     .form-input{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);font-size:14px;outline:none}
     .form-input:focus{border-color:var(--accent)}
     .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+    /* Free Delivery Badge */
+    .free-delivery-badge{background:linear-gradient(135deg,var(--success),#16a34a);color:#fff;padding:12px 16px;border-radius:12px;text-align:center;margin-bottom:16px;display:flex;align-items:center;justify-content:center;gap:8px}
+    .free-delivery-badge .icon{font-size:20px}
+    .free-delivery-badge .text{font-weight:700;font-size:14px}
 
     /* Success */
     .success-content{text-align:center;padding:28px 20px}
@@ -305,10 +309,8 @@
     <input type="text" name="fullname" />
     <input type="tel" name="phone" />
     <input type="text" name="city" />
-    <select name="courier"></select>
-    <select name="deliveryType"></select>
-    <input type="text" name="office" />
-    <input type="text" name="address" />
+    <input type="text" name="delivery_type" />
+    <input type="text" name="office_address" />
     <input type="number" name="qty" />
     <input type="text" name="total_bgn" />
     <input type="text" name="total_eur" />
@@ -417,7 +419,7 @@
             <div class="feature-icon">🚚</div>
             <div class="feature-text">
               <b>Безплатна доставка</b>
-              <small>1-2 работни дни</small>
+              <small>С Еконт до цяла България</small>
             </div>
           </div>
         </div>
@@ -466,17 +468,13 @@
       </div>
       <div class="comparison-slider" id="comparisonSlider">
         <div class="comparison-slider-inner">
-          <!-- Their product (background) -->
           <div class="comparison-image-after">
             <img src="assets/theirs.png" alt="Техните" id="theirsImg" />
           </div>
-          <!-- Our product (foreground - draggable) -->
           <div class="comparison-image-before" id="beforeImage">
             <img src="assets/ours.png" alt="Нашите" id="oursImg" />
           </div>
-          <!-- Handle -->
           <div class="comparison-handle" id="sliderHandle"></div>
-          <!-- Labels -->
           <div class="comparison-label comparison-label-ours">НАШИТЕ</div>
           <div class="comparison-label comparison-label-theirs">ТЕХНИТЕ</div>
         </div>
@@ -565,7 +563,7 @@
         </details>
         <details class="faq-item">
           <summary>Колко струва доставката?</summary>
-          <div class="faq-content">Доставката е <b>напълно безплатна</b> — до офис или адрес. Работим с <b>Еконт</b> и <b>Спиди</b> — 1-2 работни дни.</div>
+          <div class="faq-content"><b>Безплатна!</b> Доставяме безплатно с Еконт до цяла България.</div>
         </details>
         <details class="faq-item">
           <summary>Каква гаранция предлагате?</summary>
@@ -643,66 +641,64 @@
         <button class="close-btn" onclick="closeOrder()">✕</button>
       </div>
       <div class="modal-body">
+        <!-- Free Delivery Badge -->
+        <div class="free-delivery-badge">
+          <span class="icon">🚚</span>
+          <span class="text">БЕЗПЛАТНА ДОСТАВКА до офис на Еконт!</span>
+        </div>
+
         <div class="order-summary">
           <div class="summary-row"><span>Продукт:</span><span>AirPods Pro 3 x<span id="orderQty">1</span></span></div>
           <div class="summary-row" id="orderDiscountRow" style="display:none"><span>Отстъпка:</span><span style="color:var(--success)">-10%</span></div>
-          <div class="summary-row"><span>Доставка:</span><span style="color:var(--success)">Безплатна</span></div>
-          <div class="summary-row"><span>Общо:</span><span>€ <span id="orderTotalEur">45.00</span></span></div>
+          <div class="summary-row delivery-row">
+            <span>Доставка (Еконт до офис):</span>
+            <span style="color:var(--success);font-weight:700">БЕЗПЛАТНА</span>
+          </div>
+          <div class="summary-row"><span>Общо:</span><span>€ <span id="orderTotalEur">55.00</span></span></div>
         </div>
+        
         <form id="orderForm" onsubmit="submitOrder(event)">
           <p class="honeypot"><label>Don't fill: <input name="bot-field" /></label></p>
           <input type="hidden" name="form-name" value="order" />
           <input type="hidden" id="formQty" name="qty" value="1" />
-          <input type="hidden" id="formTotalBgn" name="total_bgn" value="88" />
-          <input type="hidden" id="formTotalEur" name="total_eur" value="45.00" />
+          <input type="hidden" id="formTotalBgn" name="total_bgn" value="108" />
+          <input type="hidden" id="formTotalEur" name="total_eur" value="55.00" />
           <input type="hidden" id="formPromoCode" name="promo_code" value="" />
           <input type="hidden" id="formDiscountApplied" name="discount_applied" value="false" />
 
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">Куриер</label>
-              <select class="form-input" name="courier" required>
-                <option value="">Избери</option>
-                <option value="Econt">Еконт</option>
-                <option value="Speedy">Спиди</option>
-              </select>
+              <label class="form-label">Име и фамилия *</label>
+              <input type="text" class="form-input" name="fullname" placeholder="Иван Иванов" required />
             </div>
             <div class="form-group">
-              <label class="form-label">Начин</label>
-              <select class="form-input" id="deliveryType" name="deliveryType" required onchange="updateDeliveryFields()">
-                <option value="">Избери</option>
-                <option value="office">До офис</option>
-                <option value="address">До адрес</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Град</label>
-            <input type="text" class="form-input" name="city" placeholder="Въведи град" required />
-          </div>
-          <div class="form-group" id="officeField" style="display:none">
-            <label class="form-label">Офис</label>
-            <input type="text" class="form-input" name="office" placeholder="Име на офис" />
-          </div>
-          <div class="form-group" id="addressField" style="display:none">
-            <label class="form-label">Адрес</label>
-            <input type="text" class="form-input" name="address" placeholder="Улица, номер" />
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label">Име</label>
-              <input type="text" class="form-input" name="fullname" placeholder="Име и фамилия" required />
-            </div>
-            <div class="form-group">
-              <label class="form-label">Телефон</label>
+              <label class="form-label">Телефон *</label>
               <input type="tel" class="form-input" name="phone" placeholder="08xxxxxxxx" required />
             </div>
           </div>
+
           <div class="form-group">
-            <label class="form-label">Бележка</label>
+            <label class="form-label">Град *</label>
+            <input type="text" class="form-input" name="city" placeholder="Например: София, Пловдив, Варна..." required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Офис на Еконт *</label>
+            <input type="text" class="form-input" name="office_name" placeholder="Адрес на офис на Еконт..." required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Бележка (по желание)</label>
             <input type="text" class="form-input" name="note" placeholder="Допълнителна информация..." />
           </div>
-          <button type="submit" class="btn btn-accent" id="submitBtn">✅ Изпрати поръчката</button>
+
+          <button type="submit" class="btn btn-accent" id="submitBtn" style="font-size:16px;padding:16px">
+            ✅ Потвърди поръчката
+          </button>
+          
+          <div style="text-align:center;margin-top:12px;font-size:12px;color:var(--muted)">
+            🔒 Наложен платеж - плащаш при получаване
+          </div>
         </form>
       </div>
     </div>
@@ -769,13 +765,13 @@
   <!-- Toast -->
   <div class="toast" id="toast"><span id="toastMessage">Съобщение</span></div>
 
+  <!-- Main Script -->
   <script>
-
     // ===== CONSTANTS =====
     const FX_BGN_PER_EUR = 1.95583;
     const PRICE_EUR = 55;
     const PRICE_BGN = Math.round(PRICE_EUR * FX_BGN_PER_EUR);
-    const OLD_EUR = 72.58;
+    const OLD_EUR = 89;
     const VALID_PROMO_CODES = ['A1B2C3', 'X7Y8Z9', 'P5Q6R7', 'M3N4O5', 'D8E9F0', 'SAVE10', 'AIR10', 'PROMO1'];
 
     // ===== STATE =====
@@ -790,9 +786,7 @@
       updatePrices();
       loadReviews();
       setupStarRating();
-      // Countdown removed
       startStockCounter();
-      trackVisitor();
       updateViewerCount();
       initComparisonSlider();
       
@@ -807,57 +801,12 @@
       document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     }
 
-    // ===== TRACK VISITOR =====
-    function trackVisitor() {
-      // Visitor tracking disabled (using GitHub file storage only)
-    }
-
     // ===== VIEWER COUNT =====
     function updateViewerCount() {
       setInterval(() => {
         const count = Math.floor(Math.random() * 15) + 8;
         document.getElementById('viewerCount').textContent = count;
       }, 8000);
-    }
-
-    // ===== COUNTDOWN TIMER =====
-    function startCountdown() {
-      let hours = 2, minutes = 45, seconds = 30;
-      
-      const saved = localStorage.getItem('countdown_end');
-      if (saved) {
-        const end = new Date(saved);
-        const now = new Date();
-        const diff = Math.floor((end - now) / 1000);
-        if (diff > 0) {
-          hours = Math.floor(diff / 3600);
-          minutes = Math.floor((diff % 3600) / 60);
-          seconds = diff % 60;
-        }
-      } else {
-        const end = new Date();
-        end.setHours(end.getHours() + hours, end.getMinutes() + minutes, end.getSeconds() + seconds);
-        localStorage.setItem('countdown_end', end.toISOString());
-      }
-
-      function update() {
-        if (seconds > 0) seconds--;
-        else if (minutes > 0) { minutes--; seconds = 59; }
-        else if (hours > 0) { hours--; minutes = 59; seconds = 59; }
-        else {
-          hours = 2; minutes = 45; seconds = 30;
-          const end = new Date();
-          end.setHours(end.getHours() + hours, end.getMinutes() + minutes, end.getSeconds() + seconds);
-          localStorage.setItem('countdown_end', end.toISOString());
-        }
-        
-        document.getElementById('hours').textContent = String(hours).padStart(2, '0');
-        document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
-        document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
-      }
-      
-      update();
-      setInterval(update, 1000);
     }
 
     // ===== STOCK COUNTER =====
@@ -888,8 +837,8 @@
       document.getElementById('orderQty').textContent = qty;
       document.getElementById('orderTotalEur').textContent = totalEur.toFixed(2);
       document.getElementById('formQty').value = qty;
-      document.getElementById('formTotalBgn').value = Math.round(totalBgn);
       document.getElementById('formTotalEur').value = totalEur.toFixed(2);
+      document.getElementById('formTotalBgn').value = totalBgn;
       
       if (discountApplied) {
         document.getElementById('originalTotal').style.display = 'inline';
@@ -905,21 +854,18 @@
       updatePrices();
     }
 
-    
-// ===== FAST ORDER =====
-function fastOrder() {
-  // Set cart to have 1 item if not already
-  if (!cartHasItem) {
-    cartHasItem = true;
-    qty = 1;
-  }
-  updatePrices();
-  // Open order modal directly (skip cart)
-  openOrder();
-  showToast('Бърза поръчка - попълнете данните!', 'success');
-}
+    // ===== FAST ORDER =====
+    function fastOrder() {
+      if (!cartHasItem) {
+        cartHasItem = true;
+        qty = 1;
+      }
+      updatePrices();
+      openOrder();
+      showToast('Бърза поръчка - попълнете данните!', 'success');
+    }
 
-// ===== CART FUNCTIONS =====
+    // ===== CART FUNCTIONS =====
     function addToCart() {
       if (!cartHasItem) {
         cartHasItem = true;
@@ -987,45 +933,38 @@ function fastOrder() {
     function openOrder() {
       closeCart();
       document.getElementById('orderModal').classList.add('show');
+      updatePrices();
     }
 
     function closeOrder() {
       document.getElementById('orderModal').classList.remove('show');
     }
 
-    function updateDeliveryFields() {
-      const type = document.getElementById('deliveryType').value;
-      document.getElementById('officeField').style.display = type === 'office' ? 'block' : 'none';
-      document.getElementById('addressField').style.display = type === 'address' ? 'block' : 'none';
-      document.querySelector('#officeField input').required = type === 'office';
-      document.querySelector('#addressField input').required = type === 'address';
-    }
-
-    // Submit order - SAVES TO GITHUB REPOSITORY
+    // Submit order
     async function submitOrder(e) {
       e.preventDefault();
+      
       const btn = document.getElementById('submitBtn');
       btn.textContent = 'Изпраща се...';
+      btn.disabled = true;
       
       const form = e.target;
       const formData = new FormData(form);
       
-      // Prepare order data
       const orderData = {
         name: formData.get('fullname'),
         phone: formData.get('phone'),
         city: formData.get('city'),
-        courier: formData.get('courier'),
-        deliveryType: formData.get('deliveryType'),
-        address: formData.get('office') || formData.get('address') || '',
+        officeName: formData.get('office_name'),
         qty: parseInt(qty) || 1,
         totalEur: parseFloat(document.getElementById('orderTotalEur').textContent) || 0,
         totalBgn: parseFloat(document.getElementById('formTotalBgn').value) || 0,
-        promoCode: document.getElementById('formPromoCode').value || ''
+        promoCode: document.getElementById('formPromoCode').value || '',
+        note: formData.get('note') || ''
       };
       
       try {
-        // 1. Save to GitHub repository
+        // Save to GitHub repository
         const ghResponse = await fetch('/.netlify/functions/save-order', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -1035,14 +974,15 @@ function fastOrder() {
         const ghResult = await ghResponse.json();
         console.log('Order saved to GitHub:', ghResult);
         
-        // 2. Also submit to Netlify Forms (for email notification)
+        // Also submit to Netlify Forms
         await fetch('/', {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           body: new URLSearchParams(formData).toString()
         });
         
-        btn.textContent = '✅ Изпрати поръчката';
+        btn.textContent = '✅ Потвърди поръчката';
+        btn.disabled = false;
         closeOrder();
         openSuccess();
         
@@ -1051,6 +991,7 @@ function fastOrder() {
         qty = 1;
         cartHasItem = false;
         discountApplied = false;
+        
         document.getElementById('promoInput').disabled = false;
         document.getElementById('promoInput').value = '';
         document.getElementById('promoBtn').textContent = 'Приложи';
@@ -1058,11 +999,15 @@ function fastOrder() {
         document.getElementById('addToCartBtn').textContent = '🛒 Добави в кошницата';
         document.getElementById('addToCartBtn').classList.remove('btn-success');
         document.getElementById('addToCartBtn').classList.add('btn-accent');
+        document.getElementById('discountRow').style.display = 'none';
+        document.getElementById('orderDiscountRow').style.display = 'none';
+        document.getElementById('originalTotal').style.display = 'none';
         updatePrices();
         
       } catch (error) {
         console.error('Error saving order:', error);
-        btn.textContent = '✅ Изпрати поръчката';
+        btn.textContent = '✅ Потвърди поръчката';
+        btn.disabled = false;
         showToast('Грешка при запазване. Опитайте отново.', 'error');
       }
     }
@@ -1103,7 +1048,6 @@ function fastOrder() {
       currentRating = 5;
     }
 
-    // Submit review - SAVES TO GITHUB REPOSITORY
     async function submitReview(e) {
       e.preventDefault();
       
@@ -1115,7 +1059,6 @@ function fastOrder() {
       };
       
       try {
-        // Save to GitHub repository
         const response = await fetch('/.netlify/functions/save-review', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -1135,10 +1078,8 @@ function fastOrder() {
       }
     }
 
-    // Load reviews - FETCHES FROM GITHUB REPOSITORY
     async function loadReviews() {
       try {
-        // Fetch reviews from GitHub
         const response = await fetch('/.netlify/functions/get-reviews?limit=3');
         const result = await response.json();
         
@@ -1153,22 +1094,18 @@ function fastOrder() {
             verified: r.verified
           })).join('');
           
-          // Update total reviews count
           document.getElementById('totalReviews').textContent = result.count || result.reviews.length;
           
-          // Update average rating if available
           if (result.averageRating) {
             document.getElementById('avgRating').textContent = result.averageRating;
           }
         }
       } catch (error) {
         console.error('Error loading reviews:', error);
-        // Show fallback reviews if database is not available
         showFallbackReviews();
       }
     }
     
-    // Fallback reviews if database is unavailable
     function showFallbackReviews() {
       const fallbackReviews = [
         { id: 1, name: 'Иван П.', rating: 5, text: 'Много чист звук и шумопотискането е топ. Дойдоха бързо!', date: 'преди 2 дни', verified: true },
@@ -1200,7 +1137,6 @@ function fastOrder() {
       `;
     }
 
-    // Open all reviews modal - FETCHES FROM GITHUB REPOSITORY
     async function openAllReviews() {
       try {
         const response = await fetch('/.netlify/functions/get-reviews?limit=100');
@@ -1280,7 +1216,6 @@ function fastOrder() {
         slider.classList.remove('dragging');
       });
 
-      // Touch events
       handle.addEventListener('touchstart', (e) => {
         isDragging = true;
         slider.classList.add('dragging');
@@ -1297,7 +1232,693 @@ function fastOrder() {
         slider.classList.remove('dragging');
       });
 
-      // Click on slider to move
+      slider.addEventListener('click', (e) => {
+        if (e.target === handle) return;
+        updateSlider(e.clientX);
+      });
+    }
+
+    // ===== TOAST =====
+    function showToast(msg, type = 'success') {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMessage').textContent = msg;
+      toast.className = 'toast show toast-' + type;
+      setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    // ===== KEYBOARD =====
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeCart(); closeOrder(); closeSuccess(); closeReviewModal(); closeAllReviews();
+      }
+    });
+
+    // ===== INIT =====
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
+ Загора', jsonFile: 'Kazanlak.json' },
+        { id: 22, name: 'Кърджали', nameEn: 'Kardzhali', regionName: 'Кърджали', jsonFile: 'Kardzhali.json' },
+        { id: 23, name: 'Кюстендил', nameEn: 'Kyustendil', regionName: 'Кюстендил', jsonFile: 'Kyustendil.json' },
+        { id: 24, name: 'Монтана', nameEn: 'Montana', regionName: 'Монтана', jsonFile: 'Montana.json' },
+        { id: 25, name: 'Смолян', nameEn: 'Smolyan', regionName: 'Смолян', jsonFile: 'Smolyan.json' },
+        { id: 26, name: 'Търговище', nameEn: 'Targovishte', regionName: 'Търговище', jsonFile: 'Targovishte.json' },
+        { id: 27, name: 'Ловеч', nameEn: 'Lovech', regionName: 'Ловеч', jsonFile: 'Lovech.json' },
+        { id: 28, name: 'Разград', nameEn: 'Razgrad', regionName: 'Разград', jsonFile: 'Razgrad.json' },
+        { id: 29, name: 'Силистра', nameEn: 'Silistra', regionName: 'Силистра', jsonFile: 'Silistra.json' },
+        { id: 30, name: 'Свищов', nameEn: 'Svishtov', regionName: 'Велико Търново', jsonFile: 'Svishtov.json' }
+      ];
+    }
+
+    // Search cities
+    function searchEcontCities(query) {
+      const lowerQuery = query.toLowerCase().trim();
+      const matches = cities.filter(city => {
+        return city.name.toLowerCase().includes(lowerQuery) || 
+               (city.nameEn && city.nameEn.toLowerCase().includes(lowerQuery));
+      }).slice(0, 8);
+      
+      showEcontDropdown(matches);
+    }
+
+    // Show dropdown
+    function showEcontDropdown(matches) {
+      const dropdown = document.getElementById('econtCityDropdown');
+      
+      if (matches.length === 0) {
+        dropdown.innerHTML = '<div class="econt-dropdown-item">Няма намерени градове</div>';
+        dropdown.classList.add('show');
+        return;
+      }
+      
+      dropdown.innerHTML = matches.map(city => `
+        <div class="econt-dropdown-item" data-city-id="${city.id}" data-city-name="${city.name}">
+          <div class="city-name">${city.name}</div>
+          <div class="city-region">${city.regionName || ''}</div>
+        </div>
+      `).join('');
+      
+      dropdown.classList.add('show');
+      
+      // Add click handlers
+      dropdown.querySelectorAll('.econt-dropdown-item').forEach(item => {
+        item.addEventListener('click', () => {
+          const cityId = item.dataset.cityId;
+          const cityName = item.dataset.cityName;
+          const city = cities.find(c => c.id == cityId);
+          if (city) {
+            selectEcontCity(city);
+          }
+        });
+      });
+    }
+
+    // Hide dropdown
+    function hideEcontDropdown() {
+      document.getElementById('econtCityDropdown').classList.remove('show');
+    }
+
+    // Select city
+    async function selectEcontCity(city) {
+      selectedCity = city;
+      document.getElementById('econtCityInput').value = city.name;
+      document.getElementById('formCity').value = city.name;
+      document.getElementById('formEcontCityId').value = city.id;
+      hideEcontDropdown();
+      
+      // Clear office selection when city changes
+      selectedOffice = null;
+      document.getElementById('econtOfficeInput').value = '';
+      document.getElementById('formOfficeName').value = '';
+      document.getElementById('formOfficeCode').value = '';
+      
+      // Calculate delivery price
+      calculateEcontDeliveryPrice();
+    }
+
+    // Select delivery method
+    function selectDeliveryMethod(method) {
+      deliveryMethod = method;
+      
+      // Update tabs
+      document.getElementById('tabOffice').classList.toggle('active', method === 'office');
+      document.getElementById('tabAddress').classList.toggle('active', method === 'address');
+      
+      // Show/hide sections
+      document.getElementById('econtOfficeSection').style.display = method === 'office' ? 'block' : 'none';
+      document.getElementById('econtAddressSection').style.display = method === 'address' ? 'block' : 'none';
+      
+      // Update form
+      document.getElementById('formDeliveryType').value = method;
+      
+      // Recalculate price
+      calculateEcontDeliveryPrice();
+    }
+
+    // Calculate delivery price
+    function calculateEcontDeliveryPrice() {
+      if (!deliveryMethod || !selectedCity) {
+        deliveryPrice = 0;
+        updateEcontPriceDisplay();
+        return;
+      }
+
+      // For office delivery, need office selected
+      if (deliveryMethod === 'office') {
+        const officeInput = document.getElementById('econtOfficeInput').value.trim();
+        if (!officeInput || officeInput.length < 3) {
+          deliveryPrice = 0;
+          updateEcontPriceDisplay();
+          return;
+        }
+      }
+
+      // For address delivery, need address input
+      if (deliveryMethod === 'address') {
+        const address = document.getElementById('econtAddressInput').value.trim();
+        document.getElementById('formAddress').value = address;
+      }
+
+      // Use fixed rates
+      deliveryPrice = getStandardEcontPrice();
+
+      updateEcontPriceDisplay();
+      updateOrderTotal();
+    }
+
+    // Standard Econt pricing - fixed rates
+    function getStandardEcontPrice() {
+      if (deliveryMethod === 'office') {
+        return 4.29; // Office delivery rate
+      } else {
+        return 8.84; // Address delivery rate (to all cities in Bulgaria)
+      }
+    }
+
+    // Update price display
+    function updateEcontPriceDisplay() {
+      const display = document.getElementById('econtPriceDisplay');
+      const priceValue = document.getElementById('econtPriceValue');
+      const priceText = document.getElementById('deliveryPriceText');
+      
+      if (deliveryPrice > 0) {
+        display.style.display = 'block';
+        priceValue.textContent = deliveryPrice.toFixed(2);
+        priceText.textContent = deliveryPrice.toFixed(2) + ' €';
+        document.getElementById('deliveryRow').classList.add('calculated');
+        document.getElementById('formDeliveryPrice').value = deliveryPrice.toFixed(2);
+      } else {
+        display.style.display = 'none';
+        priceText.textContent = 'Изберете доставка';
+        document.getElementById('deliveryRow').classList.remove('calculated');
+      }
+    }
+
+    // Update order total
+    function updateOrderTotal() {
+      let productTotal = PRICE_EUR * qty;
+      
+      if (discountApplied) {
+        productTotal = productTotal * 0.9;
+      }
+      
+      const total = productTotal + deliveryPrice;
+      const totalBgn = Math.round(total * FX_BGN_PER_EUR);
+      
+      document.getElementById('orderTotalEur').textContent = total.toFixed(2);
+      document.getElementById('formTotalEur').value = total.toFixed(2);
+      document.getElementById('formTotalBgn').value = totalBgn;
+    }
+
+    // ===== VIEWER COUNT =====
+    function updateViewerCount() {
+      setInterval(() => {
+        const count = Math.floor(Math.random() * 15) + 8;
+        document.getElementById('viewerCount').textContent = count;
+      }, 8000);
+    }
+
+    // ===== STOCK COUNTER =====
+    function startStockCounter() {
+      setInterval(() => {
+        if (Math.random() > 0.7 && stockCount > 3) {
+          stockCount--;
+          document.getElementById('stockCount').textContent = stockCount;
+          document.getElementById('stockBar').style.width = (stockCount * 2) + '%';
+        }
+      }, 15000);
+    }
+
+    // ===== PRICE FUNCTIONS =====
+    function updatePrices() {
+      let totalEur = PRICE_EUR * qty;
+      let totalBgn = PRICE_BGN * qty;
+      
+      if (discountApplied) {
+        totalEur = totalEur * 0.9;
+        totalBgn = Math.round(totalBgn * 0.9);
+      }
+
+      document.getElementById('qtyValue').textContent = qty;
+      document.getElementById('cartBadge').textContent = qty;
+      document.getElementById('cartBadge').style.display = cartHasItem ? 'grid' : 'none';
+      document.getElementById('totalEur').textContent = totalEur.toFixed(2);
+      document.getElementById('orderQty').textContent = qty;
+      document.getElementById('formQty').value = qty;
+      
+      if (discountApplied) {
+        document.getElementById('originalTotal').style.display = 'inline';
+        document.getElementById('originalTotalEur').textContent = (PRICE_EUR * qty).toFixed(2);
+        document.getElementById('discountAmount').textContent = (PRICE_EUR * qty * 0.1).toFixed(2);
+        document.getElementById('discountRow').style.display = 'flex';
+        document.getElementById('orderDiscountRow').style.display = 'flex';
+      }
+      
+      updateOrderTotal();
+    }
+
+    function updateQty(change) {
+      qty = Math.max(1, Math.min(5, qty + change));
+      updatePrices();
+    }
+
+    // ===== FAST ORDER =====
+    function fastOrder() {
+      if (!cartHasItem) {
+        cartHasItem = true;
+        qty = 1;
+      }
+      updatePrices();
+      openOrder();
+      showToast('Бърза поръчка - попълнете данните!', 'success');
+    }
+
+    // ===== CART FUNCTIONS =====
+    function addToCart() {
+      if (!cartHasItem) {
+        cartHasItem = true;
+        const btn = document.getElementById('addToCartBtn');
+        btn.textContent = '✅ Добавено';
+        btn.classList.remove('btn-accent');
+        btn.classList.add('btn-success');
+        openCart();
+        showToast('Добавено в кошницата!', 'success');
+      } else {
+        openCart();
+      }
+    }
+
+    function openCart() {
+      document.getElementById('overlay').classList.add('show');
+      document.getElementById('drawer').classList.add('show');
+      document.body.style.overflow = 'hidden';
+      updateCartDisplay();
+    }
+
+    function closeCart() {
+      document.getElementById('overlay').classList.remove('show');
+      document.getElementById('drawer').classList.remove('show');
+      document.body.style.overflow = '';
+    }
+
+    function updateCartDisplay() {
+      if (cartHasItem) {
+        document.getElementById('emptyCart').style.display = 'none';
+        document.getElementById('cartContent').style.display = 'block';
+        document.getElementById('drawerFooter').style.display = 'block';
+      }
+      updatePrices();
+    }
+
+    // ===== PROMO CODE =====
+    function applyPromo() {
+      const input = document.getElementById('promoInput');
+      const code = input.value.toUpperCase().trim();
+      
+      if (!code) return showPromoMessage('Въведете код', 'error');
+      if (discountApplied) return showPromoMessage('Вече приложено', 'error');
+      
+      if (VALID_PROMO_CODES.includes(code)) {
+        discountApplied = true;
+        updatePrices();
+        showPromoMessage('✓ 10% отстъпка приложена!', 'success');
+        input.disabled = true;
+        document.getElementById('promoBtn').textContent = 'Приложено';
+        document.getElementById('formPromoCode').value = code;
+        document.getElementById('formDiscountApplied').value = 'true';
+      } else {
+        showPromoMessage('✗ Невалиден код', 'error');
+      }
+    }
+
+    function showPromoMessage(text, type) {
+      const msg = document.getElementById('promoMessage');
+      msg.textContent = text;
+      msg.className = 'promo-message ' + (type === 'success' ? 'promo-success' : 'promo-error');
+    }
+
+    // ===== ORDER MODAL =====
+    function openOrder() {
+      closeCart();
+      document.getElementById('orderModal').classList.add('show');
+      
+      // Reset delivery state
+      deliveryMethod = null;
+      selectedCity = null;
+      selectedOffice = null;
+      deliveryPrice = 0;
+      
+      document.getElementById('econtCityInput').value = '';
+      document.getElementById('econtOfficeInput').value = '';
+      document.getElementById('econtAddressInput').value = '';
+      document.getElementById('econtOfficeSection').style.display = 'none';
+      document.getElementById('econtAddressSection').style.display = 'none';
+      document.getElementById('econtPriceDisplay').style.display = 'none';
+      document.getElementById('tabOffice').classList.remove('active');
+      document.getElementById('tabAddress').classList.remove('active');
+      document.getElementById('deliveryPriceText').textContent = 'Изберете доставка';
+      document.getElementById('deliveryRow').classList.remove('calculated');
+      
+      updateOrderTotal();
+    }
+
+    function closeOrder() {
+      document.getElementById('orderModal').classList.remove('show');
+    }
+
+    // Submit order
+    async function submitOrder(e) {
+      e.preventDefault();
+      
+      // Validate delivery
+      if (!deliveryMethod) {
+        showToast('Моля изберете начин на доставка', 'error');
+        return;
+      }
+      
+      if (!selectedCity) {
+        showToast('Моля изберете град', 'error');
+        return;
+      }
+      
+      if (deliveryMethod === 'office') {
+        const officeInput = document.getElementById('econtOfficeInput').value.trim();
+        if (!officeInput) {
+          showToast('Моля въведете офис', 'error');
+          return;
+        }
+        // If no office was selected from dropdown, use the input text
+        if (!selectedOffice) {
+          document.getElementById('formOfficeName').value = officeInput;
+          document.getElementById('formOfficeCode').value = 'MANUAL';
+        }
+      }
+      
+      if (deliveryMethod === 'address') {
+        const address = document.getElementById('econtAddressInput').value.trim();
+        if (!address) {
+          showToast('Моля въведете адрес', 'error');
+          return;
+        }
+      }
+      
+      if (deliveryPrice === 0) {
+        showToast('Моля изчакайте да се изчисли цената', 'error');
+        return;
+      }
+
+      const btn = document.getElementById('submitBtn');
+      btn.textContent = 'Изпраща се...';
+      
+      const form = e.target;
+      const formData = new FormData(form);
+      
+      const orderData = {
+        name: formData.get('fullname'),
+        phone: formData.get('phone'),
+        city: selectedCity ? selectedCity.name : '',
+        deliveryType: deliveryMethod,
+        officeName: document.getElementById('formOfficeName').value,
+        officeCode: document.getElementById('formOfficeCode').value,
+        address: document.getElementById('econtAddressInput').value.trim(),
+        qty: parseInt(qty) || 1,
+        totalEur: parseFloat(document.getElementById('orderTotalEur').textContent) || 0,
+        totalBgn: parseFloat(document.getElementById('formTotalBgn').value) || 0,
+        deliveryPrice: deliveryPrice,
+        promoCode: document.getElementById('formPromoCode').value || '',
+        econtCityId: selectedCity ? selectedCity.id : '',
+        note: formData.get('note') || ''
+      };
+      
+      try {
+        // Save to GitHub repository
+        const ghResponse = await fetch('/.netlify/functions/save-order', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(orderData)
+        });
+        
+        const ghResult = await ghResponse.json();
+        console.log('Order saved to GitHub:', ghResult);
+        
+        // Also submit to Netlify Forms
+        await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(formData).toString()
+        });
+        
+        btn.textContent = '✅ Изпрати поръчката';
+        closeOrder();
+        openSuccess();
+        
+        // Reset form and cart
+        form.reset();
+        qty = 1;
+        cartHasItem = false;
+        discountApplied = false;
+        deliveryPrice = 0;
+        deliveryMethod = null;
+        selectedCity = null;
+        selectedOffice = null;
+        
+        document.getElementById('promoInput').disabled = false;
+        document.getElementById('promoInput').value = '';
+        document.getElementById('promoBtn').textContent = 'Приложи';
+        document.getElementById('promoMessage').textContent = '';
+        document.getElementById('addToCartBtn').textContent = '🛒 Добави в кошницата';
+        document.getElementById('addToCartBtn').classList.remove('btn-success');
+        document.getElementById('addToCartBtn').classList.add('btn-accent');
+        updatePrices();
+        
+      } catch (error) {
+        console.error('Error saving order:', error);
+        btn.textContent = '✅ Изпрати поръчката';
+        showToast('Грешка при запазване. Опитайте отново.', 'error');
+      }
+    }
+
+    function openSuccess() {
+      document.getElementById('successModal').classList.add('show');
+    }
+
+    function closeSuccess() {
+      document.getElementById('successModal').classList.remove('show');
+    }
+
+    // ===== REVIEW SYSTEM =====
+    function setupStarRating() {
+      document.querySelectorAll('#starRating span').forEach(star => {
+        star.addEventListener('click', () => {
+          currentRating = parseInt(star.dataset.rating);
+          document.getElementById('reviewRating').value = currentRating;
+          updateStarDisplay(currentRating);
+        });
+      });
+    }
+
+    function updateStarDisplay(rating) {
+      document.querySelectorAll('#starRating span').forEach((star, i) => {
+        star.style.color = i < rating ? '#fbbf24' : '#e5e7eb';
+      });
+    }
+
+    function openReviewModal() {
+      document.getElementById('reviewModal').classList.add('show');
+      updateStarDisplay(5);
+    }
+
+    function closeReviewModal() {
+      document.getElementById('reviewModal').classList.remove('show');
+      document.getElementById('reviewForm').reset();
+      currentRating = 5;
+    }
+
+    async function submitReview(e) {
+      e.preventDefault();
+      
+      const reviewData = {
+        name: document.getElementById('reviewName').value,
+        rating: parseInt(document.getElementById('reviewRating').value),
+        text: document.getElementById('reviewText').value,
+        verified: false
+      };
+      
+      try {
+        const response = await fetch('/.netlify/functions/save-review', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(reviewData)
+        });
+        
+        const result = await response.json();
+        console.log('Review saved to GitHub:', result);
+        
+        loadReviews();
+        closeReviewModal();
+        showToast('Благодарим за отзива!', 'success');
+        
+      } catch (error) {
+        console.error('Error saving review:', error);
+        showToast('Грешка при запазване на отзива', 'error');
+      }
+    }
+
+    async function loadReviews() {
+      try {
+        const response = await fetch('/.netlify/functions/get-reviews?limit=3');
+        const result = await response.json();
+        
+        if (result.success && result.reviews) {
+          const list = document.getElementById('reviewsList');
+          list.innerHTML = result.reviews.map(r => createReviewHTML({
+            id: r.id,
+            name: r.name,
+            rating: r.rating,
+            text: r.text,
+            date: new Date(r.createdAt).toLocaleDateString('bg-BG'),
+            verified: r.verified
+          })).join('');
+          
+          document.getElementById('totalReviews').textContent = result.count || result.reviews.length;
+          
+          if (result.averageRating) {
+            document.getElementById('avgRating').textContent = result.averageRating;
+          }
+        }
+      } catch (error) {
+        console.error('Error loading reviews:', error);
+        showFallbackReviews();
+      }
+    }
+    
+    function showFallbackReviews() {
+      const fallbackReviews = [
+        { id: 1, name: 'Иван П.', rating: 5, text: 'Много чист звук и шумопотискането е топ. Дойдоха бързо!', date: 'преди 2 дни', verified: true },
+        { id: 2, name: 'Мария К.', rating: 5, text: 'Удобни за носене и батерията държи много. Препоръчвам!', date: 'преди 5 дни', verified: true },
+        { id: 3, name: 'Георги Д.', rating: 4, text: 'Добро качество за цената. Доставката беше бърза.', date: 'преди седмица', verified: true }
+      ];
+      
+      const list = document.getElementById('reviewsList');
+      list.innerHTML = fallbackReviews.map(r => createReviewHTML(r)).join('');
+      document.getElementById('totalReviews').textContent = '312';
+    }
+
+    function createReviewHTML(r) {
+      const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
+      return `
+        <div class="review-card">
+          <div class="review-header">
+            <div class="reviewer">
+              <div class="reviewer-avatar">${r.name.charAt(0)}</div>
+              <div>
+                <div class="reviewer-name">${r.name} ${r.verified ? '<span class="verified-badge">✓ Проверена</span>' : ''}</div>
+                <div class="review-date">${r.date}</div>
+              </div>
+            </div>
+          </div>
+          <div class="review-stars">${stars}</div>
+          <div class="review-text">${r.text}</div>
+        </div>
+      `;
+    }
+
+    async function openAllReviews() {
+      try {
+        const response = await fetch('/.netlify/functions/get-reviews?limit=100');
+        const result = await response.json();
+        
+        if (result.success && result.reviews) {
+          document.getElementById('allReviewsList').innerHTML = result.reviews.map(r => createReviewHTML({
+            id: r.id,
+            name: r.name,
+            rating: r.rating,
+            text: r.text,
+            date: new Date(r.createdAt).toLocaleDateString('bg-BG'),
+            verified: r.verified
+          })).join('');
+        } else {
+          showFallbackAllReviews();
+        }
+      } catch (error) {
+        console.error('Error loading all reviews:', error);
+        showFallbackAllReviews();
+      }
+      document.getElementById('allReviewsModal').classList.add('show');
+    }
+    
+    function showFallbackAllReviews() {
+      const fallbackReviews = [
+        { id: 1, name: 'Иван П.', rating: 5, text: 'Много чист звук и шумопотискането е топ. Дойдоха бързо!', date: 'преди 2 дни', verified: true },
+        { id: 2, name: 'Мария К.', rating: 5, text: 'Удобни за носене и батерията държи много. Препоръчвам!', date: 'преди 5 дни', verified: true },
+        { id: 3, name: 'Георги Д.', rating: 4, text: 'Добро качество за цената. Доставката беше бърза.', date: 'преди седмица', verified: true },
+        { id: 4, name: 'Петър С.', rating: 5, text: 'Страхотен продукт! Препоръчвам на всички.', date: 'преди 2 седмици', verified: true },
+        { id: 5, name: 'Анна М.', rating: 5, text: 'Много съм доволна! Благодаря!', date: 'преди 3 седмици', verified: true }
+      ];
+      document.getElementById('allReviewsList').innerHTML = fallbackReviews.map(r => createReviewHTML(r)).join('');
+    }
+
+    function closeAllReviews() {
+      document.getElementById('allReviewsModal').classList.remove('show');
+    }
+
+    // ===== GALLERY =====
+    function changeImage(btn, src) {
+      document.getElementById('mainImg').src = src;
+      document.querySelectorAll('.th').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    // ===== COMPARISON SLIDER =====
+    function initComparisonSlider() {
+      const slider = document.getElementById('comparisonSlider');
+      const beforeImage = document.getElementById('beforeImage');
+      const handle = document.getElementById('sliderHandle');
+      if (!slider || !beforeImage || !handle) return;
+
+      let isDragging = false;
+
+      function updateSlider(x) {
+        const rect = slider.getBoundingClientRect();
+        let percentage = ((x - rect.left) / rect.width) * 100;
+        percentage = Math.max(0, Math.min(100, percentage));
+        beforeImage.style.width = percentage + '%';
+        handle.style.left = percentage + '%';
+      }
+
+      handle.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        slider.classList.add('dragging');
+        e.preventDefault();
+      });
+
+      document.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        updateSlider(e.clientX);
+      });
+
+      document.addEventListener('mouseup', () => {
+        isDragging = false;
+        slider.classList.remove('dragging');
+      });
+
+      handle.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        slider.classList.add('dragging');
+        e.preventDefault();
+      });
+
+      document.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        updateSlider(e.touches[0].clientX);
+      });
+
+      document.addEventListener('touchend', () => {
+        isDragging = false;
+        slider.classList.remove('dragging');
+      });
+
       slider.addEventListener('click', (e) => {
         if (e.target === handle) return;
         updateSlider(e.clientX);

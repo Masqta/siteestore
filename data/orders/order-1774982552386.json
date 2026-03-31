@@ -1,0 +1,15 @@
+{
+  "id": 1774982552386,
+  "date": "2026-03-31T18:42:32.386Z",
+  "name": "Димитър Стойчев",
+  "phone": "0877239434",
+  "city": "Пазарджик",
+  "courier": "Econt",
+  "deliveryType": "office",
+  "address": "Стефан Стамболов ном.19",
+  "qty": 1,
+  "totalEur": 49.5,
+  "totalBgn": 97,
+  "promoCode": "AIR10",
+  "status": "new"
+}

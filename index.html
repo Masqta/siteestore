@@ -252,10 +252,38 @@
     .form-input:focus{border-color:var(--accent)}
     .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 
-    /* Free Delivery Badge */
-    .free-delivery-badge{background:linear-gradient(135deg,var(--success),#16a34a);color:#fff;padding:12px 16px;border-radius:12px;text-align:center;margin-bottom:16px;display:flex;align-items:center;justify-content:center;gap:8px}
-    .free-delivery-badge .icon{font-size:20px}
-    .free-delivery-badge .text{font-weight:700;font-size:14px}
+    /* Econt Delivery Widget - Exact design from image */
+    .econt-delivery-widget{background:#fff;border:2px solid var(--accent);border-radius:16px;padding:16px;margin-bottom:16px}
+    .econt-delivery-header{display:flex;align-items:center;gap:8px;margin-bottom:16px;color:var(--accent);font-weight:700;font-size:15px}
+    .econt-delivery-header .truck-icon{font-size:20px}
+    
+    .delivery-tabs{display:flex;gap:10px;margin-bottom:16px}
+    .delivery-tab{flex:1;padding:14px 10px;border:2px solid var(--line);border-radius:12px;background:#fff;cursor:pointer;text-align:center;transition:all .2s}
+    .delivery-tab:hover{border-color:var(--accent-light)}
+    .delivery-tab.active{border-color:var(--accent);background:var(--accent-light)}
+    .delivery-tab .tab-icon{font-size:24px;margin-bottom:6px;display:block}
+    .delivery-tab .tab-title{font-size:13px;font-weight:600;color:var(--text)}
+    .delivery-tab .tab-subtitle{font-size:11px;color:var(--muted);margin-top:2px}
+    
+    .delivery-fields{display:none;margin-top:16px}
+    .delivery-fields.show{display:block}
+    
+    .delivery-field{margin-bottom:12px}
+    .delivery-field-label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px;font-weight:500}
+    .delivery-field-input{width:100%;padding:14px 16px;border:2px solid var(--line);border-radius:12px;font-size:14px;outline:none;transition:border-color .2s;background:#fff}
+    .delivery-field-input:focus{border-color:var(--accent)}
+    .delivery-field-input::placeholder{color:var(--muted)}
+    
+    .econt-dropdown{position:absolute;top:100%;left:0;right:0;background:#fff;border:2px solid var(--accent);border-radius:12px;margin-top:4px;max-height:250px;overflow-y:auto;z-index:100;box-shadow:0 10px 40px rgba(0,0,0,.15);display:none}
+    .econt-dropdown.show{display:block}
+    .econt-dropdown-item{padding:12px 16px;cursor:pointer;font-size:14px;border-bottom:1px solid var(--line);transition:all .2s}
+    .econt-dropdown-item:last-child{border-bottom:none}
+    .econt-dropdown-item:hover,.econt-dropdown-item.active{background:var(--accent-light)}
+    .econt-dropdown-item .city-name{font-weight:600}
+    .econt-dropdown-item .city-region{font-size:12px;color:var(--muted)}
+    
+    .delivery-not-selected{text-align:center;padding:20px;color:var(--muted);font-size:13px;background:#f8f9fb;border-radius:12px;margin-bottom:16px}
+    .delivery-not-selected .icon{font-size:24px;margin-bottom:8px;display:block}
 
     /* Success */
     .success-content{text-align:center;padding:28px 20px}
@@ -641,20 +669,51 @@
         <button class="close-btn" onclick="closeOrder()">✕</button>
       </div>
       <div class="modal-body">
-        <!-- Free Delivery Badge -->
-        <div class="free-delivery-badge">
-          <span class="icon">🚚</span>
-          <span class="text">БЕЗПЛАТНА ДОСТАВКА до офис на Еконт!</span>
-        </div>
-
         <div class="order-summary">
           <div class="summary-row"><span>Продукт:</span><span>AirPods Pro 3 x<span id="orderQty">1</span></span></div>
           <div class="summary-row" id="orderDiscountRow" style="display:none"><span>Отстъпка:</span><span style="color:var(--success)">-10%</span></div>
-          <div class="summary-row delivery-row">
-            <span>Доставка (Еконт до офис):</span>
-            <span style="color:var(--success);font-weight:700">БЕЗПЛАТНА</span>
+          <div class="summary-row delivery-row" id="deliverySummaryRow">
+            <span>Доставка (Еконт):</span>
+            <span id="deliveryStatusText" style="color:var(--muted)">Изберете доставка</span>
           </div>
           <div class="summary-row"><span>Общо:</span><span>€ <span id="orderTotalEur">55.00</span></span></div>
+        </div>
+        
+        <!-- Econt Delivery Widget -->
+        <div class="econt-delivery-widget">
+          <div class="econt-delivery-header">
+            <span class="truck-icon">🚚</span>
+            <span>Еконт Доставка</span>
+          </div>
+          
+          <!-- Delivery Tabs -->
+          <div class="delivery-tabs">
+            <div class="delivery-tab" id="tabOffice" onclick="selectDeliveryMethod('office')">
+              <span class="tab-icon">📍</span>
+              <div class="tab-title">До офис</div>
+              <div class="tab-subtitle">Най-евтино</div>
+            </div>
+            <div class="delivery-tab" id="tabAddress" onclick="selectDeliveryMethod('address')">
+              <span class="tab-icon">🏠</span>
+              <div class="tab-title">До адрес</div>
+              <div class="tab-subtitle">Удобно</div>
+            </div>
+          </div>
+          
+          <!-- Delivery Fields (hidden initially) -->
+          <div class="delivery-fields" id="deliveryFields">
+            <div class="delivery-field">
+              <label class="delivery-field-label">Въведете град за доставка *</label>
+              <div style="position:relative">
+                <input type="text" class="delivery-field-input" id="deliveryCity" name="city" placeholder="Започни да пишеш име на град..." autocomplete="off" />
+                <div class="econt-dropdown" id="cityDropdown"></div>
+              </div>
+            </div>
+            <div class="delivery-field" id="officeField">
+              <label class="delivery-field-label" id="secondFieldLabel">Въведете Адрес на Офис еконт *</label>
+              <input type="text" class="delivery-field-input" id="deliveryAddress" name="office_address" placeholder="" />
+            </div>
+          </div>
         </div>
         
         <form id="orderForm" onsubmit="submitOrder(event)">
@@ -665,35 +724,26 @@
           <input type="hidden" id="formTotalEur" name="total_eur" value="55.00" />
           <input type="hidden" id="formPromoCode" name="promo_code" value="" />
           <input type="hidden" id="formDiscountApplied" name="discount_applied" value="false" />
+          <input type="hidden" id="formDeliveryType" name="delivery_type" value="" />
 
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">Име и фамилия *</label>
+              <label class="form-label">ИМЕ И ФАМИЛИЯ *</label>
               <input type="text" class="form-input" name="fullname" placeholder="Иван Иванов" required />
             </div>
             <div class="form-group">
-              <label class="form-label">Телефон *</label>
+              <label class="form-label">ТЕЛЕФОН *</label>
               <input type="tel" class="form-input" name="phone" placeholder="08xxxxxxxx" required />
             </div>
           </div>
 
           <div class="form-group">
-            <label class="form-label">Град *</label>
-            <input type="text" class="form-input" name="city" placeholder="Например: София, Пловдив, Варна..." required />
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">Офис на Еконт *</label>
-            <input type="text" class="form-input" name="office_name" placeholder="Адрес на офис на Еконт..." required />
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">Бележка (по желание)</label>
+            <label class="form-label">БЕЛЕЖКА (ПО ЖЕЛАНИЕ)</label>
             <input type="text" class="form-input" name="note" placeholder="Допълнителна информация..." />
           </div>
 
           <button type="submit" class="btn btn-accent" id="submitBtn" style="font-size:16px;padding:16px">
-            ✅ Потвърди поръчката
+            ✅ Изпрати поръчката
           </button>
           
           <div style="text-align:center;margin-top:12px;font-size:12px;color:var(--muted)">
@@ -780,6 +830,7 @@
     let discountApplied = false;
     let currentRating = 5;
     let stockCount = 7;
+    let selectedDeliveryMethod = null;
 
     // ===== INITIALIZE =====
     function init() {
@@ -789,6 +840,7 @@
       startStockCounter();
       updateViewerCount();
       initComparisonSlider();
+      initDeliveryWidget();
       
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -799,6 +851,107 @@
         });
       }, { threshold: 0.1 });
       document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    }
+
+    // ===== DELIVERY WIDGET =====
+    function initDeliveryWidget() {
+      // City search autocomplete
+      const cityInput = document.getElementById('deliveryCity');
+      let debounceTimer;
+      
+      cityInput.addEventListener('input', (e) => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+          const query = e.target.value.trim();
+          if (query.length >= 2) {
+            searchCities(query);
+          } else {
+            hideCityDropdown();
+          }
+        }, 200);
+      });
+      
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('#deliveryCity')) {
+          hideCityDropdown();
+        }
+      });
+    }
+
+    function selectDeliveryMethod(method) {
+      selectedDeliveryMethod = method;
+      
+      // Update tabs
+      document.getElementById('tabOffice').classList.toggle('active', method === 'office');
+      document.getElementById('tabAddress').classList.toggle('active', method === 'address');
+      
+      // Show fields
+      document.getElementById('deliveryFields').classList.add('show');
+      
+      // Update second field label and placeholder
+      const secondLabel = document.getElementById('secondFieldLabel');
+      const addressInput = document.getElementById('deliveryAddress');
+      
+      if (method === 'office') {
+        secondLabel.textContent = 'Въведете Адрес на Офис еконт *';
+        addressInput.placeholder = 'Например: Еконт София - Централен, ул. Тодор Александров 33';
+      } else {
+        secondLabel.textContent = 'Въведете точен адрес *';
+        addressInput.placeholder = 'Например: ул. Витоша 100, ап. 5';
+      }
+      
+      // Update form hidden field
+      document.getElementById('formDeliveryType').value = method;
+      
+      // Update summary
+      document.getElementById('deliveryStatusText').textContent = method === 'office' ? 'До офис - БЕЗПЛАТНА' : 'До адрес - БЕЗПЛАТНА';
+      document.getElementById('deliveryStatusText').style.color = 'var(--success)';
+    }
+
+    // City search (simple list of major cities)
+    const bulgarianCities = [
+      'София', 'Пловдив', 'Варна', 'Бургас', 'Русе', 'Стара Загора', 'Плевен', 'Сливен',
+      'Добрич', 'Шумен', 'Перник', 'Хасково', 'Ямбол', 'Пазарджик', 'Благоевград',
+      'Велико Търново', 'Враца', 'Габрово', 'Асеновград', 'Видин', 'Казанлък', 'Кърджали',
+      'Кюстендил', 'Монтана', 'Смолян', 'Търговище', 'Ловеч', 'Разград', 'Силистра', 'Свищов'
+    ];
+
+    function searchCities(query) {
+      const lowerQuery = query.toLowerCase().trim();
+      const matches = bulgarianCities.filter(city => 
+        city.toLowerCase().includes(lowerQuery)
+      ).slice(0, 8);
+      
+      showCityDropdown(matches);
+    }
+
+    function showCityDropdown(matches) {
+      const dropdown = document.getElementById('cityDropdown');
+      
+      if (matches.length === 0) {
+        dropdown.innerHTML = '<div class="econt-dropdown-item">Няма намерени градове</div>';
+        dropdown.classList.add('show');
+        return;
+      }
+      
+      dropdown.innerHTML = matches.map(city => `
+        <div class="econt-dropdown-item" data-city="${city}">
+          <div class="city-name">${city}</div>
+        </div>
+      `).join('');
+      
+      dropdown.classList.add('show');
+      
+      dropdown.querySelectorAll('.econt-dropdown-item').forEach(item => {
+        item.addEventListener('click', () => {
+          document.getElementById('deliveryCity').value = item.dataset.city;
+          hideCityDropdown();
+        });
+      });
+    }
+
+    function hideCityDropdown() {
+      document.getElementById('cityDropdown').classList.remove('show');
     }
 
     // ===== VIEWER COUNT =====
@@ -944,6 +1097,30 @@
     async function submitOrder(e) {
       e.preventDefault();
       
+      // Validate delivery method
+      if (!selectedDeliveryMethod) {
+        showToast('Моля изберете начин на доставка (До офис или До адрес)', 'error');
+        document.getElementById('deliveryFields').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+      
+      // Validate city
+      const city = document.getElementById('deliveryCity').value.trim();
+      if (!city) {
+        showToast('Моля въведете град за доставка', 'error');
+        document.getElementById('deliveryCity').focus();
+        return;
+      }
+      
+      // Validate address/office
+      const address = document.getElementById('deliveryAddress').value.trim();
+      if (!address) {
+        const fieldName = selectedDeliveryMethod === 'office' ? 'офис на Еконт' : 'адрес';
+        showToast(`Моля въведете ${fieldName}`, 'error');
+        document.getElementById('deliveryAddress').focus();
+        return;
+      }
+      
       const btn = document.getElementById('submitBtn');
       btn.textContent = 'Изпраща се...';
       btn.disabled = true;
@@ -954,8 +1131,9 @@
       const orderData = {
         name: formData.get('fullname'),
         phone: formData.get('phone'),
-        city: formData.get('city'),
-        officeName: formData.get('office_name'),
+        city: city,
+        deliveryType: selectedDeliveryMethod,
+        deliveryAddress: address,
         qty: parseInt(qty) || 1,
         totalEur: parseFloat(document.getElementById('orderTotalEur').textContent) || 0,
         totalBgn: parseFloat(document.getElementById('formTotalBgn').value) || 0,
@@ -981,7 +1159,7 @@
           body: new URLSearchParams(formData).toString()
         });
         
-        btn.textContent = '✅ Потвърди поръчката';
+        btn.textContent = '✅ Изпрати поръчката';
         btn.disabled = false;
         closeOrder();
         openSuccess();
@@ -991,6 +1169,14 @@
         qty = 1;
         cartHasItem = false;
         discountApplied = false;
+        selectedDeliveryMethod = null;
+        
+        // Reset delivery widget
+        document.getElementById('tabOffice').classList.remove('active');
+        document.getElementById('tabAddress').classList.remove('active');
+        document.getElementById('deliveryFields').classList.remove('show');
+        document.getElementById('deliveryStatusText').textContent = 'Изберете доставка';
+        document.getElementById('deliveryStatusText').style.color = 'var(--muted)';
         
         document.getElementById('promoInput').disabled = false;
         document.getElementById('promoInput').value = '';
@@ -1006,7 +1192,7 @@
         
       } catch (error) {
         console.error('Error saving order:', error);
-        btn.textContent = '✅ Потвърди поръчката';
+        btn.textContent = '✅ Изпрати поръчката';
         btn.disabled = false;
         showToast('Грешка при запазване. Опитайте отново.', 'error');
       }

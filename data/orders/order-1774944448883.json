@@ -11,5 +11,6 @@
   "totalEur": 49.5,
   "totalBgn": 97,
   "promoCode": "AIR10",
-  "status": "new"
+  "status": "processing",
+  "updatedAt": "2026-03-31T08:23:05.417Z"
 }

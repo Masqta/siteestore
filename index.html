@@ -144,6 +144,9 @@
     .comparison-label-ours{left:16px}
     .comparison-label-theirs{right:16px}
     .comparison-slider.dragging .comparison-handle{transform:translate(-50%,-50%) scale(1.1)}
+    /* Missing image placeholder */
+    .comparison-image-before img[src="assets/ours.png"]:not([data-loaded]),
+    .comparison-image-after img[src="assets/theirs.png"]:not([data-loaded]){background:linear-gradient(135deg,var(--accent),#00d4aa)}
 
     /* Policy */
     .section{margin-top:40px}
@@ -243,50 +246,12 @@
     .order-summary{background:#f8f9fb;border-radius:12px;padding:14px;margin-bottom:16px}
     .summary-row{display:flex;justify-content:space-between;margin-bottom:10px;font-size:13px}
     .summary-row:last-child{margin-bottom:0;padding-top:10px;border-top:1px solid var(--line);font-weight:700;font-size:15px}
-    .summary-row.delivery-row{color:var(--muted)}
-    .summary-row.delivery-row.calculated{color:var(--success)}
 
-    .form-group{margin-bottom:12px;position:relative}
+    .form-group{margin-bottom:12px}
     .form-label{display:block;font-weight:600;font-size:11px;color:var(--muted);margin-bottom:5px;text-transform:uppercase}
     .form-input{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);font-size:14px;outline:none}
     .form-input:focus{border-color:var(--accent)}
     .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-
-    /* Econt Widget Styles */
-    .econt-widget-container{background:#f8f9fb;border:2px solid var(--accent);border-radius:var(--r);padding:16px;margin-bottom:16px}
-    .econt-widget-title{font-weight:700;font-size:14px;color:var(--accent);margin-bottom:12px;display:flex;align-items:center;gap:8px}
-    .econt-widget-title::before{content:"🚚";font-size:18px}
-    
-    /* Custom Econt-like styling for our integration */
-    .delivery-method-tabs{display:flex;gap:8px;margin-bottom:16px}
-    .delivery-tab{flex:1;padding:12px;border:2px solid var(--line);border-radius:12px;background:#fff;cursor:pointer;text-align:center;font-size:13px;font-weight:600;transition:all .2s}
-    .delivery-tab:hover{border-color:var(--accent-light)}
-    .delivery-tab.active{border-color:var(--accent);background:var(--accent-light);color:var(--accent)}
-    .delivery-tab .tab-icon{font-size:20px;margin-bottom:4px;display:block}
-    .delivery-tab .tab-price{font-size:11px;color:var(--muted);font-weight:400}
-    
-    .econt-city-search{position:relative;margin-bottom:12px}
-    .econt-city-input{width:100%;padding:14px 16px;border:2px solid var(--line);border-radius:12px;font-size:14px;outline:none;transition:border-color .2s}
-    .econt-city-input:focus{border-color:var(--accent)}
-    
-    .econt-dropdown{position:absolute;top:100%;left:0;right:0;background:#fff;border:2px solid var(--accent);border-radius:12px;margin-top:4px;max-height:250px;overflow-y:auto;z-index:100;box-shadow:0 10px 40px rgba(0,0,0,.15);display:none}
-    .econt-dropdown.show{display:block}
-    .econt-dropdown-item{padding:12px 16px;cursor:pointer;font-size:14px;border-bottom:1px solid var(--line);transition:all .2s}
-    .econt-dropdown-item:last-child{border-bottom:none}
-    .econt-dropdown-item:hover,.econt-dropdown-item.active{background:var(--accent-light)}
-    .econt-dropdown-item .city-name{font-weight:600}
-    .econt-dropdown-item .city-region{font-size:12px;color:var(--muted)}
-    
-    .econt-office-select{width:100%;padding:14px 16px;border:2px solid var(--line);border-radius:12px;font-size:14px;outline:none;background:#fff}
-    .econt-office-select:focus{border-color:var(--accent)}
-    
-    .econt-price-display{background:var(--accent-light);border:2px solid var(--accent);border-radius:12px;padding:16px;margin-top:16px;text-align:center}
-    .econt-price-label{font-size:12px;color:var(--muted);margin-bottom:4px}
-    .econt-price-value{font-size:24px;font-weight:800;color:var(--accent)}
-    .econt-price-value small{font-size:14px;font-weight:400}
-    
-    .loading-spinner{display:inline-block;width:16px;height:16px;border:2px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:spin 1s linear infinite;margin-right:8px}
-    @keyframes spin{to{transform:rotate(360deg)}}
 
     /* Success */
     .success-content{text-align:center;padding:28px 20px}
@@ -329,40 +294,7 @@
 
     img[loading="lazy"]{opacity:0;transition:opacity .3s}
     img[loading="lazy"].loaded{opacity:1}
-  
-
-    /* Office Dropdown Specific Styles */
-    #officeDropdown {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      background: #fff;
-      border: 2px solid var(--accent);
-      border-radius: 12px;
-      margin-top: 4px;
-      max-height: 250px;
-      overflow-y: auto;
-      z-index: 100;
-      box-shadow: 0 10px 40px rgba(0,0,0,.15);
-    }
-
-    #officeDropdown .econt-dropdown-item {
-      padding: 12px 16px;
-      cursor: pointer;
-      border-bottom: 1px solid var(--line);
-      transition: all .2s;
-    }
-
-    #officeDropdown .econt-dropdown-item:hover,
-    #officeDropdown .econt-dropdown-item.active {
-      background: var(--accent-light);
-    }
-
-    #officeDropdown .econt-dropdown-item:last-child {
-      border-bottom: none;
-    }
-</style>
+  </style>
 </head>
 <body>
 
@@ -373,9 +305,9 @@
     <input type="text" name="fullname" />
     <input type="tel" name="phone" />
     <input type="text" name="city" />
-    <input type="text" name="delivery_type" />
-    <input type="text" name="office_name" />
-    <input type="text" name="office_code" />
+    <select name="courier"></select>
+    <select name="deliveryType"></select>
+    <input type="text" name="office" />
     <input type="text" name="address" />
     <input type="number" name="qty" />
     <input type="text" name="total_bgn" />
@@ -383,8 +315,6 @@
     <input type="text" name="note" />
     <input type="text" name="promo_code" />
     <input type="text" name="discount_applied" />
-    <input type="text" name="delivery_price" />
-    <input type="text" name="econt_city_id" />
   </form>
 
   <!-- Top Navigation -->
@@ -486,7 +416,7 @@
           <div class="feature-item">
             <div class="feature-icon">🚚</div>
             <div class="feature-text">
-              <b>Бърза доставка с Еконт</b>
+              <b>Безплатна доставка</b>
               <small>1-2 работни дни</small>
             </div>
           </div>
@@ -536,13 +466,17 @@
       </div>
       <div class="comparison-slider" id="comparisonSlider">
         <div class="comparison-slider-inner">
+          <!-- Their product (background) -->
           <div class="comparison-image-after">
             <img src="assets/theirs.png" alt="Техните" id="theirsImg" />
           </div>
+          <!-- Our product (foreground - draggable) -->
           <div class="comparison-image-before" id="beforeImage">
             <img src="assets/ours.png" alt="Нашите" id="oursImg" />
           </div>
+          <!-- Handle -->
           <div class="comparison-handle" id="sliderHandle"></div>
+          <!-- Labels -->
           <div class="comparison-label comparison-label-ours">НАШИТЕ</div>
           <div class="comparison-label comparison-label-theirs">ТЕХНИТЕ</div>
         </div>
@@ -631,7 +565,7 @@
         </details>
         <details class="faq-item">
           <summary>Колко струва доставката?</summary>
-          <div class="faq-content">Доставката се изчислява автоматично от Еконт според вашия град и избрания офис/адрес. Цената се показва при завършване на поръчката.</div>
+          <div class="faq-content">Доставката е <b>напълно безплатна</b> — до офис или адрес. Работим с <b>Еконт</b> и <b>Спиди</b> — 1-2 работни дни.</div>
         </details>
         <details class="faq-item">
           <summary>Каква гаранция предлагате?</summary>
@@ -712,57 +646,9 @@
         <div class="order-summary">
           <div class="summary-row"><span>Продукт:</span><span>AirPods Pro 3 x<span id="orderQty">1</span></span></div>
           <div class="summary-row" id="orderDiscountRow" style="display:none"><span>Отстъпка:</span><span style="color:var(--success)">-10%</span></div>
-          <div class="summary-row delivery-row" id="deliveryRow">
-            <span>Доставка (Еконт):</span>
-            <span id="deliveryPriceText">Изберете доставка</span>
-          </div>
+          <div class="summary-row"><span>Доставка:</span><span style="color:var(--success)">Безплатна</span></div>
           <div class="summary-row"><span>Общо:</span><span>€ <span id="orderTotalEur">45.00</span></span></div>
         </div>
-        
-        <!-- Econt Delivery Widget -->
-        <div class="econt-widget-container">
-          <div class="econt-widget-title">Еконт Доставка</div>
-          
-          <!-- Delivery Method Tabs -->
-          <div class="delivery-method-tabs">
-            <div class="delivery-tab" id="tabOffice" onclick="selectDeliveryMethod('office')">
-              <span class="tab-icon">📍</span>
-              <div>До офис</div>
-              <div class="tab-price">Най-евтино</div>
-            </div>
-            <div class="delivery-tab" id="tabAddress" onclick="selectDeliveryMethod('address')">
-              <span class="tab-icon">🏠</span>
-              <div>До адрес</div>
-              <div class="tab-price">Удобно</div>
-            </div>
-          </div>
-          
-          <!-- City Search -->
-          <div class="econt-city-search">
-            <input type="text" class="econt-city-input" id="econtCityInput" placeholder="Започни да пишеш име на град..." autocomplete="off" />
-            <div class="econt-dropdown" id="econtCityDropdown"></div>
-          </div>
-          
-          <!-- Office Input with Autocomplete (shown for office delivery) -->
-          <div id="econtOfficeSection" style="display:none;margin-top:12px;position:relative">
-            <input type="text" class="form-input" id="econtOfficeInput" placeholder="Започни да пишеш адрес на офис..." autocomplete="off" />
-            <div class="econt-dropdown" id="officeDropdown" style="display:none;position:absolute;top:100%;left:0;right:0;background:#fff;border:2px solid var(--accent);border-radius:12px;margin-top:4px;max-height:250px;overflow-y:auto;z-index:100;box-shadow:0 10px 40px rgba(0,0,0,.15)"></div>
-          </div>
-          
-          <!-- Address Input (shown for address delivery) -->
-          <div id="econtAddressSection" style="display:none;margin-top:12px">
-            <input type="text" class="form-input" id="econtAddressInput" placeholder="Улица, номер, блок, вход..." />
-          </div>
-          
-          <!-- Price Display -->
-          <div class="econt-price-display" id="econtPriceDisplay" style="display:none">
-            <div class="econt-price-label">Цена за доставка</div>
-            <div class="econt-price-value">
-              <span id="econtPriceValue">-</span> <small>€</small>
-            </div>
-          </div>
-        </div>
-        
         <form id="orderForm" onsubmit="submitOrder(event)">
           <p class="honeypot"><label>Don't fill: <input name="bot-field" /></label></p>
           <input type="hidden" name="form-name" value="order" />
@@ -771,18 +657,41 @@
           <input type="hidden" id="formTotalEur" name="total_eur" value="45.00" />
           <input type="hidden" id="formPromoCode" name="promo_code" value="" />
           <input type="hidden" id="formDiscountApplied" name="discount_applied" value="false" />
-          <input type="hidden" id="formDeliveryPrice" name="delivery_price" value="0" />
-          <input type="hidden" id="formDeliveryType" name="delivery_type" value="" />
-          <input type="hidden" id="formCity" name="city" value="" />
-          <input type="hidden" id="formOfficeName" name="office_name" value="" />
-          <input type="hidden" id="formOfficeCode" name="office_code" value="" />
-          <input type="hidden" id="formAddress" name="address" value="" />
-          <input type="hidden" id="formEcontCityId" name="econt_city_id" value="" />
 
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">Име и фамилия</label>
-              <input type="text" class="form-input" name="fullname" placeholder="Иван Иванов" required />
+              <label class="form-label">Куриер</label>
+              <select class="form-input" name="courier" required>
+                <option value="">Избери</option>
+                <option value="Econt">Еконт</option>
+                <option value="Speedy">Спиди</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Начин</label>
+              <select class="form-input" id="deliveryType" name="deliveryType" required onchange="updateDeliveryFields()">
+                <option value="">Избери</option>
+                <option value="office">До офис</option>
+                <option value="address">До адрес</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Град</label>
+            <input type="text" class="form-input" name="city" placeholder="Въведи град" required />
+          </div>
+          <div class="form-group" id="officeField" style="display:none">
+            <label class="form-label">Офис</label>
+            <input type="text" class="form-input" name="office" placeholder="Име на офис" />
+          </div>
+          <div class="form-group" id="addressField" style="display:none">
+            <label class="form-label">Адрес</label>
+            <input type="text" class="form-input" name="address" placeholder="Улица, номер" />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Име</label>
+              <input type="text" class="form-input" name="fullname" placeholder="Име и фамилия" required />
             </div>
             <div class="form-group">
               <label class="form-label">Телефон</label>
@@ -790,7 +699,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="form-label">Бележка (по желание)</label>
+            <label class="form-label">Бележка</label>
             <input type="text" class="form-input" name="note" placeholder="Допълнителна информация..." />
           </div>
           <button type="submit" class="btn btn-accent" id="submitBtn">✅ Изпрати поръчката</button>
@@ -860,12 +769,8 @@
   <!-- Toast -->
   <div class="toast" id="toast"><span id="toastMessage">Съобщение</span></div>
 
-  <!-- Econt Delivery Integration Script -->
   <script>
-    // ===== ECONT DATA - LOADED FROM JSON FILES =====
-    // City data will be loaded from econt/cities.json
-    // Office data will be loaded from individual city JSON files
-    
+
     // ===== CONSTANTS =====
     const FX_BGN_PER_EUR = 1.95583;
     const PRICE_EUR = 55;
@@ -879,24 +784,17 @@
     let discountApplied = false;
     let currentRating = 5;
     let stockCount = 7;
-    let deliveryMethod = null; // 'office' or 'address'
-    let selectedCity = null;
-    let selectedOffice = null;
-    let deliveryPrice = 0;
-    let cities = [];
-    let offices = [];
-    let cityOfficesData = {}; // Cache for loaded city office data
 
     // ===== INITIALIZE =====
-    async function init() {
-      await loadCitiesData();
+    function init() {
       updatePrices();
       loadReviews();
       setupStarRating();
+      // Countdown removed
       startStockCounter();
+      trackVisitor();
       updateViewerCount();
       initComparisonSlider();
-      initEcontDelivery();
       
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -909,439 +807,9 @@
       document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     }
 
-    // ===== LOAD CITIES DATA FROM JSON =====
-    async function loadCitiesData() {
-      try {
-        const response = await fetch('econt/cities.json');
-        const data = await response.json();
-        cities = data.cities || [];
-      } catch (error) {
-        console.error('Error loading cities:', error);
-        // Fallback cities data
-        cities = getFallbackCities();
-      }
-    }
-
-    // ===== LOAD CITY OFFICES FROM JSON =====
-    async function loadCityOffices(cityName) {
-      const city = cities.find(c => c.name === cityName);
-      if (!city || !city.jsonFile) return [];
-      
-      // Check cache
-      if (cityOfficesData[cityName]) {
-        return cityOfficesData[cityName];
-      }
-      
-      try {
-        const response = await fetch(`econt/${city.jsonFile}`);
-        const data = await response.json();
-        cityOfficesData[cityName] = data.offices || [];
-        return data.offices;
-      } catch (error) {
-        console.error(`Error loading offices for ${cityName}:`, error);
-        return [];
-      }
-    }
-
-    // ===== ECONT DELIVERY INTEGRATION =====
-    function initEcontDelivery() {
-      // Setup city search
-      const cityInput = document.getElementById('econtCityInput');
-      let debounceTimer;
-
-      cityInput.addEventListener('input', (e) => {
-        clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(() => {
-          const query = e.target.value.trim();
-          if (query.length >= 2) {
-            searchEcontCities(query);
-          } else {
-            hideEcontDropdown();
-          }
-        }, 200);
-      });
-
-      // Hide dropdown on outside click
-      document.addEventListener('click', (e) => {
-        if (!e.target.closest('.econt-city-search')) {
-          hideEcontDropdown();
-        }
-      });
-
-      // Keyboard navigation
-      cityInput.addEventListener('keydown', (e) => {
-        const items = document.querySelectorAll('#econtCityDropdown .econt-dropdown-item');
-        const activeItem = document.querySelector('#econtCityDropdown .econt-dropdown-item.active');
-
-        if (e.key === 'ArrowDown') {
-          e.preventDefault();
-          if (!activeItem && items.length > 0) {
-            items[0].classList.add('active');
-          } else if (activeItem) {
-            activeItem.classList.remove('active');
-            const next = activeItem.nextElementSibling;
-            if (next) next.classList.add('active');
-            else if (items.length > 0) items[0].classList.add('active');
-          }
-        } else if (e.key === 'ArrowUp') {
-          e.preventDefault();
-          if (activeItem) {
-            activeItem.classList.remove('active');
-            const prev = activeItem.previousElementSibling;
-            if (prev) prev.classList.add('active');
-            else if (items.length > 0) items[items.length - 1].classList.add('active');
-          }
-        } else if (e.key === 'Enter') {
-          e.preventDefault();
-          if (activeItem) {
-            activeItem.click();
-          }
-        } else if (e.key === 'Escape') {
-          hideEcontDropdown();
-        }
-      });
-
-      // Setup office autocomplete
-      setupOfficeAutocomplete();
-    }
-
-    function setupOfficeAutocomplete() {
-      const officeInput = document.getElementById('econtOfficeInput');
-      const dropdown = document.getElementById('officeDropdown');
-      let debounceTimer;
-
-      if (!officeInput || !dropdown) return;
-
-      officeInput.addEventListener('input', (e) => {
-        clearTimeout(debounceTimer);
-        const query = e.target.value.trim();
-
-        if (query.length >= 2) {
-          debounceTimer = setTimeout(() => {
-            searchOffices(query);
-          }, 200);
-        } else {
-          hideOfficeDropdown();
-        }
-      });
-
-      // Hide dropdown on outside click
-      document.addEventListener('click', (e) => {
-        if (!e.target.closest('#econtOfficeSection')) {
-          hideOfficeDropdown();
-        }
-      });
-
-      // Keyboard navigation
-      officeInput.addEventListener('keydown', (e) => {
-        const items = dropdown.querySelectorAll('.econt-dropdown-item');
-        const activeItem = dropdown.querySelector('.econt-dropdown-item.active');
-
-        if (e.key === 'ArrowDown') {
-          e.preventDefault();
-          if (!activeItem && items.length > 0) {
-            items[0].classList.add('active');
-          } else if (activeItem) {
-            activeItem.classList.remove('active');
-            const next = activeItem.nextElementSibling;
-            if (next) next.classList.add('active');
-            else if (items.length > 0) items[0].classList.add('active');
-          }
-        } else if (e.key === 'ArrowUp') {
-          e.preventDefault();
-          if (activeItem) {
-            activeItem.classList.remove('active');
-            const prev = activeItem.previousElementSibling;
-            if (prev) prev.classList.add('active');
-            else if (items.length > 0) items[items.length - 1].classList.add('active');
-          }
-        } else if (e.key === 'Enter') {
-          e.preventDefault();
-          if (activeItem) {
-            activeItem.click();
-          }
-        } else if (e.key === 'Escape') {
-          hideOfficeDropdown();
-        }
-      });
-    }
-
-    // Search offices from loaded JSON data
-    async function searchOffices(query) {
-      const dropdown = document.getElementById('officeDropdown');
-      const officeInput = document.getElementById('econtOfficeInput');
-      const lowerQuery = query.toLowerCase().trim();
-
-      // Get offices for selected city
-      let cityOffices = [];
-      if (selectedCity) {
-        cityOffices = await loadCityOffices(selectedCity.name);
-      }
-
-      // Filter offices based on query
-      let matches = cityOffices.filter(office => 
-        office.name.toLowerCase().includes(lowerQuery) || 
-        office.address.toLowerCase().includes(lowerQuery)
-      );
-
-      // Limit to 8 results
-      matches = matches.slice(0, 8);
-
-      if (matches.length === 0) {
-        // No matches found - show option to use free text
-        dropdown.innerHTML = `
-          <div class="econt-dropdown-item" style="padding:12px 16px;color:var(--muted);font-style:italic">
-            Няма намерени офиси в базата
-          </div>
-          <div class="econt-dropdown-item" data-office="${query.replace(/"/g, '&quot;')}" style="padding:12px 16px;cursor:pointer;border-top:2px solid var(--accent);background:var(--accent-light)">
-            <div style="font-weight:600;font-size:14px">✓ Използвай: "${query}"</div>
-            <div style="font-size:12px;color:var(--muted)">Ще изпратим до този адрес</div>
-          </div>
-        `;
-        dropdown.style.display = 'block';
-
-        // Add click handler for free text option
-        dropdown.querySelector('.econt-dropdown-item[data-office]').addEventListener('click', () => {
-          selectOffice({ name: query, code: 'MANUAL', address: query });
-        });
-        return;
-      }
-
-      dropdown.innerHTML = matches.map(office => `
-        <div class="econt-dropdown-item" data-office-code="${office.code}" style="padding:12px 16px;cursor:pointer;border-bottom:1px solid var(--line);transition:all .2s">
-          <div style="font-weight:600;font-size:14px">${office.name}</div>
-          <div style="font-size:12px;color:var(--muted)">${office.address}</div>
-        </div>
-      `).join('');
-
-      dropdown.style.display = 'block';
-
-      // Add hover effect
-      dropdown.querySelectorAll('.econt-dropdown-item').forEach(item => {
-        item.addEventListener('mouseenter', () => {
-          dropdown.querySelectorAll('.econt-dropdown-item').forEach(i => i.classList.remove('active'));
-          item.classList.add('active');
-        });
-
-        item.addEventListener('click', () => {
-          const officeCode = item.dataset.officeCode;
-          const office = matches.find(o => o.code === officeCode);
-          if (office) {
-            selectOffice(office);
-          }
-        });
-      });
-    }
-
-    function selectOffice(office) {
-      const officeInput = document.getElementById('econtOfficeInput');
-      officeInput.value = office.name + (office.address ? `, ${office.address}` : '');
-      selectedOffice = office;
-      document.getElementById('formOfficeName').value = office.name;
-      document.getElementById('formOfficeCode').value = office.code;
-      hideOfficeDropdown();
-      calculateEcontDeliveryPrice();
-    }
-
-    // Hide office dropdown
-    function hideOfficeDropdown() {
-      const dropdown = document.getElementById('officeDropdown');
-      if (dropdown) dropdown.style.display = 'none';
-    }
-
-    function getFallbackCities() {
-      return [
-        { id: 1, name: 'София', nameEn: 'Sofia', regionName: 'София-град', jsonFile: 'Sofia.json' },
-        { id: 2, name: 'Пловдив', nameEn: 'Plovdiv', regionName: 'Пловдив', jsonFile: 'Plovdiv.json' },
-        { id: 3, name: 'Варна', nameEn: 'Varna', regionName: 'Варна', jsonFile: 'Varna.json' },
-        { id: 4, name: 'Бургас', nameEn: 'Burgas', regionName: 'Бургас', jsonFile: 'Burgas.json' },
-        { id: 5, name: 'Русе', nameEn: 'Ruse', regionName: 'Русе', jsonFile: 'Ruse.json' },
-        { id: 6, name: 'Стара Загора', nameEn: 'Stara Zagora', regionName: 'Стара Загора', jsonFile: 'StaraZagora.json' },
-        { id: 7, name: 'Плевен', nameEn: 'Pleven', regionName: 'Плевен', jsonFile: 'Pleven.json' },
-        { id: 8, name: 'Сливен', nameEn: 'Sliven', regionName: 'Сливен', jsonFile: 'Sliven.json' },
-        { id: 9, name: 'Добрич', nameEn: 'Dobrich', regionName: 'Добрич', jsonFile: 'Dobrich.json' },
-        { id: 10, name: 'Шумен', nameEn: 'Shumen', regionName: 'Шумен', jsonFile: 'Shumen.json' },
-        { id: 11, name: 'Перник', nameEn: 'Pernik', regionName: 'Перник', jsonFile: 'Pernik.json' },
-        { id: 12, name: 'Хасково', nameEn: 'Haskovo', regionName: 'Хасково', jsonFile: 'Haskovo.json' },
-        { id: 13, name: 'Ямбол', nameEn: 'Yambol', regionName: 'Ямбол', jsonFile: 'Yambol.json' },
-        { id: 14, name: 'Пазарджик', nameEn: 'Pazardzhik', regionName: 'Пазарджик', jsonFile: 'Pazardzhik.json' },
-        { id: 15, name: 'Благоевград', nameEn: 'Blagoevgrad', regionName: 'Благоевград', jsonFile: 'Blagoevgrad.json' },
-        { id: 16, name: 'Велико Търново', nameEn: 'Veliko Tarnovo', regionName: 'Велико Търново', jsonFile: 'VelikoTarnovo.json' },
-        { id: 17, name: 'Враца', nameEn: 'Vratsa', regionName: 'Враца', jsonFile: 'Vratsa.json' },
-        { id: 18, name: 'Габрово', nameEn: 'Gabrovo', regionName: 'Габрово', jsonFile: 'Gabrovo.json' },
-        { id: 19, name: 'Асеновград', nameEn: 'Asenovgrad', regionName: 'Пловдив', jsonFile: 'Asenovgrad.json' },
-        { id: 20, name: 'Видин', nameEn: 'Vidin', regionName: 'Видин', jsonFile: 'Vidin.json' },
-        { id: 21, name: 'Казанлък', nameEn: 'Kazanlak', regionName: 'Стара Загора', jsonFile: 'Kazanlak.json' },
-        { id: 22, name: 'Кърджали', nameEn: 'Kardzhali', regionName: 'Кърджали', jsonFile: 'Kardzhali.json' },
-        { id: 23, name: 'Кюстендил', nameEn: 'Kyustendil', regionName: 'Кюстендил', jsonFile: 'Kyustendil.json' },
-        { id: 24, name: 'Монтана', nameEn: 'Montana', regionName: 'Монтана', jsonFile: 'Montana.json' },
-        { id: 25, name: 'Смолян', nameEn: 'Smolyan', regionName: 'Смолян', jsonFile: 'Smolyan.json' },
-        { id: 26, name: 'Търговище', nameEn: 'Targovishte', regionName: 'Търговище', jsonFile: 'Targovishte.json' },
-        { id: 27, name: 'Ловеч', nameEn: 'Lovech', regionName: 'Ловеч', jsonFile: 'Lovech.json' },
-        { id: 28, name: 'Разград', nameEn: 'Razgrad', regionName: 'Разград', jsonFile: 'Razgrad.json' },
-        { id: 29, name: 'Силистра', nameEn: 'Silistra', regionName: 'Силистра', jsonFile: 'Silistra.json' },
-        { id: 30, name: 'Свищов', nameEn: 'Svishtov', regionName: 'Велико Търново', jsonFile: 'Svishtov.json' }
-      ];
-    }
-
-    // Search cities
-    function searchEcontCities(query) {
-      const lowerQuery = query.toLowerCase().trim();
-      const matches = cities.filter(city => {
-        return city.name.toLowerCase().includes(lowerQuery) || 
-               (city.nameEn && city.nameEn.toLowerCase().includes(lowerQuery));
-      }).slice(0, 8);
-      
-      showEcontDropdown(matches);
-    }
-
-    // Show dropdown
-    function showEcontDropdown(matches) {
-      const dropdown = document.getElementById('econtCityDropdown');
-      
-      if (matches.length === 0) {
-        dropdown.innerHTML = '<div class="econt-dropdown-item">Няма намерени градове</div>';
-        dropdown.classList.add('show');
-        return;
-      }
-      
-      dropdown.innerHTML = matches.map(city => `
-        <div class="econt-dropdown-item" data-city-id="${city.id}" data-city-name="${city.name}">
-          <div class="city-name">${city.name}</div>
-          <div class="city-region">${city.regionName || ''}</div>
-        </div>
-      `).join('');
-      
-      dropdown.classList.add('show');
-      
-      // Add click handlers
-      dropdown.querySelectorAll('.econt-dropdown-item').forEach(item => {
-        item.addEventListener('click', () => {
-          const cityId = item.dataset.cityId;
-          const cityName = item.dataset.cityName;
-          const city = cities.find(c => c.id == cityId);
-          if (city) {
-            selectEcontCity(city);
-          }
-        });
-      });
-    }
-
-    // Hide dropdown
-    function hideEcontDropdown() {
-      document.getElementById('econtCityDropdown').classList.remove('show');
-    }
-
-    // Select city
-    async function selectEcontCity(city) {
-      selectedCity = city;
-      document.getElementById('econtCityInput').value = city.name;
-      document.getElementById('formCity').value = city.name;
-      document.getElementById('formEcontCityId').value = city.id;
-      hideEcontDropdown();
-      
-      // Clear office selection when city changes
-      selectedOffice = null;
-      document.getElementById('econtOfficeInput').value = '';
-      document.getElementById('formOfficeName').value = '';
-      document.getElementById('formOfficeCode').value = '';
-      
-      // Calculate delivery price
-      calculateEcontDeliveryPrice();
-    }
-
-    // Select delivery method
-    function selectDeliveryMethod(method) {
-      deliveryMethod = method;
-      
-      // Update tabs
-      document.getElementById('tabOffice').classList.toggle('active', method === 'office');
-      document.getElementById('tabAddress').classList.toggle('active', method === 'address');
-      
-      // Show/hide sections
-      document.getElementById('econtOfficeSection').style.display = method === 'office' ? 'block' : 'none';
-      document.getElementById('econtAddressSection').style.display = method === 'address' ? 'block' : 'none';
-      
-      // Update form
-      document.getElementById('formDeliveryType').value = method;
-      
-      // Recalculate price
-      calculateEcontDeliveryPrice();
-    }
-
-    // Calculate delivery price
-    function calculateEcontDeliveryPrice() {
-      if (!deliveryMethod || !selectedCity) {
-        deliveryPrice = 0;
-        updateEcontPriceDisplay();
-        return;
-      }
-
-      // For office delivery, need office selected
-      if (deliveryMethod === 'office') {
-        const officeInput = document.getElementById('econtOfficeInput').value.trim();
-        if (!officeInput || officeInput.length < 3) {
-          deliveryPrice = 0;
-          updateEcontPriceDisplay();
-          return;
-        }
-      }
-
-      // For address delivery, need address input
-      if (deliveryMethod === 'address') {
-        const address = document.getElementById('econtAddressInput').value.trim();
-        document.getElementById('formAddress').value = address;
-      }
-
-      // Use fixed rates
-      deliveryPrice = getStandardEcontPrice();
-
-      updateEcontPriceDisplay();
-      updateOrderTotal();
-    }
-
-    // Standard Econt pricing - fixed rates
-    function getStandardEcontPrice() {
-      if (deliveryMethod === 'office') {
-        return 4.29; // Office delivery rate
-      } else {
-        return 7.65; // Address delivery rate
-      }
-    }
-
-    // Update price display
-    function updateEcontPriceDisplay() {
-      const display = document.getElementById('econtPriceDisplay');
-      const priceValue = document.getElementById('econtPriceValue');
-      const priceText = document.getElementById('deliveryPriceText');
-      
-      if (deliveryPrice > 0) {
-        display.style.display = 'block';
-        priceValue.textContent = deliveryPrice.toFixed(2);
-        priceText.textContent = deliveryPrice.toFixed(2) + ' €';
-        document.getElementById('deliveryRow').classList.add('calculated');
-        document.getElementById('formDeliveryPrice').value = deliveryPrice.toFixed(2);
-      } else {
-        display.style.display = 'none';
-        priceText.textContent = 'Изберете доставка';
-        document.getElementById('deliveryRow').classList.remove('calculated');
-      }
-    }
-
-    // Update order total
-    function updateOrderTotal() {
-      let productTotal = PRICE_EUR * qty;
-      
-      if (discountApplied) {
-        productTotal = productTotal * 0.9;
-      }
-      
-      const total = productTotal + deliveryPrice;
-      const totalBgn = Math.round(total * FX_BGN_PER_EUR);
-      
-      document.getElementById('orderTotalEur').textContent = total.toFixed(2);
-      document.getElementById('formTotalEur').value = total.toFixed(2);
-      document.getElementById('formTotalBgn').value = totalBgn;
+    // ===== TRACK VISITOR =====
+    function trackVisitor() {
+      // Visitor tracking disabled (using GitHub file storage only)
     }
 
     // ===== VIEWER COUNT =====
@@ -1350,6 +818,46 @@
         const count = Math.floor(Math.random() * 15) + 8;
         document.getElementById('viewerCount').textContent = count;
       }, 8000);
+    }
+
+    // ===== COUNTDOWN TIMER =====
+    function startCountdown() {
+      let hours = 2, minutes = 45, seconds = 30;
+      
+      const saved = localStorage.getItem('countdown_end');
+      if (saved) {
+        const end = new Date(saved);
+        const now = new Date();
+        const diff = Math.floor((end - now) / 1000);
+        if (diff > 0) {
+          hours = Math.floor(diff / 3600);
+          minutes = Math.floor((diff % 3600) / 60);
+          seconds = diff % 60;
+        }
+      } else {
+        const end = new Date();
+        end.setHours(end.getHours() + hours, end.getMinutes() + minutes, end.getSeconds() + seconds);
+        localStorage.setItem('countdown_end', end.toISOString());
+      }
+
+      function update() {
+        if (seconds > 0) seconds--;
+        else if (minutes > 0) { minutes--; seconds = 59; }
+        else if (hours > 0) { hours--; minutes = 59; seconds = 59; }
+        else {
+          hours = 2; minutes = 45; seconds = 30;
+          const end = new Date();
+          end.setHours(end.getHours() + hours, end.getMinutes() + minutes, end.getSeconds() + seconds);
+          localStorage.setItem('countdown_end', end.toISOString());
+        }
+        
+        document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+        document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+        document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+      }
+      
+      update();
+      setInterval(update, 1000);
     }
 
     // ===== STOCK COUNTER =====
@@ -1378,7 +886,10 @@
       document.getElementById('cartBadge').style.display = cartHasItem ? 'grid' : 'none';
       document.getElementById('totalEur').textContent = totalEur.toFixed(2);
       document.getElementById('orderQty').textContent = qty;
+      document.getElementById('orderTotalEur').textContent = totalEur.toFixed(2);
       document.getElementById('formQty').value = qty;
+      document.getElementById('formTotalBgn').value = Math.round(totalBgn);
+      document.getElementById('formTotalEur').value = totalEur.toFixed(2);
       
       if (discountApplied) {
         document.getElementById('originalTotal').style.display = 'inline';
@@ -1387,8 +898,6 @@
         document.getElementById('discountRow').style.display = 'flex';
         document.getElementById('orderDiscountRow').style.display = 'flex';
       }
-      
-      updateOrderTotal();
     }
 
     function updateQty(change) {
@@ -1396,18 +905,21 @@
       updatePrices();
     }
 
-    // ===== FAST ORDER =====
-    function fastOrder() {
-      if (!cartHasItem) {
-        cartHasItem = true;
-        qty = 1;
-      }
-      updatePrices();
-      openOrder();
-      showToast('Бърза поръчка - попълнете данните!', 'success');
-    }
+    
+// ===== FAST ORDER =====
+function fastOrder() {
+  // Set cart to have 1 item if not already
+  if (!cartHasItem) {
+    cartHasItem = true;
+    qty = 1;
+  }
+  updatePrices();
+  // Open order modal directly (skip cart)
+  openOrder();
+  showToast('Бърза поръчка - попълнете данните!', 'success');
+}
 
-    // ===== CART FUNCTIONS =====
+// ===== CART FUNCTIONS =====
     function addToCart() {
       if (!cartHasItem) {
         cartHasItem = true;
@@ -1475,97 +987,45 @@
     function openOrder() {
       closeCart();
       document.getElementById('orderModal').classList.add('show');
-      
-      // Reset delivery state
-      deliveryMethod = null;
-      selectedCity = null;
-      selectedOffice = null;
-      deliveryPrice = 0;
-      
-      document.getElementById('econtCityInput').value = '';
-      document.getElementById('econtOfficeInput').value = '';
-      document.getElementById('econtAddressInput').value = '';
-      document.getElementById('econtOfficeSection').style.display = 'none';
-      document.getElementById('econtAddressSection').style.display = 'none';
-      document.getElementById('econtPriceDisplay').style.display = 'none';
-      document.getElementById('tabOffice').classList.remove('active');
-      document.getElementById('tabAddress').classList.remove('active');
-      document.getElementById('deliveryPriceText').textContent = 'Изберете доставка';
-      document.getElementById('deliveryRow').classList.remove('calculated');
-      
-      updateOrderTotal();
     }
 
     function closeOrder() {
       document.getElementById('orderModal').classList.remove('show');
     }
 
-    // Submit order
+    function updateDeliveryFields() {
+      const type = document.getElementById('deliveryType').value;
+      document.getElementById('officeField').style.display = type === 'office' ? 'block' : 'none';
+      document.getElementById('addressField').style.display = type === 'address' ? 'block' : 'none';
+      document.querySelector('#officeField input').required = type === 'office';
+      document.querySelector('#addressField input').required = type === 'address';
+    }
+
+    // Submit order - SAVES TO GITHUB REPOSITORY
     async function submitOrder(e) {
       e.preventDefault();
-      
-      // Validate delivery
-      if (!deliveryMethod) {
-        showToast('Моля изберете начин на доставка', 'error');
-        return;
-      }
-      
-      if (!selectedCity) {
-        showToast('Моля изберете град', 'error');
-        return;
-      }
-      
-      if (deliveryMethod === 'office') {
-        const officeInput = document.getElementById('econtOfficeInput').value.trim();
-        if (!officeInput) {
-          showToast('Моля въведете офис', 'error');
-          return;
-        }
-        // If no office was selected from dropdown, use the input text
-        if (!selectedOffice) {
-          document.getElementById('formOfficeName').value = officeInput;
-          document.getElementById('formOfficeCode').value = 'MANUAL';
-        }
-      }
-      
-      if (deliveryMethod === 'address') {
-        const address = document.getElementById('econtAddressInput').value.trim();
-        if (!address) {
-          showToast('Моля въведете адрес', 'error');
-          return;
-        }
-      }
-      
-      if (deliveryPrice === 0) {
-        showToast('Моля изчакайте да се изчисли цената', 'error');
-        return;
-      }
-
       const btn = document.getElementById('submitBtn');
       btn.textContent = 'Изпраща се...';
       
       const form = e.target;
       const formData = new FormData(form);
       
+      // Prepare order data
       const orderData = {
         name: formData.get('fullname'),
         phone: formData.get('phone'),
-        city: selectedCity ? selectedCity.name : '',
-        deliveryType: deliveryMethod,
-        officeName: document.getElementById('formOfficeName').value,
-        officeCode: document.getElementById('formOfficeCode').value,
-        address: document.getElementById('econtAddressInput').value.trim(),
+        city: formData.get('city'),
+        courier: formData.get('courier'),
+        deliveryType: formData.get('deliveryType'),
+        address: formData.get('office') || formData.get('address') || '',
         qty: parseInt(qty) || 1,
         totalEur: parseFloat(document.getElementById('orderTotalEur').textContent) || 0,
         totalBgn: parseFloat(document.getElementById('formTotalBgn').value) || 0,
-        deliveryPrice: deliveryPrice,
-        promoCode: document.getElementById('formPromoCode').value || '',
-        econtCityId: selectedCity ? selectedCity.id : '',
-        note: formData.get('note') || ''
+        promoCode: document.getElementById('formPromoCode').value || ''
       };
       
       try {
-        // Save to GitHub repository
+        // 1. Save to GitHub repository
         const ghResponse = await fetch('/.netlify/functions/save-order', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -1575,7 +1035,7 @@
         const ghResult = await ghResponse.json();
         console.log('Order saved to GitHub:', ghResult);
         
-        // Also submit to Netlify Forms
+        // 2. Also submit to Netlify Forms (for email notification)
         await fetch('/', {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -1591,11 +1051,6 @@
         qty = 1;
         cartHasItem = false;
         discountApplied = false;
-        deliveryPrice = 0;
-        deliveryMethod = null;
-        selectedCity = null;
-        selectedOffice = null;
-        
         document.getElementById('promoInput').disabled = false;
         document.getElementById('promoInput').value = '';
         document.getElementById('promoBtn').textContent = 'Приложи';
@@ -1648,6 +1103,7 @@
       currentRating = 5;
     }
 
+    // Submit review - SAVES TO GITHUB REPOSITORY
     async function submitReview(e) {
       e.preventDefault();
       
@@ -1659,6 +1115,7 @@
       };
       
       try {
+        // Save to GitHub repository
         const response = await fetch('/.netlify/functions/save-review', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -1678,8 +1135,10 @@
       }
     }
 
+    // Load reviews - FETCHES FROM GITHUB REPOSITORY
     async function loadReviews() {
       try {
+        // Fetch reviews from GitHub
         const response = await fetch('/.netlify/functions/get-reviews?limit=3');
         const result = await response.json();
         
@@ -1694,18 +1153,22 @@
             verified: r.verified
           })).join('');
           
+          // Update total reviews count
           document.getElementById('totalReviews').textContent = result.count || result.reviews.length;
           
+          // Update average rating if available
           if (result.averageRating) {
             document.getElementById('avgRating').textContent = result.averageRating;
           }
         }
       } catch (error) {
         console.error('Error loading reviews:', error);
+        // Show fallback reviews if database is not available
         showFallbackReviews();
       }
     }
     
+    // Fallback reviews if database is unavailable
     function showFallbackReviews() {
       const fallbackReviews = [
         { id: 1, name: 'Иван П.', rating: 5, text: 'Много чист звук и шумопотискането е топ. Дойдоха бързо!', date: 'преди 2 дни', verified: true },
@@ -1737,6 +1200,7 @@
       `;
     }
 
+    // Open all reviews modal - FETCHES FROM GITHUB REPOSITORY
     async function openAllReviews() {
       try {
         const response = await fetch('/.netlify/functions/get-reviews?limit=100');
@@ -1816,6 +1280,7 @@
         slider.classList.remove('dragging');
       });
 
+      // Touch events
       handle.addEventListener('touchstart', (e) => {
         isDragging = true;
         slider.classList.add('dragging');
@@ -1832,6 +1297,7 @@
         slider.classList.remove('dragging');
       });
 
+      // Click on slider to move
       slider.addEventListener('click', (e) => {
         if (e.target === handle) return;
         updateSlider(e.clientX);

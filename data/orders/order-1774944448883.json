@@ -1,0 +1,15 @@
+{
+  "id": 1774944448883,
+  "date": "2026-03-31T08:07:28.883Z",
+  "name": "Михаил Тилев",
+  "phone": "0882211616",
+  "city": "Харманли",
+  "courier": "Econt",
+  "deliveryType": "office",
+  "address": "Марин Велев 1",
+  "qty": 1,
+  "totalEur": 49.5,
+  "totalBgn": 97,
+  "promoCode": "AIR10",
+  "status": "new"
+}

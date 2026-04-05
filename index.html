@@ -35,37 +35,49 @@
     @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
     @keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
     @keyframes slideInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes bounceEgg{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
     
-    .reveal{opacity:0;transform:translateY(30px);transition:all .6s ease}
-    .reveal.show{opacity:1;transform:translateY(0)}
+    .reveal{opacity:1;transform:translateY(0);transition:all .6s ease}
+    .reveal.animate{opacity:0;transform:translateY(30px)}
+    .reveal.animate.show{opacity:1;transform:translateY(0)}
 
-    /* Top Bar - Fixed Sticky */
-    .top{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.98);backdrop-filter:blur(20px);
+    /* Easter Header Banner - News Ticker Style */
+    .easter-header{background:linear-gradient(90deg,#ff6b9d,#c44569);position:fixed;top:0;left:0;right:0;z-index:101;height:28px;overflow:hidden}
+    .easter-ticker-wrap{width:100%;overflow:hidden;white-space:nowrap}
+    .easter-ticker{display:inline-block;animation:ticker 20s linear infinite}
+    @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-33.33%)}}
+    .easter-ticker-item{display:inline-block;color:#fff;font-size:12px;font-weight:700;padding:6px 40px 6px 0}
+    .easter-header-code{background:#fff;color:#e84393;padding:2px 10px;border-radius:12px;font-weight:800;font-size:11px}
+
+    /* Top Bar - Fixed Sticky (compact) */
+    .top{position:fixed;top:28px;left:0;right:0;z-index:100;background:rgba(255,255,255,.98);backdrop-filter:blur(20px);
       border-bottom:1px solid var(--line);box-shadow:0 2px 20px rgba(0,0,0,.05)}
-    .topin{max-width:1200px;margin:0 auto;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-    .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;letter-spacing:-0.5px}
-    .logo-img{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#00d4aa);display:grid;place-items:center;color:#fff;font-size:22px;flex-shrink:0;box-shadow:0 4px 12px rgba(0,113,227,.25)}
+    .topin{max-width:1200px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:18px;letter-spacing:-0.5px}
+    .logo-img{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#00d4aa);display:grid;place-items:center;color:#fff;font-size:18px;flex-shrink:0;box-shadow:0 4px 12px rgba(0,113,227,.25)}
     .logo-text{display:flex;align-items:center}
     .logo-air{color:var(--accent)}
     .logo-store{color:var(--text)}
-    .icon-btn{width:44px;height:44px;border-radius:14px;border:none;background:#f0f4f8;
+    .icon-btn{width:38px;height:38px;border-radius:12px;border:none;background:#f0f4f8;
       display:grid;place-items:center;cursor:pointer;transition:all .2s;position:relative;flex-shrink:0}
     .icon-btn:hover{background:#e8f4fd}
     .icon-btn:active{transform:scale(.95)}
-    .cart-badge{position:absolute;top:-4px;right:-4px;width:22px;height:22px;background:var(--danger);color:#fff;
-      font-size:11px;font-weight:800;border-radius:50%;display:grid;place-items:center;display:none;box-shadow:0 2px 8px rgba(239,68,68,.4)}
+    .cart-badge{position:absolute;top:-3px;right:-3px;width:20px;height:20px;background:var(--danger);color:#fff;
+      font-size:10px;font-weight:800;border-radius:50%;display:grid;place-items:center;display:none;box-shadow:0 2px 8px rgba(239,68,68,.4)}
 
-    /* Buttons */
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 24px;border-radius:var(--pill);
-      border:none;background:var(--text);color:#fff;font-weight:600;font-size:15px;cursor:pointer;width:100%;transition:all .2s}
+    /* Buttons - Easter Theme */
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:16px 28px;border-radius:var(--pill);
+      border:none;background:var(--text);color:#fff;font-weight:700;font-size:16px;cursor:pointer;width:100%;transition:all .3s;box-shadow:0 4px 15px rgba(0,0,0,.15)}
     .btn:active{transform:scale(.98)}
-    .btn-accent{background:var(--accent)}
-    .btn-outline{background:transparent;border:2px solid var(--line);color:var(--text)}
-    .btn-success{background:var(--success)}
+    .btn-accent{background:linear-gradient(135deg,#ff6b9d,#c44569);color:#fff;box-shadow:0 6px 20px rgba(255,107,157,.4)}
+    .btn-accent:hover{background:linear-gradient(135deg,#c44569,#ff6b9d);transform:translateY(-3px);box-shadow:0 8px 25px rgba(255,107,157,.5)}
+    .btn-outline{background:transparent;border:2px solid #ff6b9d;color:#c44569}
+    .btn-outline:hover{background:#ff6b9d;color:#fff}
+    .btn-success{background:linear-gradient(135deg,#22c55e,#16a34a)}
     .btn-sm{padding:10px 18px;font-size:13px}
     .btn-danger{background:var(--danger)}
 
-    .wrap{max-width:1200px;margin:0 auto;padding:75px 16px 100px}
+    .wrap{max-width:1200px;margin:0 auto;padding:85px 16px 100px}
 
     /* Hero - PRODUCT IMAGE FIRST */
     .hero{padding:20px 0}
@@ -73,7 +85,7 @@
     /* Product Image Section - Modern Design */
     .product-showcase{background:#fff;border:none;border-radius:24px;padding:24px;margin-bottom:24px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.08)}
     .img-wrap{position:relative;padding:40px 20px;background:linear-gradient(180deg,#f8f9fb 0%,#fff 100%);border-radius:20px}
-    .discount-badge{position:absolute;top:16px;left:16px;padding:10px 18px;background:linear-gradient(135deg,var(--danger),#ff6b6b);color:#fff;font-weight:800;font-size:13px;border-radius:var(--pill);animation:pulse 2s infinite;box-shadow:0 4px 16px rgba(239,68,68,.3)}
+    .discount-badge{position:absolute;top:16px;left:16px;padding:10px 18px;background:linear-gradient(135deg,#ff6b9d,#c44569);color:#fff;font-weight:800;font-size:13px;border-radius:var(--pill);animation:pulse 2s infinite;box-shadow:0 4px 16px rgba(255,107,157,.4)}
     .img-wrap img{width:100%;max-width:300px;height:auto;filter:drop-shadow(0 30px 60px rgba(0,0,0,.2));transition:transform .3s ease}
     .img-wrap img:hover{transform:scale(1.02)}
     .gallery{display:flex;gap:12px;justify-content:center;margin-top:20px}
@@ -114,62 +126,88 @@
     .btn-disabled{background:#9ca3af !important;cursor:not-allowed !important;opacity:.7}
     .btn-disabled:hover{background:#9ca3af !important}
 
-    /* Price - Modern Design */
-    .price-box{background:linear-gradient(135deg,#fff,#f8f9fb);border:none;border-radius:20px;padding:20px;margin-bottom:20px;box-shadow:0 4px 20px rgba(0,0,0,.06)}
+    /* Easter Promo Banner - Big & Visible */
+    .easter-promo-banner{background:linear-gradient(135deg,#fff5f7 0%,#ffe4ec 50%,#fff5f7 100%);border:3px solid #ff6b9d;border-radius:20px;padding:20px;margin-bottom:20px;text-align:center;box-shadow:0 8px 30px rgba(255,107,157,.25);position:relative;overflow:hidden}
+    .easter-promo-banner::before{content:'🌸';position:absolute;top:10px;left:15px;font-size:30px;opacity:.4;animation:float 3s ease-in-out infinite}
+    .easter-promo-banner::after{content:'🌸';position:absolute;top:15px;right:15px;font-size:24px;opacity:.4;animation:float 3s ease-in-out infinite .5s}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+    .easter-promo-banner .easter-promo-title{font-size:22px;font-weight:800;color:#c44569;margin-bottom:8px}
+    .easter-promo-banner .easter-promo-text{font-size:14px;color:#666;margin-bottom:10px}
+    .easter-promo-banner .easter-promo-code{background:linear-gradient(135deg,#ff6b9d,#c44569);color:#fff;padding:12px 30px;border-radius:30px;font-weight:800;font-size:24px;display:inline-block;margin-bottom:8px;box-shadow:0 4px 15px rgba(255,107,157,.4);letter-spacing:2px}
+    .easter-promo-banner .easter-promo-discount{font-size:14px;color:#333}
+    .easter-promo-banner .easter-promo-discount span{color:#22c55e;font-weight:700;font-size:16px}
+
+    /* Easter Theme Colors */
+    :root{--easter-pink:#ff6b9d;--easter-purple:#c44569;--easter-yellow:#feca57;--easter-green:#a8e6cf;--easter-blue:#7fdbff}
+
+    /* Price - Easter Theme */
+    .price-box{background:linear-gradient(135deg,#fff,#fff5f7);border:2px solid #ffe4ec;border-radius:20px;padding:20px;margin-bottom:20px;box-shadow:0 4px 20px rgba(255,107,157,.1)}
     .price-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:8px}
-    .price-current{font-weight:800;font-size:36px;letter-spacing:-1px;color:var(--text)}
-    .price-old{color:#9ca3af;text-decoration:line-through;font-size:18px}
-    .price-save{padding:6px 14px;border-radius:var(--pill);background:linear-gradient(135deg,#dcfce7,#bbf7d0);color:#166534;font-weight:700;font-size:12px}
+    .price-current{font-weight:800;font-size:40px;letter-spacing:-1px;background:linear-gradient(135deg,#22c55e,#16a34a);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .price-old{color:#9ca3af;text-decoration:line-through;font-size:20px}
+    .price-save{padding:8px 16px;border-radius:var(--pill);background:linear-gradient(135deg,#ff6b9d,#c44569);color:#fff;font-weight:700;font-size:13px;box-shadow:0 4px 15px rgba(255,107,157,.3)}
     .price-dual{color:var(--muted);font-size:13px;display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;padding-top:12px;border-top:1px solid var(--line)}
 
-    /* Features - Modern Design */
+    /* Features - Easter Theme */
     .features-list{display:grid;gap:10px;margin:20px 0}
-    .feature-item{display:flex;align-items:center;gap:14px;padding:16px;background:#fff;border:none;border-radius:18px;box-shadow:0 2px 12px rgba(0,0,0,.06);transition:all .2s}
-    .feature-item:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(0,0,0,.1)}
-    .feature-icon{width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,var(--accent-light),#e0f2fe);display:grid;place-items:center;font-size:24px;flex-shrink:0}
-    .feature-text b{display:block;font-size:14px;margin-bottom:2px}
+    .feature-item{display:flex;align-items:center;gap:14px;padding:16px;background:#fff;border:2px solid #ffe4ec;border-radius:18px;box-shadow:0 2px 12px rgba(255,107,157,.08);transition:all .2s}
+    .feature-item:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(255,107,157,.15);border-color:#ff6b9d}
+    .feature-icon{width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,#ffe4ec,#fff5f7);display:grid;place-items:center;font-size:24px;flex-shrink:0}
+    .feature-text b{display:block;font-size:14px;margin-bottom:2px;color:#c44569}
     .feature-text small{color:var(--muted);font-size:12px}
 
-    /* Package - Modern Design */
-    .package{background:#fff;border:none;border-radius:20px;padding:20px;margin-top:20px;box-shadow:0 4px 20px rgba(0,0,0,.06)}
-    .package-title{font-weight:800;font-size:16px;margin-bottom:14px;display:flex;justify-content:space-between}
-    .package-title span:last-child{color:var(--muted);font-size:12px;font-weight:500}
-    .package-item{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
+    /* Package - Easter Theme */
+    .package{background:linear-gradient(135deg,#fff,#fff5f7);border:2px solid #ffe4ec;border-radius:20px;padding:20px;margin-top:20px;box-shadow:0 4px 20px rgba(255,107,157,.1)}
+    .package-title{font-weight:800;font-size:16px;margin-bottom:14px;display:flex;justify-content:space-between;color:#c44569}
+    .package-title span:last-child{color:#ff6b9d;font-size:12px;font-weight:600}
+    .package-item{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid #ffe4ec}
     .package-item:last-child{border-bottom:none}
     .package-icon{font-size:24px}
     .package-item div{font-size:14px}
-    .package-item div:first-child{font-weight:700}
-    .package-item div:last-child{color:var(--muted);font-size:12px}
+    .package-item div:first-child{font-weight:700;color:#333}
+    .package-item div:last-child{color:#888;font-size:12px}
 
     /* Comparison Slider */
-    .comparison-slider{position:relative;width:100%;max-width:600px;margin:0 auto;border-radius:var(--r);overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.15);background:#000;user-select:none}
-    .comparison-slider-inner{position:relative;width:100%;aspect-ratio:4/3;overflow:hidden}
+    .comparison-slider{position:relative;width:100%;max-width:500px;margin:0 auto;border-radius:var(--r);overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.2);background:#000;user-select:none;border:3px solid #ff6b9d;cursor:ew-resize}
+    .comparison-slider-inner{position:relative;width:100%;height:250px;overflow:hidden}
     .comparison-image{position:absolute;top:0;left:0;width:100%;height:100%}
-    .comparison-image-before{position:absolute;top:0;left:0;width:50%;height:100%;overflow:hidden;z-index:2;border-right:3px solid #fff}
-    .comparison-image-before img{width:200%;height:100%;object-fit:cover;display:block}
+    .comparison-image-before{position:absolute;top:0;left:0;width:50%;height:100%;overflow:hidden;z-index:2;border-right:4px solid #fff;box-shadow:5px 0 20px rgba(0,0,0,.3);transition:width .1s ease-out}
+    .comparison-image-before .comparison-placeholder{width:500px;height:100%;max-width:none}
     .comparison-image-after{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1}
-    .comparison-image-after img{width:100%;height:100%;object-fit:cover;display:block}
-    .comparison-handle{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:10;width:44px;height:44px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:ew-resize;box-shadow:0 4px 20px rgba(0,0,0,.3);touch-action:none}
-    .comparison-handle::before{content:"|||";font-size:12px;font-weight:700;color:var(--text);letter-spacing:2px}
-    .comparison-label{position:absolute;bottom:16px;padding:8px 16px;background:rgba(0,0,0,.7);color:#fff;font-weight:700;font-size:14px;border-radius:8px;z-index:5}
-    .comparison-label-ours{left:16px}
-    .comparison-label-theirs{right:16px}
+    .comparison-image-after .comparison-placeholder{width:100%;height:100%}
+    .comparison-handle{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:10;width:44px;height:44px;background:linear-gradient(135deg,#ff6b9d,#c44569);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:grab;box-shadow:0 4px 20px rgba(0,0,0,.4);touch-action:none;border:3px solid #fff;pointer-events:auto}
+    .comparison-handle:active{cursor:grabbing}
+    .comparison-handle::before{content:"↔";font-size:18px;font-weight:700;color:#fff}
+    .comparison-label{position:absolute;bottom:12px;padding:6px 12px;color:#fff;font-weight:700;font-size:12px;border-radius:6px;z-index:5;pointer-events:none}
+    .comparison-label-ours{left:12px;background:linear-gradient(135deg,#ff6b9d,#c44569)}
+    .comparison-label-theirs{right:12px;background:#555}
     .comparison-slider.dragging .comparison-handle{transform:translate(-50%,-50%) scale(1.1)}
 
-    /* Policy */
+    /* Policy - Easter Theme */
     .section{margin-top:40px}
     .section-header{margin-bottom:16px}
-    .h2{margin:0;font-size:22px;font-weight:800}
-    .section-meta{color:var(--muted);font-size:12px;margin-top:4px}
+    .h2{margin:0;font-size:22px;font-weight:800;color:#c44569}
+    .section-meta{color:#ff6b9d;font-size:12px;margin-top:4px;font-weight:600}
     .policy-grid{display:grid;gap:10px}
-    .policy-card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:14px;text-align:center}
+    .policy-card{background:linear-gradient(135deg,#fff,#fff5f7);border:2px solid #ffe4ec;border-radius:var(--r);padding:14px;text-align:center;transition:all .2s}
+    .policy-card:hover{border-color:#ff6b9d;transform:translateY(-3px);box-shadow:0 8px 25px rgba(255,107,157,.15)}
     .policy-icon{font-size:32px;margin-bottom:8px}
-    .policy-title{font-weight:700;font-size:14px;margin-bottom:4px}
+    .policy-title{font-weight:700;font-size:14px;margin-bottom:4px;color:#c44569}
     .policy-text{color:var(--muted);font-size:11px;line-height:1.5}
-    .policy-text b{color:var(--accent)}
+    .policy-text b{color:#ff6b9d}
 
-    /* Reviews */
-    .reviews-summary{background:linear-gradient(135deg,var(--text),#1f2937);color:#fff;border-radius:var(--r);padding:16px;margin-bottom:14px}
+    /* Reviews - Easter Theme */
+    .reviews-summary{background:linear-gradient(135deg,#ff6b9d,#c44569);color:#fff;border-radius:var(--r);padding:16px;margin-bottom:14px}
+    .reviews-grid{display:grid;gap:16px}
+    .review-card{background:#fff;border:2px solid #ffe4ec;border-radius:var(--r);padding:14px}
+    .review-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+    .reviewer{display:flex;align-items:center;gap:8px}
+    .reviewer-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#ff6b9d,#c44569);color:#fff;display:grid;place-items:center;font-weight:700;font-size:12px}
+    .reviewer-name{font-weight:600;font-size:13px}
+    .review-date{color:#999;font-size:11px}
+    .review-stars{color:#fbbf24;font-size:13px;margin-bottom:6px}
+    .review-text{color:#666;font-size:12px;line-height:1.5}
+    .verified-badge{display:inline-flex;align-items:center;gap:3px;font-size:9px;color:#22c55e;background:#dcfce7;padding:2px 6px;border-radius:var(--pill);margin-left:6px}
     .reviews-summary-top{display:flex;align-items:center;gap:16px;margin-bottom:14px}
     .review-big-rating{font-size:42px;font-weight:800;line-height:1}
     .review-big-stars{color:#fbbf24;font-size:16px}
@@ -192,17 +230,19 @@
     .review-text{color:var(--muted);font-size:12px;line-height:1.5}
     .verified-badge{display:inline-flex;align-items:center;gap:3px;font-size:9px;color:var(--success);background:#dcfce7;padding:2px 6px;border-radius:var(--pill);margin-left:6px}
 
-    .show-all-btn{width:100%;padding:12px;background:#fff;border:2px solid var(--line);border-radius:var(--pill);font-weight:600;font-size:13px;cursor:pointer;margin-top:14px;transition:all .2s}
-    .show-all-btn:active{background:var(--accent-light);border-color:var(--accent)}
+    .show-all-btn{width:100%;padding:12px;background:linear-gradient(135deg,#fff,#fff5f7);border:2px solid #ff6b9d;border-radius:var(--pill);font-weight:600;font-size:13px;cursor:pointer;margin-top:14px;transition:all .2s;color:#c44569}
+    .show-all-btn:hover{background:linear-gradient(135deg,#ff6b9d,#c44569);color:#fff;border-color:#c44569}
 
-    /* FAQ */
-    .faq-item{background:#fff;border:1px solid var(--line);border-radius:14px;margin-bottom:8px;overflow:hidden}
-    summary{cursor:pointer;padding:14px;font-weight:600;font-size:13px;list-style:none;display:flex;justify-content:space-between;align-items:center}
+    /* FAQ - Easter Theme */
+    .faq-grid{display:grid;gap:10px}
+    .faq-item{background:linear-gradient(135deg,#fff,#fff5f7);border:2px solid #ffe4ec;border-radius:14px;margin-bottom:8px;overflow:hidden;transition:all .2s}
+    .faq-item:hover{border-color:#ff6b9d}
+    summary{cursor:pointer;padding:14px;font-weight:600;font-size:13px;list-style:none;display:flex;justify-content:space-between;align-items:center;color:#c44569}
     summary::-webkit-details-marker{display:none}
-    summary::after{content:"+";font-size:18px;color:var(--muted)}
+    summary::after{content:"+";font-size:18px;color:#ff6b9d}
     .faq-item[open] summary::after{content:"−"}
-    .faq-item[open] summary{color:var(--accent)}
-    .faq-content{padding:0 14px 14px;color:var(--muted);font-size:12px;line-height:1.6}
+    .faq-item[open] summary{color:#ff6b9d}
+    .faq-content{padding:0 14px 14px;color:#666;font-size:12px;line-height:1.6}
 
     /* Cart Drawer - Modern Design */
     .overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .3s;z-index:200;backdrop-filter:blur(4px)}
@@ -236,20 +276,22 @@
     .remove-btn{position:absolute;top:12px;right:12px;width:32px;height:32px;border:none;background:#fee2e2;color:var(--danger);border-radius:8px;cursor:pointer;display:grid;place-items:center;font-size:16px;transition:all .2s}
     .remove-btn:hover{background:var(--danger);color:#fff}
 
-    /* Promo */
-    .promo-section{background:#fef3f2;border:1px solid rgba(239,68,68,.2);border-radius:12px;padding:12px;margin:14px 0}
+    /* Promo - Easter Theme */
+    .promo-section{background:linear-gradient(135deg,#fff5f7,#ffe4ec);border:2px solid #ff6b9d;border-radius:12px;padding:12px;margin:14px 0}
     .promo-input-group{display:flex;gap:6px}
-    .promo-input{flex:1;padding:10px 12px;border:1px solid var(--line);border-radius:var(--pill);font-size:12px;outline:none}
-    .promo-btn{padding:10px 14px;background:var(--text);color:#fff;border:none;border-radius:var(--pill);font-weight:600;font-size:12px;cursor:pointer}
+    .promo-input{flex:1;padding:10px 12px;border:2px solid #ffe4ec;border-radius:var(--pill);font-size:12px;outline:none}
+    .promo-input:focus{border-color:#ff6b9d}
+    .promo-btn{padding:10px 14px;background:linear-gradient(135deg,#ff6b9d,#c44569);color:#fff;border:none;border-radius:var(--pill);font-weight:600;font-size:12px;cursor:pointer}
+    .promo-btn:hover{background:linear-gradient(135deg,#c44569,#ff6b9d)}
     .promo-message{font-size:11px;margin-top:6px}
-    .promo-success{color:var(--success)}
+    .promo-success{color:#22c55e;font-weight:700}
     .promo-error{color:var(--danger)}
-    .discount-row{display:flex;justify-content:space-between;color:var(--success);font-size:12px;margin-top:6px;padding-top:6px;border-top:1px dashed var(--line)}
+    .discount-row{display:flex;justify-content:space-between;color:#22c55e;font-size:12px;font-weight:700;margin-top:6px;padding-top:6px;border-top:1px dashed #ffe4ec}
 
-    .drawer-footer{padding:20px;border-top:1px solid var(--line);background:#fff}
+    .drawer-footer{padding:20px;border-top:2px solid #ffe4ec;background:#fff}
     .cart-total{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;font-size:16px}
-    .cart-total-price{font-weight:800;font-size:24px;color:var(--accent)}
-    .cart-total-original{text-decoration:line-through;color:var(--muted);font-size:14px;margin-right:8px}
+    .cart-total-price{font-weight:800;font-size:24px;background:linear-gradient(135deg,#22c55e,#16a34a);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .cart-total-original{text-decoration:line-through;color:#999;font-size:14px;margin-right:8px}
 
     /* Order Modal */
     .modal{position:fixed;inset:0;display:none;place-items:center;padding:16px;background:rgba(0,0,0,.6);z-index:220;opacity:0;transition:opacity .3s}
@@ -306,31 +348,34 @@
     .toast-success{background:var(--success)}
     .toast-error{background:var(--danger)}
 
-    /* FAB */
+    /* FAB - Easter Theme */
     .fab{position:fixed;right:16px;bottom:16px;z-index:90;display:flex;flex-direction:column;gap:10px;align-items:flex-end}
-    .fab-btn{background:var(--text);color:#fff;padding:12px 18px;border-radius:var(--pill);font-weight:600;font-size:13px;
-      box-shadow:0 4px 20px rgba(0,0,0,.3);display:flex;align-items:center;gap:8px;border:none;cursor:pointer}
-    .fab-phone{background:#fff;color:var(--text);border:1px solid var(--line)}
+    .fab-btn{background:linear-gradient(135deg,#ff6b9d,#c44569);color:#fff;padding:12px 18px;border-radius:var(--pill);font-weight:600;font-size:13px;
+      box-shadow:0 4px 20px rgba(255,107,157,.4);display:flex;align-items:center;gap:8px;border:none;cursor:pointer}
+    .fab-btn:hover{background:linear-gradient(135deg,#c44569,#ff6b9d);transform:translateY(-2px);box-shadow:0 6px 25px rgba(255,107,157,.5)}
+    .fab-phone{background:#fff;color:#c44569;border:2px solid #ff6b9d}
+    .fab-phone:hover{background:#ffe4ec}
 
-    /* Footer Styles */
-    .footer{background:linear-gradient(135deg,var(--text),#1f2937);color:#fff;padding:40px 20px 30px;margin-top:40px;border-radius:24px 24px 0 0}
+    /* Footer Styles - Easter Theme */
+    .footer{background:linear-gradient(135deg,#c44569,#ff6b9d);color:#fff;padding:40px 20px 30px;margin-top:40px;border-radius:24px 24px 0 0}
     .footer-content{max-width:1200px;margin:0 auto}
     .footer-grid{display:grid;gap:30px;margin-bottom:30px}
     .footer-section{text-align:center}
-    .footer-title{font-weight:700;font-size:14px;margin-bottom:12px;color:rgba(255,255,255,.9)}
+    .footer-title{font-weight:700;font-size:14px;margin-bottom:12px;color:#fff}
     .footer-links{display:flex;flex-direction:column;gap:10px}
-    .footer-link{color:rgba(255,255,255,.7);font-size:13px;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px}
+    .footer-link{color:rgba(255,255,255,.85);font-size:13px;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px}
     .footer-link:hover{color:#fff}
     .footer-socials{display:flex;justify-content:center;gap:16px;margin-top:12px}
-    .social-btn{width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.1);display:grid;place-items:center;transition:all .2s}
-    .social-btn:hover{background:var(--accent);transform:translateY(-3px)}
+    .social-btn{width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.2);display:grid;place-items:center;transition:all .2s}
+    .social-btn:hover{background:#fff;color:#c44569;transform:translateY(-3px)}
+    .social-btn:hover svg{fill:#c44569}
     .social-btn svg{width:20px;height:20px;fill:#fff}
-    .footer-bottom{text-align:center;padding-top:24px;border-top:1px solid rgba(255,255,255,.1)}
-    .footer-terms{font-size:12px;color:rgba(255,255,255,.7);line-height:1.8;background:rgba(255,255,255,.05);padding:16px;border-radius:12px;margin-bottom:16px}
+    .footer-bottom{text-align:center;padding-top:24px;border-top:1px solid rgba(255,255,255,.2)}
+    .footer-terms{font-size:12px;color:rgba(255,255,255,.9);line-height:1.8;background:rgba(255,255,255,.15);padding:16px;border-radius:12px;margin-bottom:16px}
     .footer-terms strong{color:#fff;display:block;margin-bottom:8px;font-size:13px}
-    .footer-terms a{color:#fff;background:var(--accent);padding:8px 16px;border-radius:20px;text-decoration:none;display:inline-block;margin-top:10px;font-weight:600;transition:all .2s}
-    .footer-terms a:hover{background:#0066cc;transform:translateY(-2px)}
-    .footer-copyright{font-size:12px;color:rgba(255,255,255,.6);margin-top:12px}
+    .footer-terms a{color:#c44569;background:#fff;padding:8px 16px;border-radius:20px;text-decoration:none;display:inline-block;margin-top:10px;font-weight:600;transition:all .2s}
+    .footer-terms a:hover{background:#ffe4ec;transform:translateY(-2px)}
+    .footer-copyright{font-size:12px;color:rgba(255,255,255,.8);margin-top:12px}
 
     /* Desktop */
     @media (min-width: 768px){
@@ -379,13 +424,23 @@
     <input type="text" name="discount_applied" />
   </form>
 
+  <!-- Easter Header Banner - News Ticker -->
+  <div class="easter-header">
+    <div class="easter-ticker-wrap">
+      <div class="easter-ticker">
+        <span class="easter-ticker-item">🐰 Великденско намаление: промокод: <span class="easter-header-code">EASTER15</span> за 15% отстъпка! 🥚</span>
+        <span class="easter-ticker-item">🐰 Великденско намаление: промокод: <span class="easter-header-code">EASTER15</span> за 15% отстъпка! 🥚</span>
+        <span class="easter-ticker-item">🐰 Великденско намаление: промокод: <span class="easter-header-code">EASTER15</span> за 15% отстъпка! 🥚</span>
+      </div>
+    </div>
+  </div>
+
   <!-- Top Navigation -->
   <div class="top" id="topBar">
     <div class="topin">
       <div class="logo">
-        <div class="logo-img">🎧</div>
         <span class="logo-text">
-          <span class="logo-air">Air</span><span class="logo-store">StoreBulgaria</span>
+          <span class="logo-air">Air</span><span class="logo-store" style="position:relative">Store<span style="position:relative;display:inline-block">B<span style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);font-size:18px;animation:bounceEgg 1.2s ease-in-out infinite;z-index:10">🐣</span></span>ulgaria</span>
         </span>
       </div>
       <button class="icon-btn" onclick="openCart()">
@@ -393,12 +448,6 @@
         <span class="cart-badge" id="cartBadge">0</span>
       </button>
     </div>
-  </div>
-
-  <!-- Floating Buttons -->
-  <div class="fab">
-    <a href="tel:0878460279" class="fab-btn fab-phone">📞 0878 460 279</a>
-    <button class="fab-btn" onclick="fastOrder()" style="background:var(--accent);color:#fff;font-weight:700;font-size:14px;padding:14px 22px;box-shadow:0 6px 24px rgba(0,113,227,.4);">⚡ Бърза поръчка</button>
   </div>
 
   <!-- Main Content -->
@@ -412,17 +461,17 @@
         <div class="product-showcase">
           <div class="img-wrap">
             <div class="discount-badge">-38% OFF</div>
-            <img id="mainImg" src="assets/airpods.png" alt="AirPods Pro 3" loading="lazy" onload="this.classList.add('loaded')" />
+            <img id="mainImg" src="assets/airpods.png" alt="AirPods Pro 3" style="width:100%;max-width:300px;height:auto;cursor:zoom-in" onclick="openLightbox()" />
           </div>
           <div class="gallery">
             <button class="th active" onclick="changeImage(this, 'assets/airpods.png')">
-              <img src="assets/airpods.png" alt="" />
+              <img src="assets/airpods.png" alt="" style="width:100%;height:100%;object-fit:cover" />
             </button>
             <button class="th" onclick="changeImage(this, 'assets/airpods_2.png')">
-              <img src="assets/airpods_2.png" alt="" />
+              <img src="assets/airpods_2.png" alt="" style="width:100%;height:100%;object-fit:cover" />
             </button>
             <button class="th" onclick="changeImage(this, 'assets/airpods_3.png')">
-              <img src="assets/airpods_3.png" alt="" />
+              <img src="assets/airpods_3.png" alt="" style="width:100%;height:100%;object-fit:cover" />
             </button>
           </div>
         </div>
@@ -437,14 +486,12 @@
         <h1>AirPods Pro 3</h1>
         <p class="hero-desc">Премиум звук с активно шумопотискане, персонализирано пространствено аудио и до 30 часа време за работа.</p>
 
-        <!-- Stock Counter -->
-        <div class="stock-bar" id="stockBarContainer">
-          <div class="stock-icon">🔥</div>
-          <div class="stock-text">
-            <div class="stock-title">Бързо! Остават ограничени бройки!</div>
-            <div class="stock-progress"><div class="stock-fill" id="stockBar"></div></div>
-            <div class="stock-subtitle">В наличност: <span class="stock-count" id="stockCount">23</span> броя</div>
-          </div>
+        <!-- Easter Promo Banner -->
+        <div class="easter-promo-banner">
+          <div class="easter-promo-title">🐰 Великденска промоция! 🥚</div>
+          <div class="easter-promo-text">Използвай промо кода</div>
+          <div class="easter-promo-code">EASTER15</div>
+          <div class="easter-promo-discount">и получи <span>-15%</span> отстъпка!</div>
         </div>
 
         <!-- Out of Stock Banner (hidden by default) -->
@@ -544,14 +591,14 @@
       <div class="comparison-slider" id="comparisonSlider">
         <div class="comparison-slider-inner">
           <div class="comparison-image-after">
-            <img src="assets/theirs.png" alt="Техните" id="theirsImg" />
+            <img src="assets/theirs.png" alt="Техните" style="width:100%;height:100%;object-fit:cover" />
           </div>
           <div class="comparison-image-before" id="beforeImage">
-            <img src="assets/ours.png" alt="Нашите" id="oursImg" />
+            <img src="assets/ours.png" alt="Нашите" style="width:200%;height:100%;object-fit:cover" />
           </div>
           <div class="comparison-handle" id="sliderHandle"></div>
-          <div class="comparison-label comparison-label-ours">НАШИТЕ</div>
-          <div class="comparison-label comparison-label-theirs">ТЕХНИТЕ</div>
+          <div class="comparison-label comparison-label-ours">НАШИТЕ - 108лв</div>
+          <div class="comparison-label comparison-label-theirs">ТЕХНИТЕ - 150лв</div>
         </div>
       </div>
     </section>
@@ -615,10 +662,10 @@
         </div>
       </div>
 
-      <div class="add-review-card" style="background:linear-gradient(135deg,var(--accent-light),#fff);border:2px dashed var(--accent);border-radius:var(--r);padding:20px;text-align:center;margin-top:16px">
-        <button class="add-review-btn" onclick="openReviewModal()" style="width:50px;height:50px;border-radius:50%;background:var(--accent);color:#fff;font-size:24px;display:grid;place-items:center;margin:0 auto 12px;cursor:pointer;border:none">+</button>
-        <div style="font-weight:700;margin-bottom:4px">Споделете вашето мнение</div>
-        <div style="color:var(--muted);font-size:13px">Помогнете на други клиенти</div>
+      <div class="add-review-card" style="background:linear-gradient(135deg,#fff5f7,#ffe4ec);border:2px dashed #ff6b9d;border-radius:var(--r);padding:20px;text-align:center;margin-top:16px">
+        <button class="add-review-btn" onclick="openReviewModal()" style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#ff6b9d,#c44569);color:#fff;font-size:24px;display:grid;place-items:center;margin:0 auto 12px;cursor:pointer;border:none;box-shadow:0 4px 15px rgba(255,107,157,.4)">+</button>
+        <div style="font-weight:700;margin-bottom:4px;color:#c44569">Споделете вашето мнение</div>
+        <div style="color:#888;font-size:13px">Помогнете на други клиенти</div>
       </div>
     </section>
 
@@ -629,8 +676,23 @@
       </div>
       <div class="faq-grid">
         <details class="faq-item">
-          <summary>Защо да изберете AIRSTORE?</summary>
-          <div class="faq-content">Ниски цени с директен внос, безплатна доставка, наложен платеж с преглед и тест, и 6 месеца гаранция.</div>
+          <summary>⭐ Защо да изберете AIRSTORE?</summary>
+          <div class="faq-content"><b>Най-добрата цена в България!</b> 💯<br><br>
+          ✈️ <b>Директен внос</b> — без посредници = по-ниски цени<br>
+          🚚 <b>Безплатна доставка</b> с Еконт до цяла България<br>
+          💳 <b>Наложен платеж</b> — плащаш при получаване<br>
+          📦 <b>Преглед и тест</b> — проверяваш преди да платиш<br>
+          🛡️ <b>6 месеца гаранция</b> — безплатна замяна при проблем<br>
+          🔄 <b>30 дни връщане</b> — пълно възстановяване<br><br>
+          <b>Хиляди доволни клиенти</b> ни се довериха! 🎉</div>
+        </details>
+        <details class="faq-item">
+          <summary>🎧 Имат ли Noise Cancellation, Transparency и Adaptive?</summary>
+          <div class="faq-content"><b>Да! 🎉</b> Поддържат всички 3 режима като оригиналните:<br><br>
+          🔇 <b>Active Noise Cancellation (ANC)</b> — Потиска външния шум за потапящо аудио изживяване<br>
+          🔊 <b>Transparency Mode</b> — Чуваш околния свят без да сваляш слушалките<br>
+          ⚡ <b>Adaptive Audio</b> — Автоматично превключва между режимите според средата<br><br>
+          Контролирай всичко директно от Control Center на iPhone или със задържане на стъблото!</div>
         </details>
         <details class="faq-item">
           <summary>Има ли преглед и тест преди плащане?</summary>
@@ -722,9 +784,7 @@
       <div id="cartContent" style="display:none">
         <div class="cart-item">
           <button class="remove-btn" onclick="removeFromCart()" title="Премахни">🗑️</button>
-          <div class="cart-item-img" style="background:#fff;display:grid;place-items:center;border:1px solid var(--line);border-radius:10px;overflow:hidden;min-width:60px;min-height:60px;">
-              <img src="assets/airpods.png" alt="AirPods" style="width:44px;height:44px;object-fit:contain;display:block;" onerror="this.style.display='none';this.parentElement.innerHTML='🎧';this.parentElement.style.fontSize='24px';" />
-            </div>
+          <div class="cart-item-img" style="background:linear-gradient(135deg,#fff5f7,#ffe4ec);display:grid;place-items:center;border:2px solid #ffe4ec;border-radius:12px;overflow:hidden;min-width:70px;min-height:70px"><img src="assets/airpods_2.png" alt="AirPods Pro 3" style="width:52px;height:52px;object-fit:contain" /></div>
           <div class="cart-item-info">
             <div class="cart-item-title">AirPods Pro 3</div>
             <div class="cart-item-meta">Бял • MagSafe кейс</div>
@@ -739,7 +799,7 @@
         <div class="promo-section">
           <div style="font-weight:600;margin-bottom:8px;font-size:13px">🎁 Промо код?</div>
           <div class="promo-input-group">
-            <input type="text" class="promo-input" id="promoInput" placeholder="A1B2C3" maxlength="6">
+            <input type="text" class="promo-input" id="promoInput" placeholder="EASTER15" maxlength="10">
             <button class="promo-btn" id="promoBtn" onclick="applyPromo()">Приложи</button>
           </div>
           <div id="promoMessage"></div>
@@ -851,6 +911,14 @@
     </div>
   </div>
 
+  <!-- Lightbox Modal -->
+  <div class="modal" id="lightboxModal" onclick="closeLightbox()">
+    <div class="modal-content lightbox-content" style="background:transparent;box-shadow:none;max-width:90vw" onclick="event.stopPropagation()">
+      <button class="close-btn" onclick="closeLightbox()" style="position:fixed;top:20px;right:20px;background:#fff;color:#333;z-index:1000">✕</button>
+      <img id="lightboxImage" src="assets/airpods.png" alt="AirPods Pro 3" style="max-width:100%;max-height:80vh;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,.3)" />
+    </div>
+  </div>
+
   <!-- Success Modal -->
   <div class="modal" id="successModal">
     <div class="modal-content success-content">
@@ -919,14 +987,16 @@
     const PRICE_EUR = 55;
     const PRICE_BGN = Math.round(PRICE_EUR * FX_BGN_PER_EUR);
     const OLD_EUR = 89;
-    const VALID_PROMO_CODES = ['XVZ10', 'X7Y8Z9', 'P5Q6R7', 'M3N4O5', 'D8E9F0', 'SAVE10', 'AIR10', 'PROMO1'];
+    const VALID_PROMO_CODES = ['XVZ10', 'X7Y8Z9', 'P5Q6R7', 'M3N4O5', 'D8E9F0', 'SAVE10', 'AIR10', 'PROMO1', 'EASTER15'];
 
     // ===== STATE =====
     let qty = 1;
     let cartHasItem = false;
     let discountApplied = false;
+    let discountPercent = 10; // Default 10%
+    let currentPromoCode = '';
     let currentRating = 5;
-    let stockCount = 0;
+    let stockCount = 50; // Available stock
     let selectedDeliveryMethod = null;
 
     // ===== INITIALIZE =====
@@ -951,21 +1021,10 @@
 
     // ===== UPDATE STOCK DISPLAY =====
     function updateStockDisplay() {
-      document.getElementById('stockCount').textContent = stockCount;
-      document.getElementById('stockBar').style.width = Math.min(100, stockCount * 4) + '%';
-      
-      // Show/hide out of stock banner
-      if (stockCount <= 0) {
-        document.getElementById('stockBarContainer').style.display = 'none';
-        document.getElementById('outOfStockBanner').style.display = 'block';
-        document.getElementById('addToCartBtn').style.display = 'none';
-        document.getElementById('outOfStockBtn').style.display = 'block';
-      } else {
-        document.getElementById('stockBarContainer').style.display = 'flex';
-        document.getElementById('outOfStockBanner').style.display = 'none';
-        document.getElementById('addToCartBtn').style.display = 'block';
-        document.getElementById('outOfStockBtn').style.display = 'none';
-      }
+      // Stock is available - show normal state
+      document.getElementById('outOfStockBanner').style.display = 'none';
+      document.getElementById('addToCartBtn').style.display = 'block';
+      document.getElementById('outOfStockBtn').style.display = 'none';
     }
 
     // ===== DELIVERY WIDGET =====
@@ -1013,8 +1072,9 @@
       let totalBgn = PRICE_BGN * qty;
       
       if (discountApplied) {
-        totalEur = totalEur * 0.9;
-        totalBgn = Math.round(totalBgn * 0.9);
+        const discountMultiplier = (100 - discountPercent) / 100;
+        totalEur = totalEur * discountMultiplier;
+        totalBgn = Math.round(totalBgn * discountMultiplier);
       }
 
       document.getElementById('qtyValue').textContent = qty;
@@ -1028,9 +1088,10 @@
       document.getElementById('formTotalBgn').value = totalBgn;
       
       if (discountApplied) {
+        const discountMultiplier = (100 - discountPercent) / 100;
         document.getElementById('originalTotal').style.display = 'inline';
         document.getElementById('originalTotalEur').textContent = (PRICE_EUR * qty).toFixed(2);
-        document.getElementById('discountAmount').textContent = (PRICE_EUR * qty * 0.1).toFixed(2);
+        document.getElementById('discountAmount').textContent = (PRICE_EUR * qty * (1 - discountMultiplier)).toFixed(2);
         document.getElementById('discountRow').style.display = 'flex';
         document.getElementById('orderDiscountRow').style.display = 'flex';
       }
@@ -1043,11 +1104,6 @@
 
     // ===== FAST ORDER =====
     function fastOrder() {
-      if (stockCount <= 0) {
-        showToast('❌ Няма наличност!', 'error');
-        return;
-      }
-      
       if (!cartHasItem) {
         cartHasItem = true;
         qty = 1;
@@ -1059,11 +1115,6 @@
 
     // ===== CART FUNCTIONS =====
     function addToCart() {
-      if (stockCount <= 0) {
-        showToast('❌ Няма наличност!', 'error');
-        return;
-      }
-      
       if (!cartHasItem) {
         cartHasItem = true;
         const btn = document.getElementById('addToCartBtn');
@@ -1082,6 +1133,8 @@
       cartHasItem = false;
       qty = 1;
       discountApplied = false;
+      discountPercent = 10;
+      currentPromoCode = '';
       
       // Reset promo
       document.getElementById('promoInput').disabled = false;
@@ -1141,8 +1194,11 @@
       
       if (VALID_PROMO_CODES.includes(code)) {
         discountApplied = true;
+        currentPromoCode = code;
+        // EASTER15 gives 15% off, others give 10%
+        discountPercent = (code === 'EASTER15') ? 15 : 10;
         updatePrices();
-        showPromoMessage('✓ 10% отстъпка приложена!', 'success');
+        showPromoMessage(`✓ ${discountPercent}% отстъпка приложена!`, 'success');
         input.disabled = true;
         document.getElementById('promoBtn').textContent = 'Приложено';
         document.getElementById('formPromoCode').value = code;
@@ -1245,6 +1301,8 @@
         qty = 1;
         cartHasItem = false;
         discountApplied = false;
+        discountPercent = 10;
+        currentPromoCode = '';
         selectedDeliveryMethod = null;
         
         // Reset delivery widget
@@ -1372,11 +1430,14 @@
       const fallbackReviews = [
         { id: 1, name: 'Иван П.', rating: 5, text: 'Много чист звук и шумопотискането е топ. Дойдоха бързо!', date: 'преди 2 дни', verified: true },
         { id: 2, name: 'Мария К.', rating: 5, text: 'Удобни за носене и батерията държи много. Препоръчвам!', date: 'преди 5 дни', verified: true },
-        { id: 3, name: 'Георги Д.', rating: 4, text: 'Добро качество за цената. Доставката беше бърза.', date: 'преди седмица', verified: true }
+        { id: 3, name: 'Георги Д.', rating: 5, text: 'Добро качество за цената. Доставката беше бърза.', date: 'преди седмица', verified: true },
+        { id: 4, name: 'Анна М.', rating: 5, text: 'Супер са! Като оригинални са.', date: 'преди 10 дни', verified: true },
+        { id: 5, name: 'Петър С.', rating: 4, text: 'Доволен съм от покупката.', date: 'преди 2 седмици', verified: true },
+        { id: 6, name: 'София Л.', rating: 5, text: 'Безупречно качество!', date: 'преди 3 седмици', verified: true }
       ];
       
       const list = document.getElementById('reviewsList');
-      list.innerHTML = fallbackReviews.map(r => createReviewHTML(r)).join('');
+      list.innerHTML = fallbackReviews.slice(0, 3).map(r => createReviewHTML(r)).join('');
       document.getElementById('totalReviews').textContent = '312';
     }
 
@@ -1439,10 +1500,21 @@
     }
 
     // ===== GALLERY =====
+    let currentImage = 'assets/airpods.png';
     function changeImage(btn, src) {
+      currentImage = src;
       document.getElementById('mainImg').src = src;
       document.querySelectorAll('.th').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+    }
+
+    // ===== LIGHTBOX =====
+    function openLightbox() {
+      document.getElementById('lightboxImage').src = currentImage;
+      document.getElementById('lightboxModal').classList.add('show');
+    }
+    function closeLightbox() {
+      document.getElementById('lightboxModal').classList.remove('show');
     }
 
     // ===== COMPARISON SLIDER =====
@@ -1454,48 +1526,59 @@
 
       let isDragging = false;
 
-      function updateSlider(x) {
+      function updateSlider(clientX) {
         const rect = slider.getBoundingClientRect();
-        let percentage = ((x - rect.left) / rect.width) * 100;
-        percentage = Math.max(0, Math.min(100, percentage));
+        let percentage = ((clientX - rect.left) / rect.width) * 100;
+        percentage = Math.max(5, Math.min(95, percentage));
         beforeImage.style.width = percentage + '%';
         handle.style.left = percentage + '%';
       }
 
+      // Mouse events
       handle.addEventListener('mousedown', (e) => {
         isDragging = true;
         slider.classList.add('dragging');
         e.preventDefault();
+        e.stopPropagation();
       });
 
-      document.addEventListener('mousemove', (e) => {
+      slider.addEventListener('mousemove', (e) => {
         if (!isDragging) return;
+        e.preventDefault();
         updateSlider(e.clientX);
       });
 
-      document.addEventListener('mouseup', () => {
+      slider.addEventListener('mouseup', () => {
         isDragging = false;
         slider.classList.remove('dragging');
       });
 
+      slider.addEventListener('mouseleave', () => {
+        isDragging = false;
+        slider.classList.remove('dragging');
+      });
+
+      // Touch events
       handle.addEventListener('touchstart', (e) => {
         isDragging = true;
         slider.classList.add('dragging');
         e.preventDefault();
-      });
+      }, {passive: false});
 
-      document.addEventListener('touchmove', (e) => {
+      slider.addEventListener('touchmove', (e) => {
         if (!isDragging) return;
+        e.preventDefault();
         updateSlider(e.touches[0].clientX);
-      });
+      }, {passive: false});
 
-      document.addEventListener('touchend', () => {
+      slider.addEventListener('touchend', () => {
         isDragging = false;
         slider.classList.remove('dragging');
       });
 
+      // Click on slider to move handle
       slider.addEventListener('click', (e) => {
-        if (e.target === handle) return;
+        if (e.target === handle || e.target.closest('.comparison-handle')) return;
         updateSlider(e.clientX);
       });
     }
@@ -1511,7 +1594,7 @@
     // ===== KEYBOARD =====
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
-        closeCart(); closeOrder(); closeSuccess(); closeReviewModal(); closeAllReviews();
+        closeCart(); closeOrder(); closeSuccess(); closeReviewModal(); closeAllReviews(); closeLightbox();
       }
     });
 

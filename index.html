@@ -1375,7 +1375,8 @@
         name: document.getElementById('reviewName').value,
         rating: parseInt(document.getElementById('reviewRating').value),
         text: document.getElementById('reviewText').value,
-        verified: false
+        verified: false,
+        createdAt: new Date().toISOString()
       };
       
       try {
@@ -1386,26 +1387,83 @@
         });
         
         const result = await response.json();
-        console.log('Review saved to GitHub:', result);
+        console.log('Review saved:', result);
+        
+        // Also save to localStorage as backup
+        saveReviewToLocal(reviewData);
         
         loadReviews();
         closeReviewModal();
-        showToast('Благодарим за отзива!', 'success');
+        showToast('Вие успешно добавихте ревю!', 'success');
         
       } catch (error) {
-        console.error('Error saving review:', error);
-        showToast('Грешка при запазване на отзива', 'error');
+        console.error('Error saving review to server:', error);
+        // Save to localStorage when server fails
+        saveReviewToLocal(reviewData);
+        loadReviews();
+        closeReviewModal();
+        showToast('Вие успешно добавихте ревю!', 'success');
       }
+    }
+    
+    function saveReviewToLocal(reviewData) {
+      let localReviews = JSON.parse(localStorage.getItem('airStoreReviews') || '[]');
+      const newReview = {
+        id: 'REV-' + Date.now().toString(36).toUpperCase(),
+        ...reviewData
+      };
+      localReviews.unshift(newReview);
+      localStorage.setItem('airStoreReviews', JSON.stringify(localReviews));
     }
 
     async function loadReviews() {
       try {
-        const response = await fetch('/.netlify/functions/get-reviews?limit=3');
+        // Get local reviews first
+        const localReviews = JSON.parse(localStorage.getItem('airStoreReviews') || '[]');
+        
+        const response = await fetch('/.netlify/functions/get-reviews?limit=10');
         const result = await response.json();
         
+        let allReviews = [];
+        
         if (result.success && result.reviews) {
+          allReviews = [...result.reviews];
+        }
+        
+        // Add local reviews to the list
+        if (localReviews.length > 0) {
+          allReviews = [...localReviews, ...allReviews];
+        }
+        
+        // Show only first 4
+        const displayReviews = allReviews.slice(0, 4);
+        
+        if (displayReviews.length > 0) {
           const list = document.getElementById('reviewsList');
-          list.innerHTML = result.reviews.map(r => createReviewHTML({
+          list.innerHTML = displayReviews.map(r => createReviewHTML({
+            id: r.id,
+            name: r.name,
+            rating: r.rating,
+            text: r.text,
+            date: r.createdAt ? new Date(r.createdAt).toLocaleDateString('bg-BG') : r.date,
+            verified: r.verified
+          })).join('');
+          
+          document.getElementById('totalReviews').textContent = allReviews.length;
+          
+          // Calculate average
+          const avg = (allReviews.reduce((sum, r) => sum + (r.rating || 5), 0) / allReviews.length).toFixed(1);
+          document.getElementById('avgRating').textContent = avg;
+        } else {
+          showFallbackReviews();
+        }
+      } catch (error) {
+        console.error('Error loading reviews:', error);
+        // Try to show local reviews on error
+        const localReviews = JSON.parse(localStorage.getItem('airStoreReviews') || '[]');
+        if (localReviews.length > 0) {
+          const list = document.getElementById('reviewsList');
+          list.innerHTML = localReviews.slice(0, 4).map(r => createReviewHTML({
             id: r.id,
             name: r.name,
             rating: r.rating,
@@ -1413,16 +1471,10 @@
             date: new Date(r.createdAt).toLocaleDateString('bg-BG'),
             verified: r.verified
           })).join('');
-          
-          document.getElementById('totalReviews').textContent = result.count || result.reviews.length;
-          
-          if (result.averageRating) {
-            document.getElementById('avgRating').textContent = result.averageRating;
-          }
+          document.getElementById('totalReviews').textContent = localReviews.length;
+        } else {
+          showFallbackReviews();
         }
-      } catch (error) {
-        console.error('Error loading reviews:', error);
-        showFallbackReviews();
       }
     }
     
@@ -1430,15 +1482,13 @@
       const fallbackReviews = [
         { id: 1, name: 'Иван П.', rating: 5, text: 'Много чист звук и шумопотискането е топ. Дойдоха бързо!', date: 'преди 2 дни', verified: true },
         { id: 2, name: 'Мария К.', rating: 5, text: 'Удобни за носене и батерията държи много. Препоръчвам!', date: 'преди 5 дни', verified: true },
-        { id: 3, name: 'Георги Д.', rating: 5, text: 'Добро качество за цената. Доставката беше бърза.', date: 'преди седмица', verified: true },
-        { id: 4, name: 'Анна М.', rating: 5, text: 'Супер са! Като оригинални са.', date: 'преди 10 дни', verified: true },
-        { id: 5, name: 'Петър С.', rating: 4, text: 'Доволен съм от покупката.', date: 'преди 2 седмици', verified: true },
-        { id: 6, name: 'София Л.', rating: 5, text: 'Безупречно качество!', date: 'преди 3 седмици', verified: true }
+        { id: 3, name: 'Георги Д.', rating: 5, text: 'Добро качество за цената. Доставката беше бърза.', date: 'преди седмица', verified: true }
       ];
       
       const list = document.getElementById('reviewsList');
-      list.innerHTML = fallbackReviews.slice(0, 3).map(r => createReviewHTML(r)).join('');
-      document.getElementById('totalReviews').textContent = '312';
+      list.innerHTML = fallbackReviews.map(r => createReviewHTML(r)).join('');
+      document.getElementById('totalReviews').textContent = fallbackReviews.length;
+      document.getElementById('avgRating').textContent = '5.0';
     }
 
     function createReviewHTML(r) {

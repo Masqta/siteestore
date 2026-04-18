@@ -1,0 +1,15 @@
+{
+  "id": 1776537274630,
+  "date": "2026-04-18T18:34:34.630Z",
+  "name": "Ася Шивачева",
+  "phone": "0886776803",
+  "city": "Пловдив",
+  "courier": "",
+  "deliveryType": "office",
+  "address": "",
+  "qty": 1,
+  "totalEur": 46.75,
+  "totalBgn": 92,
+  "promoCode": "EASTER15",
+  "status": "new"
+}

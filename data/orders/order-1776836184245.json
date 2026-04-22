@@ -1,0 +1,15 @@
+{
+  "id": 1776836184245,
+  "date": "2026-04-22T05:36:24.245Z",
+  "name": "Иван Иванов",
+  "phone": "0896118702",
+  "city": "Попово",
+  "courier": "",
+  "deliveryType": "office",
+  "address": "",
+  "qty": 1,
+  "totalEur": 46.75,
+  "totalBgn": 92,
+  "promoCode": "EASTER15",
+  "status": "new"
+}

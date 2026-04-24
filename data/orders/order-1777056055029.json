@@ -1,0 +1,15 @@
+{
+  "id": 1777056055029,
+  "date": "2026-04-24T18:40:55.029Z",
+  "name": "Илья Гайсин",
+  "phone": "+359 87 790 1856",
+  "city": "София",
+  "courier": "",
+  "deliveryType": "office",
+  "address": "",
+  "qty": 1,
+  "totalEur": 46.75,
+  "totalBgn": 92,
+  "promoCode": "EASTER15",
+  "status": "new"
+}

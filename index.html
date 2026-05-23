@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+	<!DOCTYPE html>
 <html lang="bg">
 <head>
   <meta charset="utf-8" />
@@ -337,13 +337,13 @@
     .reveal.animate{opacity:0;transform:translateY(30px)}
     .reveal.animate.show{opacity:1;transform:translateY(0)}
 
-    /* Easter Header Banner - News Ticker Style */
-    .easter-header{background:linear-gradient(90deg,#ff6b9d,#c44569);position:fixed;top:0;left:0;right:0;z-index:101;height:28px;overflow:hidden}
+    /* Spring/Summer Header Banner - News Ticker Style */
+    .easter-header{background:linear-gradient(90deg,#22c55e,#16a34a);position:fixed;top:0;left:0;right:0;z-index:101;height:28px;overflow:hidden}
     .easter-ticker-wrap{width:100%;overflow:hidden;white-space:nowrap}
     .easter-ticker{display:inline-block;animation:ticker 20s linear infinite}
     @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-33.33%)}}
     .easter-ticker-item{display:inline-block;color:#fff;font-size:12px;font-weight:700;padding:6px 40px 6px 0}
-    .easter-header-code{background:#fff;color:#e84393;padding:2px 10px;border-radius:12px;font-weight:800;font-size:11px}
+    .easter-header-code{background:#fff;color:#16a34a;padding:2px 10px;border-radius:12px;font-weight:800;font-size:11px}
 
     /* Top Bar - Fixed Sticky (compact) */
     .top{position:fixed;top:28px;left:0;right:0;z-index:100;background:rgba(255,255,255,.98);backdrop-filter:blur(20px);
@@ -361,14 +361,14 @@
     .cart-badge{position:absolute;top:-3px;right:-3px;width:20px;height:20px;background:var(--danger);color:#fff;
       font-size:10px;font-weight:800;border-radius:50%;display:grid;place-items:center;display:none;box-shadow:0 2px 8px rgba(239,68,68,.4)}
 
-    /* Buttons - Easter Theme */
+    /* Buttons - Spring/Summer Theme */
     .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:16px 28px;border-radius:var(--pill);
       border:none;background:var(--text);color:#fff;font-weight:700;font-size:16px;cursor:pointer;width:100%;transition:all .3s;box-shadow:0 4px 15px rgba(0,0,0,.15)}
     .btn:active{transform:scale(.98)}
-    .btn-accent{background:linear-gradient(135deg,#ff6b9d,#c44569);color:#fff;box-shadow:0 6px 20px rgba(255,107,157,.4)}
-    .btn-accent:hover{background:linear-gradient(135deg,#c44569,#ff6b9d);transform:translateY(-3px);box-shadow:0 8px 25px rgba(255,107,157,.5)}
-    .btn-outline{background:transparent;border:2px solid #ff6b9d;color:#c44569}
-    .btn-outline:hover{background:#ff6b9d;color:#fff}
+    .btn-accent{background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;box-shadow:0 6px 20px rgba(34,197,94,.4)}
+    .btn-accent:hover{background:linear-gradient(135deg,#16a34a,#22c55e);transform:translateY(-3px);box-shadow:0 8px 25px rgba(34,197,94,.5)}
+    .btn-outline{background:transparent;border:2px solid #22c55e;color:#16a34a}
+    .btn-outline:hover{background:#22c55e;color:#fff}
     .btn-success{background:linear-gradient(135deg,#22c55e,#16a34a)}
     .btn-sm{padding:10px 18px;font-size:13px}
     .btn-danger{background:var(--danger)}
@@ -422,19 +422,19 @@
     .btn-disabled{background:#9ca3af !important;cursor:not-allowed !important;opacity:.7}
     .btn-disabled:hover{background:#9ca3af !important}
 
-    /* Easter Promo Banner - Big & Visible */
-    .easter-promo-banner{background:linear-gradient(135deg,#fff5f7 0%,#ffe4ec 50%,#fff5f7 100%);border:3px solid #ff6b9d;border-radius:20px;padding:20px;margin-bottom:20px;text-align:center;box-shadow:0 8px 30px rgba(255,107,157,.25);position:relative;overflow:hidden}
-    .easter-promo-banner::before{content:'🌸';position:absolute;top:10px;left:15px;font-size:30px;opacity:.4;animation:float 3s ease-in-out infinite}
-    .easter-promo-banner::after{content:'🌸';position:absolute;top:15px;right:15px;font-size:24px;opacity:.4;animation:float 3s ease-in-out infinite .5s}
+    /* Spring/Summer Promo Banner - Big & Visible */
+    .easter-promo-banner{background:linear-gradient(135deg,#f0fdf4 0%,#dcfce7 50%,#f0fdf4 100%);border:3px solid #22c55e;border-radius:20px;padding:20px;margin-bottom:20px;text-align:center;box-shadow:0 8px 30px rgba(34,197,94,.25);position:relative;overflow:hidden}
+    .easter-promo-banner::before{content:'☀️';position:absolute;top:10px;left:15px;font-size:30px;opacity:.4;animation:float 3s ease-in-out infinite}
+    .easter-promo-banner::after{content:'🌿';position:absolute;top:15px;right:15px;font-size:24px;opacity:.4;animation:float 3s ease-in-out infinite .5s}
     @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-    .easter-promo-banner .easter-promo-title{font-size:22px;font-weight:800;color:#c44569;margin-bottom:8px}
+    .easter-promo-banner .easter-promo-title{font-size:22px;font-weight:800;color:#16a34a;margin-bottom:8px}
     .easter-promo-banner .easter-promo-text{font-size:14px;color:#666;margin-bottom:10px}
-    .easter-promo-banner .easter-promo-code{background:linear-gradient(135deg,#ff6b9d,#c44569);color:#fff;padding:12px 30px;border-radius:30px;font-weight:800;font-size:24px;display:inline-block;margin-bottom:8px;box-shadow:0 4px 15px rgba(255,107,157,.4);letter-spacing:2px}
+    .easter-promo-banner .easter-promo-code{background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;padding:12px 30px;border-radius:30px;font-weight:800;font-size:24px;display:inline-block;margin-bottom:8px;box-shadow:0 4px 15px rgba(34,197,94,.4);letter-spacing:2px}
     .easter-promo-banner .easter-promo-discount{font-size:14px;color:#333}
     .easter-promo-banner .easter-promo-discount span{color:#22c55e;font-weight:700;font-size:16px}
 
-    /* Easter Theme Colors */
-    :root{--easter-pink:#ff6b9d;--easter-purple:#c44569;--easter-yellow:#feca57;--easter-green:#a8e6cf;--easter-blue:#7fdbff}
+    /* Spring/Summer Theme Colors */
+    :root{--easter-pink:#22c55e;--easter-purple:#16a34a;--easter-yellow:#feca57;--easter-green:#a8e6cf;--easter-blue:#7fdbff}
 
     /* Price - Easter Theme */
     .price-box{background:linear-gradient(135deg,#fff,#fff5f7);border:2px solid #ffe4ec;border-radius:20px;padding:20px;margin-bottom:20px;box-shadow:0 4px 20px rgba(255,107,157,.1)}
@@ -444,18 +444,18 @@
     .price-save{padding:8px 16px;border-radius:var(--pill);background:linear-gradient(135deg,#ff6b9d,#c44569);color:#fff;font-weight:700;font-size:13px;box-shadow:0 4px 15px rgba(255,107,157,.3)}
     .price-dual{color:var(--muted);font-size:13px;display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;padding-top:12px;border-top:1px solid var(--line)}
 
-    /* Features - Easter Theme */
+    /* Features - Spring/Summer Theme */
     .features-list{display:grid;gap:10px;margin:20px 0}
-    .feature-item{display:flex;align-items:center;gap:14px;padding:16px;background:#fff;border:2px solid #ffe4ec;border-radius:18px;box-shadow:0 2px 12px rgba(255,107,157,.08);transition:all .2s}
-    .feature-item:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(255,107,157,.15);border-color:#ff6b9d}
-    .feature-icon{width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,#ffe4ec,#fff5f7);display:grid;place-items:center;font-size:24px;flex-shrink:0}
-    .feature-text b{display:block;font-size:14px;margin-bottom:2px;color:#c44569}
+    .feature-item{display:flex;align-items:center;gap:14px;padding:16px;background:#fff;border:2px solid #dcfce7;border-radius:18px;box-shadow:0 2px 12px rgba(34,197,94,.08);transition:all .2s}
+    .feature-item:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(34,197,94,.15);border-color:#22c55e}
+    .feature-icon{width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,#dcfce7,#f0fdf4);display:grid;place-items:center;font-size:24px;flex-shrink:0}
+    .feature-text b{display:block;font-size:14px;margin-bottom:2px;color:#16a34a}
     .feature-text small{color:var(--muted);font-size:12px}
 
-    /* Package - Easter Theme */
-    .package{background:linear-gradient(135deg,#fff,#fff5f7);border:2px solid #ffe4ec;border-radius:20px;padding:20px;margin-top:20px;box-shadow:0 4px 20px rgba(255,107,157,.1)}
-    .package-title{font-weight:800;font-size:16px;margin-bottom:14px;display:flex;justify-content:space-between;color:#c44569}
-    .package-title span:last-child{color:#ff6b9d;font-size:12px;font-weight:600}
+    /* Package - Spring/Summer Theme */
+    .package{background:linear-gradient(135deg,#fff,#f0fdf4);border:2px solid #dcfce7;border-radius:20px;padding:20px;margin-top:20px;box-shadow:0 4px 20px rgba(34,197,94,.1)}
+    .package-title{font-weight:800;font-size:16px;margin-bottom:14px;display:flex;justify-content:space-between;color:#16a34a}
+    .package-title span:last-child{color:#22c55e;font-size:12px;font-weight:600}
     .package-item{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid #ffe4ec}
     .package-item:last-child{border-bottom:none}
     .package-icon{font-size:24px}
@@ -479,21 +479,21 @@
     .comparison-label-theirs{right:12px;background:#555}
     .comparison-slider.dragging .comparison-handle{transform:translate(-50%,-50%) scale(1.1)}
 
-    /* Policy - Easter Theme */
+    /* Policy - Spring/Summer Theme */
     .section{margin-top:40px}
     .section-header{margin-bottom:16px}
-    .h2{margin:0;font-size:22px;font-weight:800;color:#c44569}
-    .section-meta{color:#ff6b9d;font-size:12px;margin-top:4px;font-weight:600}
+    .h2{margin:0;font-size:22px;font-weight:800;color:#16a34a}
+    .section-meta{color:#22c55e;font-size:12px;margin-top:4px;font-weight:600}
     .policy-grid{display:grid;gap:10px}
-    .policy-card{background:linear-gradient(135deg,#fff,#fff5f7);border:2px solid #ffe4ec;border-radius:var(--r);padding:14px;text-align:center;transition:all .2s}
-    .policy-card:hover{border-color:#ff6b9d;transform:translateY(-3px);box-shadow:0 8px 25px rgba(255,107,157,.15)}
+    .policy-card{background:linear-gradient(135deg,#fff,#f0fdf4);border:2px solid #dcfce7;border-radius:var(--r);padding:14px;text-align:center;transition:all .2s}
+    .policy-card:hover{border-color:#22c55e;transform:translateY(-3px);box-shadow:0 8px 25px rgba(34,197,94,.15)}
     .policy-icon{font-size:32px;margin-bottom:8px}
-    .policy-title{font-weight:700;font-size:14px;margin-bottom:4px;color:#c44569}
+    .policy-title{font-weight:700;font-size:14px;margin-bottom:4px;color:#16a34a}
     .policy-text{color:var(--muted);font-size:11px;line-height:1.5}
-    .policy-text b{color:#ff6b9d}
+    .policy-text b{color:#22c55e}
 
-    /* Reviews - Easter Theme */
-    .reviews-summary{background:linear-gradient(135deg,#ff6b9d,#c44569);color:#fff;border-radius:var(--r);padding:16px;margin-bottom:14px}
+    /* Reviews - Spring/Summer Theme */
+    .reviews-summary{background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;border-radius:var(--r);padding:16px;margin-bottom:14px}
     .reviews-grid{display:grid;gap:16px}
     .review-card{background:#fff;border:2px solid #ffe4ec;border-radius:var(--r);padding:14px}
     .review-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
@@ -529,15 +529,15 @@
     .show-all-btn{width:100%;padding:12px;background:linear-gradient(135deg,#fff,#fff5f7);border:2px solid #ff6b9d;border-radius:var(--pill);font-weight:600;font-size:13px;cursor:pointer;margin-top:14px;transition:all .2s;color:#c44569}
     .show-all-btn:hover{background:linear-gradient(135deg,#ff6b9d,#c44569);color:#fff;border-color:#c44569}
 
-    /* FAQ - Easter Theme */
+    /* FAQ - Spring/Summer Theme */
     .faq-grid{display:grid;gap:10px}
-    .faq-item{background:linear-gradient(135deg,#fff,#fff5f7);border:2px solid #ffe4ec;border-radius:14px;margin-bottom:8px;overflow:hidden;transition:all .2s}
-    .faq-item:hover{border-color:#ff6b9d}
-    summary{cursor:pointer;padding:14px;font-weight:600;font-size:13px;list-style:none;display:flex;justify-content:space-between;align-items:center;color:#c44569}
+    .faq-item{background:linear-gradient(135deg,#fff,#f0fdf4);border:2px solid #dcfce7;border-radius:14px;margin-bottom:8px;overflow:hidden;transition:all .2s}
+    .faq-item:hover{border-color:#22c55e}
+    summary{cursor:pointer;padding:14px;font-weight:600;font-size:13px;list-style:none;display:flex;justify-content:space-between;align-items:center;color:#16a34a}
     summary::-webkit-details-marker{display:none}
-    summary::after{content:"+";font-size:18px;color:#ff6b9d}
+    summary::after{content:"+";font-size:18px;color:#22c55e}
     .faq-item[open] summary::after{content:"−"}
-    .faq-item[open] summary{color:#ff6b9d}
+    .faq-item[open] summary{color:#22c55e}
     .faq-content{padding:0 14px 14px;color:#666;font-size:12px;line-height:1.6}
 
     /* Cart Drawer - Modern Design */
@@ -572,19 +572,19 @@
     .remove-btn{position:absolute;top:12px;right:12px;width:32px;height:32px;border:none;background:#fee2e2;color:var(--danger);border-radius:8px;cursor:pointer;display:grid;place-items:center;font-size:16px;transition:all .2s}
     .remove-btn:hover{background:var(--danger);color:#fff}
 
-    /* Promo - Easter Theme */
-    .promo-section{background:linear-gradient(135deg,#fff5f7,#ffe4ec);border:2px solid #ff6b9d;border-radius:12px;padding:12px;margin:14px 0}
+    /* Promo - Spring/Summer Theme */
+    .promo-section{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:2px solid #22c55e;border-radius:12px;padding:12px;margin:14px 0}
     .promo-input-group{display:flex;gap:6px}
-    .promo-input{flex:1;padding:10px 12px;border:2px solid #ffe4ec;border-radius:var(--pill);font-size:12px;outline:none}
-    .promo-input:focus{border-color:#ff6b9d}
-    .promo-btn{padding:10px 14px;background:linear-gradient(135deg,#ff6b9d,#c44569);color:#fff;border:none;border-radius:var(--pill);font-weight:600;font-size:12px;cursor:pointer}
-    .promo-btn:hover{background:linear-gradient(135deg,#c44569,#ff6b9d)}
+    .promo-input{flex:1;padding:10px 12px;border:2px solid #dcfce7;border-radius:var(--pill);font-size:12px;outline:none}
+    .promo-input:focus{border-color:#22c55e}
+    .promo-btn{padding:10px 14px;background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;border:none;border-radius:var(--pill);font-weight:600;font-size:12px;cursor:pointer}
+    .promo-btn:hover{background:linear-gradient(135deg,#16a34a,#22c55e)}
     .promo-message{font-size:11px;margin-top:6px}
     .promo-success{color:#22c55e;font-weight:700}
     .promo-error{color:var(--danger)}
-    .discount-row{display:flex;justify-content:space-between;color:#22c55e;font-size:12px;font-weight:700;margin-top:6px;padding-top:6px;border-top:1px dashed #ffe4ec}
+    .discount-row{display:flex;justify-content:space-between;color:#22c55e;font-size:12px;font-weight:700;margin-top:6px;padding-top:6px;border-top:1px dashed #dcfce7}
 
-    .drawer-footer{padding:20px;border-top:2px solid #ffe4ec;background:#fff}
+    .drawer-footer{padding:20px;border-top:2px solid #dcfce7;background:#fff}
     .cart-total{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;font-size:16px}
     .cart-total-price{font-weight:800;font-size:24px;background:linear-gradient(135deg,#22c55e,#16a34a);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
     .cart-total-original{text-decoration:line-through;color:#999;font-size:14px;margin-right:8px}
@@ -644,16 +644,16 @@
     .toast-success{background:var(--success)}
     .toast-error{background:var(--danger)}
 
-    /* FAB - Easter Theme */
+    /* FAB - Spring/Summer Theme */
     .fab{position:fixed;right:16px;bottom:16px;z-index:90;display:flex;flex-direction:column;gap:10px;align-items:flex-end}
-    .fab-btn{background:linear-gradient(135deg,#ff6b9d,#c44569);color:#fff;padding:12px 18px;border-radius:var(--pill);font-weight:600;font-size:13px;
-      box-shadow:0 4px 20px rgba(255,107,157,.4);display:flex;align-items:center;gap:8px;border:none;cursor:pointer}
-    .fab-btn:hover{background:linear-gradient(135deg,#c44569,#ff6b9d);transform:translateY(-2px);box-shadow:0 6px 25px rgba(255,107,157,.5)}
-    .fab-phone{background:#fff;color:#c44569;border:2px solid #ff6b9d}
-    .fab-phone:hover{background:#ffe4ec}
+    .fab-btn{background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;padding:12px 18px;border-radius:var(--pill);font-weight:600;font-size:13px;
+      box-shadow:0 4px 20px rgba(34,197,94,.4);display:flex;align-items:center;gap:8px;border:none;cursor:pointer}
+    .fab-btn:hover{background:linear-gradient(135deg,#16a34a,#22c55e);transform:translateY(-2px);box-shadow:0 6px 25px rgba(34,197,94,.5)}
+    .fab-phone{background:#fff;color:#16a34a;border:2px solid #22c55e}
+    .fab-phone:hover{background:#dcfce7}
 
-    /* Footer Styles - Easter Theme */
-    .footer{background:linear-gradient(135deg,#c44569,#ff6b9d);color:#fff;padding:40px 20px 30px;margin-top:40px;border-radius:24px 24px 0 0}
+    /* Footer Styles - Spring/Summer Theme */
+    .footer{background:linear-gradient(135deg,#16a34a,#22c55e);color:#fff;padding:40px 20px 30px;margin-top:40px;border-radius:24px 24px 0 0}
     .footer-content{max-width:1200px;margin:0 auto}
     .footer-grid{display:grid;gap:30px;margin-bottom:30px}
     .footer-section{text-align:center}
@@ -699,6 +699,56 @@
 
     img[loading="lazy"]{opacity:0;transition:opacity .3s}
     img[loading="lazy"].loaded{opacity:1}
+
+    /* ===== EASTER EGGS & WHEEL STYLES ===== */
+    
+    /* Hidden Admin Button */
+    .admin-trigger{position:fixed;bottom:5px;right:5px;width:20px;height:20px;opacity:0;cursor:default;z-index:9999}
+    
+    /* Easter Egg Modal */
+    .easter-modal{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(10px);z-index:3000;display:none;place-items:center;padding:20px}
+    .easter-modal.show{display:grid}
+    .easter-content{background:linear-gradient(135deg,#1a1a2e,#16213e);border-radius:30px;padding:40px;max-width:500px;width:100%;text-align:center;border:3px solid #ff6b9d;box-shadow:0 20px 60px rgba(255,107,157,.4);position:relative;overflow:hidden}
+    .easter-content::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:conic-gradient(from 0deg,transparent,#ff6b9d,transparent);animation:rotate 4s linear infinite;opacity:.1}
+    @keyframes rotate{to{transform:rotate(360deg)}}
+    .easter-inner{position:relative;z-index:1}
+    .easter-icon{font-size:80px;margin-bottom:20px;animation:bounce 1s infinite}
+    .easter-title{font-size:28px;font-weight:800;color:#fff;margin-bottom:10px;background:linear-gradient(90deg,#ff6b9d,#c44569);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .easter-text{color:#aaa;font-size:16px;margin-bottom:20px;line-height:1.6}
+    .easter-code{background:linear-gradient(135deg,#ff6b9d,#c44569);color:#fff;padding:15px 30px;border-radius:15px;font-size:24px;font-weight:800;letter-spacing:3px;display:inline-block;margin:10px 0;cursor:pointer;transition:all .3s}
+    .easter-code:hover{transform:scale(1.05);box-shadow:0 10px 30px rgba(255,107,157,.5)}
+    .easter-code.copied{background:#22c55e}
+    .easter-close{position:absolute;top:15px;right:15px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.1);border:none;color:#fff;font-size:20px;cursor:pointer;transition:all .3s}
+    .easter-close:hover{background:#ff6b9d}
+    
+    /* Admin Panel (Fake) */
+    .admin-modal .easter-content{background:linear-gradient(135deg,#0f0f23,#1a1a3e);border-color:#6366f1}
+    .admin-modal .easter-title{color:#6366f1;-webkit-text-fill-color:#6366f1}
+    .admin-icon{font-size:60px;margin-bottom:15px}
+    .admin-message{font-size:18px;color:#ef4444;font-weight:700;margin:15px 0;padding:15px;background:rgba(239,68,68,.1);border-radius:12px;border:2px dashed #ef4444}
+    .admin-hint{color:#888;font-size:14px;margin-top:15px}
+    
+    /* Spin Wheel */
+    .wheel-container{position:relative;width:320px;height:320px;margin:30px auto}
+    .wheel{position:relative;width:100%;height:100%;border-radius:50%;background:conic-gradient(from 0deg,#ff6b9d 0deg 90deg,#feca57 90deg 180deg,#a8e6cf 180deg 270deg,#7fdbff 270deg 360deg);box-shadow:0 20px 60px rgba(0,0,0,.5);transition:transform 4s cubic-bezier(.17,.67,.12,.99)}
+    .wheel-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;background:#fff;border-radius:50%;display:grid;place-items:center;font-size:24px;box-shadow:0 5px 20px rgba(0,0,0,.3);z-index:10}
+    .wheel-pointer{position:absolute;top:-20px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:20px solid transparent;border-right:20px solid transparent;border-top:30px solid #ff6b9d;z-index:20;filter:drop-shadow(0 5px 10px rgba(0,0,0,.3))}
+    .wheel-segment{position:absolute;top:50%;left:50%;transform-origin:0 0;font-weight:800;font-size:14px;color:#fff;text-shadow:0 2px 4px rgba(0,0,0,.5);white-space:nowrap}
+    .wheel-segment:nth-child(1){transform:rotate(45deg) translate(90px) rotate(-45deg)}
+    .wheel-segment:nth-child(2){transform:rotate(135deg) translate(90px) rotate(-135deg)}
+    .wheel-segment:nth-child(3){transform:rotate(225deg) translate(90px) rotate(-225deg)}
+    .wheel-segment:nth-child(4){transform:rotate(315deg) translate(90px) rotate(-315deg)}
+    .spin-btn{background:linear-gradient(135deg,#ff6b9d,#c44569);color:#fff;border:none;padding:18px 50px;border-radius:50px;font-size:20px;font-weight:800;cursor:pointer;margin-top:20px;transition:all .3s;box-shadow:0 10px 30px rgba(255,107,157,.4)}
+    .spin-btn:hover{transform:translateY(-3px);box-shadow:0 15px 40px rgba(255,107,157,.5)}
+    .spin-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+    .wheel-result{font-size:24px;font-weight:800;color:#fff;margin-top:20px;min-height:40px}
+    .wheel-result .prize-code{background:linear-gradient(135deg,#22c55e,#16a34a);padding:12px 25px;border-radius:12px;display:inline-block;cursor:pointer;transition:all .3s}
+    .wheel-result .prize-code:hover{transform:scale(1.05)}
+    .wheel-result .prize-code.copied{background:#6366f1}
+    
+    /* Confetti */
+    .confetti{position:fixed;width:10px;height:10px;position:absolute;animation:confetti-fall 3s ease-out forwards}
+    @keyframes confetti-fall{0%{transform:translateY(-100px) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
   </style>
 </head>
 <body>
@@ -724,9 +774,9 @@
   <div class="easter-header">
     <div class="easter-ticker-wrap">
       <div class="easter-ticker">
-        <span class="easter-ticker-item">🐰 Великденско намаление: промокод: <span class="easter-header-code">EASTER15</span> за 15% отстъпка! 🥚</span>
-        <span class="easter-ticker-item">🐰 Великденско намаление: промокод: <span class="easter-header-code">EASTER15</span> за 15% отстъпка! 🥚</span>
-        <span class="easter-ticker-item">🐰 Великденско намаление: промокод: <span class="easter-header-code">EASTER15</span> за 15% отстъпка! 🥚</span>
+        <span class="easter-ticker-item">☀️ Пролетно намаление: промокод: <span class="easter-header-code">SUMMER15</span> за 15% отстъпка! 🌿</span>
+        <span class="easter-ticker-item">☀️ Пролетно намаление: промокод: <span class="easter-header-code">SUMMER15</span> за 15% отстъпка! 🌿</span>
+        <span class="easter-ticker-item">☀️ Пролетно намаление: промокод: <span class="easter-header-code">SUMMER15</span> за 15% отстъпка! 🌿</span>
       </div>
     </div>
   </div>
@@ -736,7 +786,7 @@
     <div class="topin">
       <div class="logo">
         <span class="logo-text">
-          <span class="logo-air">Air</span><span class="logo-store" style="position:relative">Store<span style="position:relative;display:inline-block">B<span style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);font-size:18px;animation:bounceEgg 1.2s ease-in-out infinite;z-index:10">🐣</span></span>ulgaria</span>
+          <span class="logo-air">Air</span><span class="logo-store" style="position:relative">Store<span style="position:relative;display:inline-block">B<span style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);font-size:18px;animation:bounceEgg 1.2s ease-in-out infinite;z-index:10">☀️</span></span>ulgaria</span>
         </span>
       </div>
       <button class="icon-btn" onclick="openCart()">
@@ -784,9 +834,9 @@
 
         <!-- Easter Promo Banner -->
         <div class="easter-promo-banner">
-          <div class="easter-promo-title">🐰 Великденска промоция! 🥚</div>
+          <div class="easter-promo-title">☀️ Пролетно намаление! 🌿</div>
           <div class="easter-promo-text">Използвай промо кода</div>
-          <div class="easter-promo-code">EASTER15</div>
+          <div class="easter-promo-code">SUMMER15</div>
           <div class="easter-promo-discount">и получи <span>-15%</span> отстъпка!</div>
         </div>
 
@@ -1095,7 +1145,7 @@
         <div class="promo-section">
           <div style="font-weight:600;margin-bottom:8px;font-size:13px">🎁 Промо код?</div>
           <div class="promo-input-group">
-            <input type="text" class="promo-input" id="promoInput" placeholder="EASTER15" maxlength="10">
+            <input type="text" class="promo-input" id="promoInput" placeholder="SUMMER15" maxlength="10">
             <button class="promo-btn" id="promoBtn" onclick="applyPromo()">Приложи</button>
           </div>
           <div id="promoMessage"></div>
@@ -1283,7 +1333,7 @@
     const PRICE_EUR = 55;
     const PRICE_BGN = Math.round(PRICE_EUR * FX_BGN_PER_EUR);
     const OLD_EUR = 89;
-    const VALID_PROMO_CODES = ['XVZ10', 'X7Y8Z9', 'P5Q6R7', 'M3N4O5', 'D8E9F0', 'SAVE10', 'AIR10', 'PROMO1', 'EASTER15'];
+    const VALID_PROMO_CODES = ['XVZ10', 'X7Y8Z9', 'P5Q6R7', 'M3N4O5', 'D8E9F0', 'SAVE10', 'AIR10', 'PROMO1', 'SUMMER15'];
 
     // ===== STATE =====
     let qty = 1;
@@ -1491,8 +1541,8 @@
       if (VALID_PROMO_CODES.includes(code)) {
         discountApplied = true;
         currentPromoCode = code;
-        // EASTER15 gives 15% off, others give 10%
-        discountPercent = (code === 'EASTER15') ? 15 : 10;
+        // SUMMER15 gives 15% off, others give 10%
+        discountPercent = (code === 'SUMMER15') ? 15 : 10;
         updatePrices();
         showPromoMessage(`✓ ${discountPercent}% отстъпка приложена!`, 'success');
         input.disabled = true;
@@ -1570,22 +1620,47 @@
       };
       
       try {
-        // Save to GitHub repository
-        const ghResponse = await fetch('/.netlify/functions/save-order', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(orderData)
-        });
+        // Save order to localStorage (backup)
+        let orders = JSON.parse(localStorage.getItem('airstore_orders') || '[]');
+        orders.unshift({...orderData, id: Date.now(), date: new Date().toISOString()});
+        localStorage.setItem('airstore_orders', JSON.stringify(orders));
         
-        const ghResult = await ghResponse.json();
-        console.log('Order saved to GitHub:', ghResult);
+        // Try Netlify functions if available
+        try {
+          const ghResponse = await fetch('/.netlify/functions/save-order', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(orderData)
+          });
+          if (ghResponse.ok) {
+            const ghResult = await ghResponse.json();
+            console.log('Order saved to GitHub:', ghResult);
+          }
+        } catch (ghErr) {
+          console.log('GitHub save not available, order saved locally');
+        }
         
-        // Also submit to Netlify Forms
-        await fetch('/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: new URLSearchParams(formData).toString()
-        });
+        // Always submit to Netlify Forms (the main submission method)
+        const netlifyForm = document.querySelector('form[name="order"]');
+        if (netlifyForm) {
+          const hiddenFormData = new FormData(netlifyForm);
+          hiddenFormData.set('fullname', orderData.name);
+          hiddenFormData.set('phone', orderData.phone);
+          hiddenFormData.set('city', orderData.city);
+          hiddenFormData.set('delivery_type', orderData.deliveryType);
+          hiddenFormData.set('delivery_address', orderData.deliveryAddress);
+          hiddenFormData.set('qty', orderData.qty.toString());
+          hiddenFormData.set('total_eur', orderData.totalEur.toFixed(2));
+          hiddenFormData.set('total_bgn', orderData.totalBgn.toString());
+          hiddenFormData.set('promo_code', orderData.promoCode);
+          hiddenFormData.set('note', orderData.note);
+          
+          await fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(hiddenFormData).toString()
+          });
+        }
         
         btn.textContent = '✅ Изпрати поръчката';
         btn.disabled = false;
@@ -1668,23 +1743,37 @@
       e.preventDefault();
       
       const reviewData = {
+        id: Date.now(),
         name: document.getElementById('reviewName').value,
-        rating: parseInt(document.getElementById('reviewRating').value),
+        rating: parseInt(document.getElementById('reviewRating').value) || 5,
         text: document.getElementById('reviewText').value,
-        verified: false
+        verified: true,
+        date: new Date().toLocaleDateString('bg-BG'),
+        createdAt: new Date().toISOString()
       };
       
       try {
-        const response = await fetch('/.netlify/functions/save-review', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(reviewData)
-        });
+        // Save to localStorage first (always works)
+        let reviews = [];
+        const saved = localStorage.getItem('airstore_reviews');
+        if (saved) reviews = JSON.parse(saved);
+        reviews.unshift(reviewData);
+        localStorage.setItem('airstore_reviews', JSON.stringify(reviews));
         
-        const result = await response.json();
-        console.log('Review saved to GitHub:', result);
+        // Try Netlify function
+        try {
+          await fetch('/.netlify/functions/save-review', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(reviewData)
+          });
+        } catch (netlifyErr) {
+          console.log('Netlify function not available, saved locally');
+        }
         
-        loadReviews();
+        // Update display
+        displayReviews(reviews.slice(0, 3));
+        updateReviewStats(reviews);
         closeReviewModal();
         showToast('Благодарим за отзива!', 'success');
         
@@ -1696,30 +1785,51 @@
 
     async function loadReviews() {
       try {
-        const response = await fetch('/.netlify/functions/get-reviews?limit=3');
-        const result = await response.json();
+        // Try to load from localStorage first
+        const savedReviews = localStorage.getItem('airstore_reviews');
+        if (savedReviews) {
+          const reviews = JSON.parse(savedReviews);
+          displayReviews(reviews.slice(0, 3));
+          updateReviewStats(reviews);
+          return;
+        }
         
-        if (result.success && result.reviews) {
-          const list = document.getElementById('reviewsList');
-          list.innerHTML = result.reviews.map(r => createReviewHTML({
-            id: r.id,
-            name: r.name,
-            rating: r.rating,
-            text: r.text,
-            date: new Date(r.createdAt).toLocaleDateString('bg-BG'),
-            verified: r.verified
-          })).join('');
-          
-          document.getElementById('totalReviews').textContent = result.count || result.reviews.length;
-          
-          if (result.averageRating) {
-            document.getElementById('avgRating').textContent = result.averageRating;
+        // Try Netlify function if available
+        const response = await fetch('/.netlify/functions/get-reviews?limit=3');
+        if (response.ok) {
+          const result = await response.json();
+          if (result.success && result.reviews && result.reviews.length > 0) {
+            // Save to localStorage for offline access
+            localStorage.setItem('airstore_reviews', JSON.stringify(result.reviews));
+            displayReviews(result.reviews.slice(0, 3));
+            updateReviewStats(result.reviews);
+            return;
           }
         }
+        throw new Error('No reviews from API');
       } catch (error) {
-        console.error('Error loading reviews:', error);
+        console.log('Loading fallback reviews:', error);
         showFallbackReviews();
       }
+    }
+    
+    function displayReviews(reviews) {
+      const list = document.getElementById('reviewsList');
+      list.innerHTML = reviews.map(r => createReviewHTML({
+        id: r.id,
+        name: r.name,
+        rating: r.rating,
+        text: r.text,
+        date: r.date || new Date(r.createdAt).toLocaleDateString('bg-BG'),
+        verified: r.verified !== false
+      })).join('');
+    }
+    
+    function updateReviewStats(reviews) {
+      const total = reviews.length;
+      const avg = (reviews.reduce((sum, r) => sum + (parseInt(r.rating) || 5), 0) / total).toFixed(1);
+      document.getElementById('totalReviews').textContent = total;
+      document.getElementById('avgRating').textContent = avg;
     }
     
     function showFallbackReviews() {
@@ -1758,10 +1868,30 @@
 
     async function openAllReviews() {
       try {
+        // Try localStorage first
+        const savedReviews = localStorage.getItem('airstore_reviews');
+        if (savedReviews) {
+          const reviews = JSON.parse(savedReviews);
+          if (reviews.length > 0) {
+            document.getElementById('allReviewsList').innerHTML = reviews.map(r => createReviewHTML({
+              id: r.id,
+              name: r.name,
+              rating: r.rating,
+              text: r.text,
+              date: r.date || new Date(r.createdAt).toLocaleDateString('bg-BG'),
+              verified: r.verified !== false
+            })).join('');
+            document.getElementById('allReviewsModal').classList.add('show');
+            return;
+          }
+        }
+        
+        // Try Netlify function
         const response = await fetch('/.netlify/functions/get-reviews?limit=100');
         const result = await response.json();
         
-        if (result.success && result.reviews) {
+        if (result.success && result.reviews && result.reviews.length > 0) {
+          localStorage.setItem('airstore_reviews', JSON.stringify(result.reviews));
           document.getElementById('allReviewsList').innerHTML = result.reviews.map(r => createReviewHTML({
             id: r.id,
             name: r.name,
@@ -1774,7 +1904,7 @@
           showFallbackAllReviews();
         }
       } catch (error) {
-        console.error('Error loading all reviews:', error);
+        console.log('Loading fallback reviews:', error);
         showFallbackAllReviews();
       }
       document.getElementById('allReviewsModal').classList.add('show');
@@ -1896,6 +2026,196 @@
 
     // ===== INIT =====
     document.addEventListener('DOMContentLoaded', init);
+    
+    // ===== EASTER EGGS =====
+    let wheelSpun = false;
+    
+    // Check for secret promo codes
+    const originalApplyPromo = applyPromo;
+    applyPromo = function() {
+      const input = document.getElementById('promoInput');
+      const code = input.value.toUpperCase().trim();
+      
+      // Easter Egg 1: h1den - shows secret Easter Egg modal
+      if (code === 'H1DEN') {
+        showEasterEgg();
+        input.value = '';
+        return;
+      }
+      
+      // Easter Egg 2: admin - shows fake admin panel
+      if (code === 'ADMIN') {
+        showAdminPanel();
+        input.value = '';
+        return;
+      }
+      
+      // Easter Egg 3: spin - shows wheel
+      if (code === 'SPIN') {
+        showWheel();
+        input.value = '';
+        return;
+      }
+      
+      // Normal promo codes
+      originalApplyPromo();
+    };
+    
+    // Show Easter Egg Modal
+    function showEasterEgg() {
+      const modal = document.createElement('div');
+      modal.className = 'easter-modal show';
+      modal.id = 'easterModal';
+      modal.innerHTML = `
+        <div class="easter-content">
+          <button class="easter-close" onclick="closeEaster()">✕</button>
+          <div class="easter-inner">
+            <div class="easter-icon">🎉</div>
+            <div class="easter-title">Ти намери Easter Egg!</div>
+            <div class="easter-text">Поздравления! Откри тайния промо код.<br>Вземи допълнителна отстъпка:</div>
+            <div class="easter-code" onclick="copyEasterCode(this, 'SECRET20')">SECRET20</div>
+            <div style="color:#888;font-size:13px;margin-top:10px">Натисни, за да копираш</div>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+      createConfetti();
+    }
+    
+    // Show Fake Admin Panel
+    function showAdminPanel() {
+      const modal = document.createElement('div');
+      modal.className = 'easter-modal admin-modal show';
+      modal.id = 'adminModal';
+      modal.innerHTML = `
+        <div class="easter-content">
+          <button class="easter-close" onclick="closeEaster()">✕</button>
+          <div class="easter-inner">
+            <div class="admin-icon">👨‍💻</div>
+            <div class="easter-title">Admin Panel</div>
+            <div class="admin-message">🚫 ТИ НЕ СИ ADMIN, БРАТКО! 😂</div>
+            <div class="easter-text">Опита се да хакнеш системата, а?<br>Хубав опит, но няма да стане толкова лесно!</div>
+            <div class="admin-hint">💡 Подсказка: Опитай с друг промо код...</div>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+    }
+    
+    // Show Spin Wheel
+    function showWheel() {
+      const modal = document.createElement('div');
+      modal.className = 'easter-modal show';
+      modal.id = 'wheelModal';
+      modal.innerHTML = `
+        <div class="easter-content" style="max-width:450px">
+          <button class="easter-close" onclick="closeEaster()">✕</button>
+          <div class="easter-inner">
+            <div class="easter-icon">🎰</div>
+            <div class="easter-title">Колело на Наградите</div>
+            <div class="easter-text">Завърти и спечели отстъпка!</div>
+            <div class="wheel-container">
+              <div class="wheel-pointer"></div>
+              <div class="wheel" id="spinWheel">
+                <div class="wheel-segment">15%</div>
+                <div class="wheel-segment">10%</div>
+                <div class="wheel-segment">5%</div>
+                <div class="wheel-segment">🎧</div>
+              </div>
+              <div class="wheel-center">🎯</div>
+            </div>
+            <button class="spin-btn" id="spinBtn" onclick="spinWheel()">🎲 ЗАВЪРТИ</button>
+            <div class="wheel-result" id="wheelResult"></div>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+    }
+    
+    // Spin the wheel
+    function spinWheel() {
+      if (wheelSpun) return;
+      wheelSpun = true;
+      
+      const btn = document.getElementById('spinBtn');
+      const wheel = document.getElementById('spinWheel');
+      const result = document.getElementById('wheelResult');
+      
+      btn.disabled = true;
+      btn.textContent = 'Завърта се...';
+      
+      // Random rotation (multiple spins + random segment)
+      // Segments: 15% (0-90°), 10% (90-180°), 5% (180-270°), headphones (270-360°)
+      // We want to NEVER land on headphones (segment 4), so we exclude 270-360°
+      const prizes = [
+        { name: '15%', code: 'WHEEL15', angle: 45 },
+        { name: '10%', code: 'WHEEL10', angle: 135 },
+        { name: '5%', code: 'WHEEL5', angle: 225 }
+      ];
+      
+      const randomPrize = prizes[Math.floor(Math.random() * prizes.length)];
+      const spins = 5 + Math.floor(Math.random() * 3); // 5-7 full spins
+      const finalRotation = spins * 360 + (360 - randomPrize.angle);
+      
+      wheel.style.transform = `rotate(${finalRotation}deg)`;
+      
+      setTimeout(() => {
+        createConfetti();
+        result.innerHTML = `
+          <div style="margin-bottom:10px">🎉 Спечели <b>${randomPrize.name} отстъпка!</b></div>
+          <div class="prize-code" onclick="copyEasterCode(this, '${randomPrize.code}')">${randomPrize.code}</div>
+          <div style="color:#888;font-size:12px;margin-top:8px">Натисни кода, за да го копираш</div>
+        `;
+        btn.textContent = '✅ Завъртяно!';
+      }, 4000);
+    }
+    
+    // Close Easter modals
+    function closeEaster() {
+      const modals = document.querySelectorAll('.easter-modal');
+      modals.forEach(m => m.remove());
+      wheelSpun = false;
+    }
+    
+    // Copy code to clipboard
+    function copyEasterCode(el, code) {
+      navigator.clipboard.writeText(code).then(() => {
+        el.classList.add('copied');
+        el.textContent = '✅ Копирано!';
+        showToast(`Промо код ${code} копиран!`, 'success');
+        setTimeout(() => {
+          el.classList.remove('copied');
+          el.textContent = code;
+        }, 2000);
+      });
+    }
+    
+    // Create confetti effect
+    function createConfetti() {
+      const colors = ['#ff6b9d', '#c44569', '#feca57', '#a8e6cf', '#7fdbff', '#fff'];
+      for (let i = 0; i < 50; i++) {
+        setTimeout(() => {
+          const confetti = document.createElement('div');
+          confetti.className = 'confetti';
+          confetti.style.left = Math.random() * 100 + 'vw';
+          confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+          confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+          confetti.style.animationDuration = (2 + Math.random() * 2) + 's';
+          document.body.appendChild(confetti);
+          setTimeout(() => confetti.remove(), 4000);
+        }, i * 30);
+      }
+    }
+    
+    // Hidden admin trigger (invisible button in corner)
+    const adminTrigger = document.createElement('div');
+    adminTrigger.className = 'admin-trigger';
+    adminTrigger.onclick = showAdminPanel;
+    document.body.appendChild(adminTrigger);
   </script>
+  
+  <!-- Easter Egg Modals Container -->
+  <div id="easterContainer"></div>
 </body>
 </html>
+>

@@ -490,6 +490,9 @@
 
     .reviews-list{display:grid;gap:10px}
     .review-card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:14px}
+    .review-image{margin-top:10px;border-radius:12px;overflow:hidden;background:#f8f9fb}
+    .review-image img{width:100%;max-height:200px;object-fit:cover;cursor:zoom-in;transition:transform .2s}
+    .review-image img:hover{transform:scale(1.02)}
     .review-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
     .reviewer{display:flex;align-items:center;gap:8px}
     .reviewer-avatar{width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-weight:700;font-size:12px}
@@ -723,16 +726,15 @@
     .confetti{position:fixed;width:10px;height:10px;position:absolute;animation:confetti-fall 3s ease-out forwards}
     @keyframes confetti-fall{0%{transform:translateY(-100px) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
       /* Sticky Mobile CTA */
-    .sticky-cta{position:fixed;bottom:0;left:0;right:0;z-index:99;background:linear-gradient(180deg,#1f2937,#111827);border-top:2px solid #22c55e;padding:14px 16px 18px;display:none;flex-direction:column;gap:8px;box-shadow:0 -8px 30px rgba(0,0,0,.4)}
+    .sticky-cta{position:fixed;bottom:0;left:0;right:0;z-index:99;background:#0f172a;border-top:2px solid #22c55e;padding:12px 16px 16px;display:none;flex-direction:column;gap:6px;box-shadow:0 -8px 30px rgba(0,0,0,.5)}
     .sticky-cta.show{display:flex}
-    .sticky-cta-urgency{color:#fbbf24;font-weight:800;font-size:13px;display:flex;align-items:center;gap:6px;letter-spacing:.3px}
+    .sticky-cta-urgency{color:#fbbf24;font-weight:700;font-size:12px;display:flex;align-items:center;gap:6px}
     .sticky-cta-urgency .fire{animation:pulse 1.5s infinite}
     .sticky-cta-row{display:flex;align-items:center;gap:12px}
-    .sticky-cta-price{flex:1;display:flex;align-items:baseline;gap:10px}
-    .sticky-cta-price .current{font-weight:900;font-size:26px;color:#fff;letter-spacing:-1px}
-    .sticky-cta-price .old{color:#9ca3af;text-decoration:line-through;font-size:15px}
-    .sticky-cta-price .save{color:#22c55e;font-weight:700;font-size:12px;background:rgba(34,197,94,.15);padding:3px 8px;border-radius:8px}
-    .sticky-cta-btn{background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;border:none;padding:14px 22px;border-radius:var(--pill);font-weight:800;font-size:15px;cursor:pointer;box-shadow:0 6px 20px rgba(34,197,94,.5);white-space:nowrap;animation:pulse 2s infinite}
+    .sticky-cta-price{flex:1;display:flex;align-items:center;gap:8px}
+    .sticky-cta-price .current{font-weight:900;font-size:24px;color:#fff}
+    .sticky-cta-price .old{color:#64748b;text-decoration:line-through;font-size:14px}
+    .sticky-cta-btn{background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;border:none;padding:12px 20px;border-radius:var(--pill);font-weight:800;font-size:14px;cursor:pointer;box-shadow:0 4px 15px rgba(34,197,94,.4);white-space:nowrap}
     .sticky-cta-btn:active{transform:scale(.96)}
     @media(min-width:768px){.sticky-cta{display:none!important}}
 
@@ -1384,6 +1386,15 @@
           <div class="form-group">
             <label class="form-label">Отзив</label>
             <textarea class="form-input" id="reviewText" rows="4" placeholder="Сподели мнение..." required style="resize:vertical;min-height:80px"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">📷 Снимка (по желание)</label>
+            <input type="file" class="form-input" id="reviewImage" accept="image/*" style="padding:10px;font-size:13px" onchange="previewReviewImage(this)" />
+            <div id="reviewImagePreview" style="margin-top:10px;display:none">
+              <img id="reviewPreviewImg" src="" style="max-width:100%;max-height:150px;border-radius:12px;object-fit:cover" />
+              <button type="button" onclick="removeReviewImage()" style="margin-top:6px;padding:6px 12px;background:#fee2e2;color:#ef4444;border:none;border-radius:8px;font-size:12px;cursor:pointer">🗑️ Премахни снимката</button>
+            </div>
+            <small style="color:var(--muted);font-size:11px">Макс. размер: 2MB. Снимката ще се вижда от всички клиенти.</small>
           </div>
           <button type="submit" class="btn btn-accent">⭐ Изпрати отзив</button>
         </form>
@@ -2264,6 +2275,7 @@
     }
     function createReviewHTML(r) {
       const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
+      const imageHtml = r.image ? `<div class="review-image"><img src="${r.image}" alt="Снимка от ${r.name}" loading="lazy" onclick="openLightboxUrl('${r.image}')" /></div>` : '';
       return `
         <div class="review-card">
           <div class="review-header">
@@ -2277,6 +2289,7 @@
           </div>
           <div class="review-stars">${stars}</div>
           <div class="review-text">${r.text}</div>
+          ${imageHtml}
         </div>
       `;
     }
@@ -2377,6 +2390,10 @@
     // ===== LIGHTBOX =====
     function openLightbox() {
       document.getElementById('lightboxImage').src = currentImage;
+      document.getElementById('lightboxModal').classList.add('show');
+    }
+    function openLightboxUrl(url) {
+      document.getElementById('lightboxImage').src = url;
       document.getElementById('lightboxModal').classList.add('show');
     }
     function closeLightbox() {
@@ -2705,7 +2722,6 @@
       <div class="sticky-cta-price">
         <span class="current">€68</span>
         <span class="old">€109</span>
-        <span class="save">Спести €41</span>
       </div>
       <button class="sticky-cta-btn" onclick="addToCart();window.scrollTo({top:0,behavior:'smooth'});">🛒 Добави в количката</button>
     </div>

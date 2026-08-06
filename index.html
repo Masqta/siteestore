@@ -1672,6 +1672,78 @@
       ]);
     }
 
+    // Helper: retry fetch with exponential backoff
+    async function fetchWithRetry(url, options, maxRetries = 2) {
+      for (let i = 0; i <= maxRetries; i++) {
+        try {
+          const response = await fetchWithTimeout(url, options, 4000);
+          if (response.ok) return response;
+          // If server returns 500, retry
+          if (response.status >= 500 && i < maxRetries) {
+            await new Promise(r => setTimeout(r, 1000 * (i + 1)));
+            continue;
+          }
+          return response;
+        } catch (err) {
+          if (i < maxRetries) {
+            await new Promise(r => setTimeout(r, 1000 * (i + 1)));
+          } else {
+            throw err;
+          }
+        }
+      }
+    }
+
+    // Background sync: try to send unsynced local reviews to API
+    async function syncLocalReviews() {
+      const localRaw = localStorage.getItem('airstore_reviews_local');
+      if (!localRaw) return;
+
+      let localReviews = [];
+      try { localReviews = JSON.parse(localRaw); } catch(e) { return; }
+      if (localReviews.length === 0) return;
+
+      // Try to sync each review
+      const synced = [];
+      const failed = [];
+
+      for (const review of localReviews) {
+        try {
+          const response = await fetchWithRetry('/.netlify/functions/save-review', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(review)
+          }, 2);
+          if (response.ok) {
+            synced.push(review);
+          } else {
+            failed.push(review);
+          }
+        } catch (e) {
+          failed.push(review);
+        }
+      }
+
+      // Keep only failed ones for next sync attempt
+      if (failed.length === 0) {
+        localStorage.removeItem('airstore_reviews_local');
+        console.log('All local reviews synced to API');
+      } else {
+        localStorage.setItem('airstore_reviews_local', JSON.stringify(failed));
+        console.log(`Synced ${synced.length} reviews, ${failed.length} still pending`);
+      }
+
+      // Refresh display if we synced anything
+      if (synced.length > 0) {
+        await loadReviews();
+      }
+    }
+
+    // Try to sync on page load (after 5 seconds, silently)
+    setTimeout(() => {
+      syncLocalReviews().catch(() => {});
+    }, 5000);
+
     async function submitOrder(e) {
       e.preventDefault();
       
@@ -1890,12 +1962,18 @@
         closeReviewModal();
         showToast('⭐ Благодарим за отзива! Ще се покаже скоро.', 'success');
 
-        // 3. Try API in background (fire-and-forget, 3 sec timeout)
-        fetch('/.netlify/functions/save-review', {
+        // 3. Try API with retry (2 attempts)
+        fetchWithRetry('/.netlify/functions/save-review', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(reviewData)
-        }).catch(() => {});
+        }, 2).then(() => {
+          console.log('Review synced to API');
+          // Remove from local pending if it was there
+          syncLocalReviews().catch(() => {});
+        }).catch(() => {
+          console.log('Review saved locally, will retry later');
+        });
 
         // 4. Refresh display with local data immediately
         await loadReviews();
@@ -2008,16 +2086,28 @@
       } catch (error) {
         console.log('API failed, falling back:', error.message || error);
 
+        // Try cached API reviews
+        let allReviews = [];
         const savedReviews = localStorage.getItem('airstore_reviews');
         if (savedReviews) {
+          try { allReviews = JSON.parse(savedReviews); } catch(e) {}
+        }
+
+        // ALWAYS merge with local reviews from THIS device
+        const localRaw = localStorage.getItem('airstore_reviews_local');
+        if (localRaw) {
           try {
-            const reviews = JSON.parse(savedReviews);
-            if (reviews.length > 0) {
-              displayReviews(reviews.slice(0, 3));
-              updateReviewStats(reviews);
-              return;
-            }
+            const localReviews = JSON.parse(localRaw);
+            const existingIds = new Set(allReviews.map(r => r.id));
+            allReviews = [...allReviews, ...localReviews.filter(r => !existingIds.has(r.id))];
+            allReviews.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
           } catch(e) {}
+        }
+
+        if (allReviews.length > 0) {
+          displayReviews(allReviews.slice(0, 3));
+          updateReviewStats(allReviews);
+          return;
         }
 
         showFallbackReviews();
@@ -2111,23 +2201,35 @@
       } catch (error) {
         console.log('API failed, falling back:', error.message || error);
 
+        // Try cached API reviews
+        let allReviews = [];
         const savedReviews = localStorage.getItem('airstore_reviews');
         if (savedReviews) {
+          try { allReviews = JSON.parse(savedReviews); } catch(e) {}
+        }
+
+        // ALWAYS merge with local reviews from THIS device
+        const localRaw = localStorage.getItem('airstore_reviews_local');
+        if (localRaw) {
           try {
-            const reviews = JSON.parse(savedReviews);
-            if (reviews.length > 0) {
-              document.getElementById('allReviewsList').innerHTML = reviews.map(r => createReviewHTML({
-                id: r.id,
-                name: r.name,
-                rating: r.rating,
-                text: r.text,
-                date: r.date || (r.createdAt ? new Date(r.createdAt).toLocaleDateString('bg-BG') : 'наскоро'),
-                verified: r.verified !== false
-              })).join('');
-              document.getElementById('allReviewsModal').classList.add('show');
-              return;
-            }
+            const localReviews = JSON.parse(localRaw);
+            const existingIds = new Set(allReviews.map(r => r.id));
+            allReviews = [...allReviews, ...localReviews.filter(r => !existingIds.has(r.id))];
+            allReviews.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
           } catch(e) {}
+        }
+
+        if (allReviews.length > 0) {
+          document.getElementById('allReviewsList').innerHTML = allReviews.map(r => createReviewHTML({
+            id: r.id,
+            name: r.name,
+            rating: r.rating,
+            text: r.text,
+            date: r.date || (r.createdAt ? new Date(r.createdAt).toLocaleDateString('bg-BG') : 'наскоро'),
+            verified: r.verified !== false
+          })).join('');
+          document.getElementById('allReviewsModal').classList.add('show');
+          return;
         }
 
         showFallbackAllReviews();

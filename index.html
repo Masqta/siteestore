@@ -111,39 +111,12 @@
     },
     "aggregateRating": {
       "@type": "AggregateRating",
-      "ratingValue": "4.9",
-      "reviewCount": "312",
+      "ratingValue": "0",
+      "reviewCount": "0",
       "bestRating": "5",
       "worstRating": "1"
     },
-    "review": [
-      {
-        "@type": "Review",
-        "author": {
-          "@type": "Person",
-          "name": "Иван П."
-        },
-        "datePublished": "2025-01-15",
-        "reviewRating": {
-          "@type": "Rating",
-          "ratingValue": "5"
-        },
-        "reviewBody": "Много чист звук и шумопотискането е топ. Дойдоха бързо!"
-      },
-      {
-        "@type": "Review",
-        "author": {
-          "@type": "Person",
-          "name": "Мария К."
-        },
-        "datePublished": "2025-01-12",
-        "reviewRating": {
-          "@type": "Rating",
-          "ratingValue": "5"
-        },
-        "reviewBody": "Удобни за носене и батерията държи много. Препоръчвам!"
-      }
-    ],
+    "review": [],
     "additionalProperty": [
       {
         "@type": "PropertyValue",
@@ -750,14 +723,39 @@
     .confetti{position:fixed;width:10px;height:10px;position:absolute;animation:confetti-fall 3s ease-out forwards}
     @keyframes confetti-fall{0%{transform:translateY(-100px) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
       /* Sticky Mobile CTA */
-    .sticky-cta{position:fixed;bottom:0;left:0;right:0;z-index:99;background:#fff;border-top:1px solid var(--line);padding:10px 16px;display:none;align-items:center;gap:12px;box-shadow:0 -4px 20px rgba(0,0,0,.1)}
+    .sticky-cta{position:fixed;bottom:0;left:0;right:0;z-index:99;background:linear-gradient(180deg,#1f2937,#111827);border-top:2px solid #22c55e;padding:14px 16px 18px;display:none;flex-direction:column;gap:8px;box-shadow:0 -8px 30px rgba(0,0,0,.4)}
     .sticky-cta.show{display:flex}
-    .sticky-cta-price{flex:1}
-    .sticky-cta-price .current{font-weight:800;font-size:20px;background:linear-gradient(135deg,#22c55e,#16a34a);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-    .sticky-cta-price .old{color:#9ca3af;text-decoration:line-through;font-size:13px;margin-left:6px}
-    .sticky-cta-btn{background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;border:none;padding:12px 20px;border-radius:var(--pill);font-weight:700;font-size:14px;cursor:pointer;box-shadow:0 4px 15px rgba(34,197,94,.4);white-space:nowrap}
-    .sticky-cta-btn:active{transform:scale(.97)}
+    .sticky-cta-urgency{color:#fbbf24;font-weight:800;font-size:13px;display:flex;align-items:center;gap:6px;letter-spacing:.3px}
+    .sticky-cta-urgency .fire{animation:pulse 1.5s infinite}
+    .sticky-cta-row{display:flex;align-items:center;gap:12px}
+    .sticky-cta-price{flex:1;display:flex;align-items:baseline;gap:10px}
+    .sticky-cta-price .current{font-weight:900;font-size:26px;color:#fff;letter-spacing:-1px}
+    .sticky-cta-price .old{color:#9ca3af;text-decoration:line-through;font-size:15px}
+    .sticky-cta-price .save{color:#22c55e;font-weight:700;font-size:12px;background:rgba(34,197,94,.15);padding:3px 8px;border-radius:8px}
+    .sticky-cta-btn{background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;border:none;padding:14px 22px;border-radius:var(--pill);font-weight:800;font-size:15px;cursor:pointer;box-shadow:0 6px 20px rgba(34,197,94,.5);white-space:nowrap;animation:pulse 2s infinite}
+    .sticky-cta-btn:active{transform:scale(.96)}
     @media(min-width:768px){.sticky-cta{display:none!important}}
+
+    /* GDPR Cookie Banner */
+    .gdpr-banner{position:fixed;bottom:0;left:0;right:0;z-index:300;background:#1f2937;color:#fff;padding:16px 20px;font-size:13px;display:none;align-items:center;gap:16px;box-shadow:0 -4px 20px rgba(0,0,0,.3)}
+    .gdpr-banner.show{display:flex}
+    .gdpr-text{flex:1;line-height:1.5}
+    .gdpr-text a{color:#22c55e;text-decoration:underline}
+    .gdpr-btn{padding:10px 20px;border-radius:var(--pill);border:none;font-weight:700;cursor:pointer;font-size:13px;white-space:nowrap}
+    .gdpr-accept{background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff}
+    .gdpr-decline{background:transparent;border:2px solid #6b7280;color:#d1d5db}
+    @media(max-width:640px){.gdpr-banner{flex-direction:column;text-align:center}.gdpr-btn{width:100%}}
+
+    /* Privacy Modal */
+    .privacy-modal .modal-content{max-width:700px;max-height:85vh;overflow-y:auto}
+    .privacy-content{padding:0 20px 20px;color:#374151;font-size:13px;line-height:1.7}
+    .privacy-content h3{color:#111827;font-size:16px;margin:20px 0 8px}
+    .privacy-content p{margin-bottom:12px}
+    .privacy-content ul{padding-left:20px;margin-bottom:12px}
+    .privacy-content li{margin-bottom:4px}
+
+    /* Apple Disclaimer */
+    .apple-disclaimer{background:#fef3c7;border:1px solid #f59e0b;border-radius:12px;padding:12px 16px;margin:16px 0;font-size:12px;color:#92400e;text-align:center;line-height:1.5}
 
 </style>
   <!-- Google tag (gtag.js) -->
@@ -1024,20 +1022,20 @@
         <div class="reviews-summary">
           <div class="reviews-summary-top">
             <div>
-              <div class="review-big-rating" id="avgRating">4.9</div>
-              <div class="review-big-stars">★★★★★</div>
+              <div class="review-big-rating" id="avgRating">—</div>
+              <div class="review-big-stars" id="avgStars">★★★★★</div>
             </div>
             <div>
-              <div class="review-count"><span id="totalReviews">312</span> отзива</div>
-              <div class="review-count"><span id="recommendPercent">96%</span> препоръчват</div>
+              <div class="review-count"><span id="totalReviews">0</span> отзива</div>
+              <div class="review-count" id="recommendRow"><span id="recommendPercent">—%</span> препоръчват</div>
             </div>
           </div>
-          <div class="rating-bars">
-            <div class="rating-bar"><span>5★</span><div class="bar"><div class="bar-fill" style="width:92%"></div></div><span>287</span></div>
-            <div class="rating-bar"><span>4★</span><div class="bar"><div class="bar-fill" style="width:6%"></div></div><span>19</span></div>
-            <div class="rating-bar"><span>3★</span><div class="bar"><div class="bar-fill" style="width:1%"></div></div><span>4</span></div>
-            <div class="rating-bar"><span>2★</span><div class="bar"><div class="bar-fill" style="width:0%"></div></div><span>1</span></div>
-            <div class="rating-bar"><span>1★</span><div class="bar"><div class="bar-fill" style="width:0%"></div></div><span>1</span></div>
+          <div class="rating-bars" id="ratingBars">
+            <div class="rating-bar"><span>5★</span><div class="bar"><div class="bar-fill" id="bar5" style="width:0%"></div></div><span id="count5">0</span></div>
+            <div class="rating-bar"><span>4★</span><div class="bar"><div class="bar-fill" id="bar4" style="width:0%"></div></div><span id="count4">0</span></div>
+            <div class="rating-bar"><span>3★</span><div class="bar"><div class="bar-fill" id="bar3" style="width:0%"></div></div><span id="count3">0</span></div>
+            <div class="rating-bar"><span>2★</span><div class="bar"><div class="bar-fill" id="bar2" style="width:0%"></div></div><span id="count2">0</span></div>
+            <div class="rating-bar"><span>1★</span><div class="bar"><div class="bar-fill" id="bar1" style="width:0%"></div></div><span id="count1">0</span></div>
           </div>
         </div>
 
@@ -1140,10 +1138,15 @@
         <div class="footer-terms">
           <strong>📋 Общи условия</strong>
           Всички поръчки се обработват в рамките на 1-2 работни дни. 
-          Доставката се извършва с куриерска фирма Еконт. При поръчка над 100 лв. доставката е безплатна. 
+          Доставката се извършва с куриерска фирма Еконт. 
           Предоставяте правото на връщане в срок от 14 дни според ЗЗП. 
-          Продуктите се предлагат с 6 месеца гаранция.
-          <a href="terms.html">📖 Виж пълните условия</a>
+          Продуктите се предлагат с 6 месеца гаранция.<br><br>
+          <b>Продавач:</b> AirStore Bulgaria — физическо лице<br>
+          <b>Адрес:</b> гр. София, България | <b>Тел:</b> 0878 460 279 | <b>Имейл:</b> info@airstore.bg<br><br>
+          <a href="#" onclick="openPrivacy();return false;">📖 Общи условия и Политика за поверителност (GDPR)</a>
+        </div>
+        <div style="background:rgba(255,255,255,.15);padding:12px;border-radius:12px;margin:12px 0;font-size:11px;color:rgba(255,255,255,.8);text-align:center">
+          ⚠️ Apple® и AirPods® са регистрирани търговски марки на Apple Inc. Този продукт е реплика и не е произведен от Apple Inc. Ние не сме свързани с Apple Inc.
         </div>
         <div class="footer-copyright">
           © 2025 AirStore Bulgaria. Всички права запазени.
@@ -2190,9 +2193,59 @@
 
     function updateReviewStats(reviews) {
       const total = reviews.length;
-      const avg = total > 0 ? (reviews.reduce((sum, r) => sum + (parseInt(r.rating) || 5), 0) / total).toFixed(1) : '4.9';
+      if (total === 0) {
+        document.getElementById('totalReviews').textContent = '0';
+        document.getElementById('avgRating').textContent = '—';
+        document.getElementById('avgStars').textContent = '☆☆☆☆☆';
+        document.getElementById('recommendPercent').textContent = '—%';
+        for (let i = 1; i <= 5; i++) {
+          document.getElementById('bar' + i).style.width = '0%';
+          document.getElementById('count' + i).textContent = '0';
+        }
+        return;
+      }
+
+      const avg = (reviews.reduce((sum, r) => sum + (parseInt(r.rating) || 5), 0) / total).toFixed(1);
+      const counts = {1:0, 2:0, 3:0, 4:0, 5:0};
+      reviews.forEach(r => { counts[r.rating] = (counts[r.rating] || 0) + 1; });
+
+      // Update big rating and stars
       document.getElementById('totalReviews').textContent = total;
       document.getElementById('avgRating').textContent = avg;
+      const stars = Math.round(avg);
+      document.getElementById('avgStars').textContent = '★'.repeat(stars) + '☆'.repeat(5 - stars);
+
+      // Update rating bars
+      for (let i = 1; i <= 5; i++) {
+        const count = counts[i] || 0;
+        const pct = total > 0 ? (count / total * 100) : 0;
+        document.getElementById('bar' + i).style.width = pct + '%';
+        document.getElementById('count' + i).textContent = count;
+      }
+
+      // Recommend % (4+ stars)
+      const good = (counts[4] || 0) + (counts[5] || 0);
+      const recPct = total > 0 ? Math.round(good / total * 100) : 0;
+      document.getElementById('recommendPercent').textContent = recPct + '%';
+
+      // Update JSON-LD schema
+      updateSchemaRating(avg, total);
+    }
+
+    function updateSchemaRating(avg, total) {
+      // Find and update the aggregateRating in the first JSON-LD script
+      const scripts = document.querySelectorAll('script[type="application/ld+json"]');
+      for (const script of scripts) {
+        try {
+          const data = JSON.parse(script.textContent);
+          if (data['@type'] === 'Product' && data.aggregateRating) {
+            data.aggregateRating.ratingValue = avg;
+            data.aggregateRating.reviewCount = String(total);
+            script.textContent = JSON.stringify(data, null, 2);
+            break;
+          }
+        } catch(e) {}
+      }
     }
 
     function showFallbackReviews() {
@@ -2207,8 +2260,7 @@
 
       const list = document.getElementById('reviewsList');
       list.innerHTML = fallbackReviews.slice(0, 3).map(r => createReviewHTML(r)).join('');
-      document.getElementById('totalReviews').textContent = '312';
-      document.getElementById('avgRating').textContent = '4.9';
+      updateReviewStats(fallbackReviews);
     }
     function createReviewHTML(r) {
       const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
@@ -2412,8 +2464,47 @@
       }
     });
 
+    // ===== GDPR =====
+    function gdprAccept() {
+      localStorage.setItem('gdpr_consent', 'accepted');
+      localStorage.setItem('gdpr_date', new Date().toISOString());
+      document.getElementById('gdprBanner').classList.remove('show');
+      // Enable analytics
+      if (typeof gtag !== 'undefined') gtag('consent', 'update', { analytics_storage: 'granted', ad_storage: 'granted' });
+    }
+
+    function gdprDecline() {
+      localStorage.setItem('gdpr_consent', 'declined');
+      localStorage.setItem('gdpr_date', new Date().toISOString());
+      document.getElementById('gdprBanner').classList.remove('show');
+      // Disable analytics
+      if (typeof gtag !== 'undefined') gtag('consent', 'update', { analytics_storage: 'denied', ad_storage: 'denied' });
+    }
+
+    function checkGdpr() {
+      const consent = localStorage.getItem('gdpr_consent');
+      if (!consent) {
+        document.getElementById('gdprBanner').classList.add('show');
+        // Default denied until accepted
+        if (typeof gtag !== 'undefined') gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied' });
+      } else if (consent === 'accepted') {
+        if (typeof gtag !== 'undefined') gtag('consent', 'update', { analytics_storage: 'granted', ad_storage: 'granted' });
+      }
+    }
+
+    function openPrivacy() {
+      document.getElementById('privacyModal').classList.add('show');
+    }
+
+    function closePrivacy() {
+      document.getElementById('privacyModal').classList.remove('show');
+    }
+
     // ===== INIT =====
-    document.addEventListener('DOMContentLoaded', init);
+    document.addEventListener('DOMContentLoaded', () => {
+      init();
+      checkGdpr();
+    });
     
     // ===== EASTER EGGS =====
     let wheelSpun = false;
@@ -2607,11 +2698,84 @@
 
   <!-- Sticky Mobile CTA -->
   <div class="sticky-cta" id="stickyCta">
-    <div class="sticky-cta-price">
-      <span class="current">€68</span>
-      <span class="old">€109</span>
+    <div class="sticky-cta-urgency">
+      <span class="fire">🔥</span> Ограничена оферта!
     </div>
-    <button class="sticky-cta-btn" onclick="addToCart();window.scrollTo({top:0,behavior:'smooth'});">🛒 Купи сега</button>
+    <div class="sticky-cta-row">
+      <div class="sticky-cta-price">
+        <span class="current">€68</span>
+        <span class="old">€109</span>
+        <span class="save">Спести €41</span>
+      </div>
+      <button class="sticky-cta-btn" onclick="addToCart();window.scrollTo({top:0,behavior:'smooth'});">🛒 Добави в количката</button>
+    </div>
+  </div>
+
+  
+  <!-- Privacy Policy Modal -->
+  <div class="modal" id="privacyModal">
+    <div class="modal-content privacy-modal">
+      <div class="modal-header">
+        <h3 class="modal-title">📋 Общи условия и Политика за поверителност</h3>
+        <button class="close-btn" onclick="closePrivacy()">✕</button>
+      </div>
+      <div class="privacy-content">
+        <h3>1. Информация за продавача</h3>
+        <p><b>AirStore Bulgaria</b> — онлайн магазин, управляван от физическо лице<br>
+        Адрес за кореспонденция: гр. София, България<br>
+        Телефон: 0878 460 279<br>
+        Имейл: info@airstore.bg<br>
+        <i>Забележка: Продавачът е физическо лице, упражняващо търговска дейност по смисъла на Закона за защита на потребителите (ЗЗП).</i></p>
+
+        <h3>2. Продуктова информация</h3>
+        <p>Предлаганите продукти са висококачествени реплики и не са оригинални продукти на Apple Inc. 
+        Apple® и AirPods® са регистрирани търговски марки на Apple Inc. Ние не сме свързани, одобрени 
+        или спонсорирани от Apple Inc. Всички споменати търговски марки са собственост на съответните им притежатели.</p>
+
+        <h3>3. Лични данни (GDPR)</h3>
+        <p>Събираме следните лични данни при поръчка:</p>
+        <ul>
+          <li>Име и фамилия — за идентификация на получателя</li>
+          <li>Телефонен номер — за потвърждение на поръчката от куриера</li>
+          <li>Адрес за доставка — за изпълнение на договора за продажба</li>
+          <li>Град — за определяне на офис на Еконт</li>
+        </ul>
+        <p><b>Цел на обработката:</b> Изпълнение на договор за продажба от разстояние (чл. 6, пар. 1, б. "б" от GDPR).<br>
+        <b>Администратор на лични данни:</b> Физическо лице — собственик на AirStore Bulgaria.</p>
+        <p><b>Срок на съхранение:</b> Данните се съхраняват за срок от 5 години съгласно Закона за счетоводството.</p>
+        <p><b>Вашите права:</b> Право на достъп, корекция, изтриване („право да бъдеш забравен"), ограничаване на обработката, преносимост на данни и възражение.</p>
+
+        <h3>4. Бисквитки и локално съхранение</h3>
+        <p>Използваме <b>localStorage</b> (локално съхранение в браузъра) и бисквитки за следните цели:</p>
+        <ul>
+          <li><b>Задължителни (localStorage):</b> Съхранение на съдържанието на кошницата, настройки за доставка, GDPR съгласие, и локални отзиви преди синхронизация. Без тях сайтът не може да функционира.</li>
+          <li><b>Аналитични (Google Analytics):</b> Следим броя посещения и поведението на потребителите за подобряване на сайта. Активира се само с ваше съгласие.</li>
+          <li><b>Маркетингови (Facebook Pixel):</b> Проследява конверсии от реклами във Facebook/Instagram. Активира се само с ваше съгласие.</li>
+        </ul>
+        <p><b>Не използваме бисквитки от трети страни за профилиране без ваше изрично съгласие.</b></p>
+
+        <h3>5. Доставка и плащане</h3>
+        <p>Доставката се извършва с куриерска фирма Еконт. Плащането е с наложен платеж при получаване. 
+        Клиентът има право на преглед и тест на продукта преди плащане. Доставката е безплатна за цяла България.</p>
+
+        <h3>6. Гаранция и връщане</h3>
+        <p>Предлагаме 6 месеца гаранция при оторизирани сервизи. При проблем — безплатна замяна или ремонт. 
+        Право на връщане в срок от 14 дни според Закона за защита на потребителите (ЗЗП).</p>
+
+        <h3>7. Контакти</h3>
+        <p>За въпроси относно личните данни: <b>info@airstore.bg</b> или на телефон <b>0878 460 279</b>.</p>
+        <p style="color:#6b7280;font-size:12px;margin-top:20px">Последна актуализация: 06.08.2026</p>
+      </div>
+    </div>
+  </div>
+<!-- GDPR Cookie Banner -->
+  <div class="gdpr-banner" id="gdprBanner">
+    <div class="gdpr-text">
+      🍪 Този сайт използва бисквитки и обработва лични данни за поръчки. 
+      Продължавайки, се съгласявате с нашите <a href="#" onclick="openPrivacy();return false;">Общи условия и Политика за поверителност</a>.
+    </div>
+    <button class="gdpr-btn gdpr-decline" onclick="gdprDecline()">❌ Отказвам</button>
+    <button class="gdpr-btn gdpr-accept" onclick="gdprAccept()">✅ Приемам</button>
   </div>
 </body>
 </html>

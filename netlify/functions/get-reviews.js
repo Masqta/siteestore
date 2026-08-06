@@ -1,5 +1,4 @@
-// Netlify Function: Get all reviews from GitHub repository
-// Reads all JSON files from /data/reviews/ folder
+const fetch = require('node-fetch');
 
 exports.handler = async (event, context) => {
   const headers = {
@@ -10,10 +9,6 @@ exports.handler = async (event, context) => {
 
   if (event.httpMethod === 'OPTIONS') {
     return { statusCode: 200, headers, body: '' };
-  }
-
-  if (event.httpMethod !== 'GET') {
-    return { statusCode: 405, headers, body: JSON.stringify({ error: 'Method Not Allowed' }) };
   }
 
   const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
@@ -33,8 +28,9 @@ exports.handler = async (event, context) => {
       `https://api.github.com/repos/${GITHUB_REPO}/contents/data/reviews?ref=${GITHUB_BRANCH}`,
       {
         headers: {
-          'Authorization': `token ${GITHUB_TOKEN}`,
-          'Accept': 'application/vnd.github.v3+json'
+          'Authorization': `Bearer ${GITHUB_TOKEN}`,
+          'Accept': 'application/vnd.github.v3+json',
+          'User-Agent': 'airstore-reviews/1.0'
         }
       }
     );
@@ -46,13 +42,15 @@ exports.handler = async (event, context) => {
         body: JSON.stringify({
           success: true,
           reviews: [],
-          count: 0
+          count: 0,
+          averageRating: 0
         })
       };
     }
 
     if (!response.ok) {
-      throw new Error('Failed to fetch reviews');
+      const err = await response.json();
+      throw new Error(err.message || `GitHub API ${response.status}`);
     }
 
     const files = await response.json();
@@ -71,17 +69,14 @@ exports.handler = async (event, context) => {
       }
     }
 
-    // Sort by date (newest first)
-    reviews.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    reviews.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
 
-    // Get limit from query
     const limit = parseInt(event.queryStringParameters?.limit) || 100;
     const limitedReviews = reviews.slice(0, limit);
 
-    // Calculate average rating
     const avgRating = reviews.length > 0 
-      ? (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(1)
-      : 0;
+      ? (reviews.reduce((sum, r) => sum + (parseInt(r.rating) || 5), 0) / reviews.length).toFixed(1)
+      : '0';
 
     return {
       statusCode: 200,
@@ -99,7 +94,7 @@ exports.handler = async (event, context) => {
     return {
       statusCode: 500,
       headers,
-      body: JSON.stringify({ error: error.message })
+      body: JSON.stringify({ success: false, error: error.message })
     };
   }
 };

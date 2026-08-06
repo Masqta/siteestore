@@ -768,6 +768,10 @@
     <input type="text" name="note" />
     <input type="text" name="promo_code" />
     <input type="text" name="discount_applied" />
+    <input type="text" name="insurance" />
+    <input type="text" name="fast_delivery" />
+    <input type="text" name="insurance_eur" />
+    <input type="text" name="fast_delivery_eur" />
   </form>
 
   <!-- Easter Header Banner - News Ticker -->
@@ -1145,7 +1149,7 @@
         <div class="promo-section">
           <div style="font-weight:600;margin-bottom:8px;font-size:13px">🎁 Промо код?</div>
           <div class="promo-input-group">
-            <input type="text" class="promo-input" id="promoInput" placeholder="Въведете Промокод Тук" maxlength="10">
+            <input type="text" class="promo-input" id="promoInput" placeholder="SUMMER15" maxlength="10">
             <button class="promo-btn" id="promoBtn" onclick="applyPromo()">Приложи</button>
           </div>
           <div id="promoMessage"></div>
@@ -1155,6 +1159,33 @@
         </div>
       </div>
     </div>
+        <!-- Delivery Options -->
+        <div id="deliveryOptions" style="display:none">
+        <div class="delivery-options" style="margin:16px 0;padding:16px;background:linear-gradient(135deg,#fff,#f0fdf4);border:2px solid #dcfce7;border-radius:16px">
+          <div style="font-weight:700;font-size:14px;margin-bottom:12px;color:#16a34a;display:flex;align-items:center;gap:6px">
+            <span>🚚</span> Опции за доставка
+          </div>
+
+          <label class="delivery-option" style="display:flex;align-items:center;gap:12px;padding:14px;background:#fff;border:2px solid #e5e7eb;border-radius:14px;margin-bottom:10px;cursor:pointer;transition:all .2s" onmouseover="this.style.borderColor='#22c55e'" onmouseout="if(!document.getElementById('insuranceCheck').checked)this.style.borderColor='#e5e7eb'">
+            <input type="checkbox" id="insuranceCheck" onchange="toggleInsurance()" style="width:20px;height:20px;accent-color:#22c55e;cursor:pointer">
+            <div style="flex:1">
+              <div style="font-weight:700;font-size:14px;color:#333">🛡️ Защита на пратката</div>
+              <div style="font-size:12px;color:#888">Застраховка при загуба или повреда</div>
+            </div>
+            <div style="font-weight:800;font-size:15px;color:#22c55e">+€ 4.00</div>
+          </label>
+
+          <label class="delivery-option" style="display:flex;align-items:center;gap:12px;padding:14px;background:#fff;border:2px solid #e5e7eb;border-radius:14px;cursor:pointer;transition:all .2s" onmouseover="this.style.borderColor='#22c55e'" onmouseout="if(!document.getElementById('fastDeliveryCheck').checked)this.style.borderColor='#e5e7eb'">
+            <input type="checkbox" id="fastDeliveryCheck" onchange="toggleFastDelivery()" style="width:20px;height:20px;accent-color:#22c55e;cursor:pointer">
+            <div style="flex:1">
+              <div style="font-weight:700;font-size:14px;color:#333">⚡ Бърза доставка</div>
+              <div style="font-size:12px;color:#888">Доставка за 1-2 работни дни</div>
+            </div>
+            <div style="font-weight:800;font-size:15px;color:#22c55e">+€ 3.90</div>
+          </label>
+        </div>
+        </div>
+
     <div class="drawer-footer" id="drawerFooter" style="display:none">
       <div class="cart-total">
         <span>Общо:</span>
@@ -1178,6 +1209,14 @@
         <div class="order-summary">
           <div class="summary-row"><span>Продукт:</span><span>AirPods Pro 3 x<span id="orderQty">1</span></span></div>
           <div class="summary-row" id="orderDiscountRow" style="display:none"><span>Отстъпка:</span><span style="color:var(--success)">-10%</span></div>
+          <div class="summary-row" id="orderInsuranceRow" style="display:none">
+            <span>🛡️ Защита на пратката:</span>
+            <span>€ 4.00</span>
+          </div>
+          <div class="summary-row" id="orderFastDeliveryRow" style="display:none">
+            <span>⚡ Бърза доставка:</span>
+            <span>€ 3.90</span>
+          </div>
           <div class="summary-row delivery-row" id="deliverySummaryRow">
             <span>Доставка (Еконт):</span>
             <span id="deliveryStatusText" style="color:var(--muted)">Изберете доставка</span>
@@ -1194,6 +1233,10 @@
           <input type="hidden" id="formPromoCode" name="promo_code" value="" />
           <input type="hidden" id="formDiscountApplied" name="discount_applied" value="false" />
           <input type="hidden" id="formDeliveryType" name="delivery_type" value="" />
+          <input type="hidden" id="formInsurance" name="insurance" value="false" />
+          <input type="hidden" id="formFastDelivery" name="fast_delivery" value="false" />
+          <input type="hidden" id="formInsuranceEur" name="insurance_eur" value="0" />
+          <input type="hidden" id="formFastDeliveryEur" name="fast_delivery_eur" value="0" />
 
           <!-- Econt Delivery Widget -->
           <div class="econt-delivery-widget">
@@ -1344,6 +1387,10 @@
     let currentRating = 5;
     let stockCount = 50; // Available stock
     let selectedDeliveryMethod = null;
+    let insuranceEnabled = false;
+    let fastDeliveryEnabled = false;
+    const INSURANCE_EUR = 4.00;
+    const FAST_DELIVERY_EUR = 3.90;
 
     // ===== INITIALIZE =====
     function init() {
@@ -1414,13 +1461,25 @@
 
     // ===== PRICE FUNCTIONS =====
     function updatePrices() {
-      let totalEur = PRICE_EUR * qty;
-      let totalBgn = PRICE_BGN * qty;
-      
+      let productTotalEur = PRICE_EUR * qty;
+      let productTotalBgn = PRICE_BGN * qty;
+      let totalEur = productTotalEur;
+      let totalBgn = productTotalBgn;
+
       if (discountApplied) {
         const discountMultiplier = (100 - discountPercent) / 100;
         totalEur = totalEur * discountMultiplier;
         totalBgn = Math.round(totalBgn * discountMultiplier);
+      }
+
+      // Add delivery options
+      if (insuranceEnabled) {
+        totalEur += INSURANCE_EUR;
+        totalBgn += Math.round(INSURANCE_EUR * FX_BGN_PER_EUR);
+      }
+      if (fastDeliveryEnabled) {
+        totalEur += FAST_DELIVERY_EUR;
+        totalBgn += Math.round(FAST_DELIVERY_EUR * FX_BGN_PER_EUR);
       }
 
       document.getElementById('qtyValue').textContent = qty;
@@ -1432,7 +1491,10 @@
       document.getElementById('formQty').value = qty;
       document.getElementById('formTotalEur').value = totalEur.toFixed(2);
       document.getElementById('formTotalBgn').value = totalBgn;
-      
+
+      // Update order summary options display
+      updateOrderSummary();
+
       if (discountApplied) {
         const discountMultiplier = (100 - discountPercent) / 100;
         document.getElementById('originalTotal').style.display = 'inline';
@@ -1446,6 +1508,24 @@
     function updateQty(change) {
       qty = Math.max(1, Math.min(5, qty + change));
       updatePrices();
+    }
+
+    function toggleInsurance() {
+      insuranceEnabled = document.getElementById('insuranceCheck').checked;
+      const label = document.getElementById('insuranceCheck').closest('label');
+      label.style.borderColor = insuranceEnabled ? '#22c55e' : '#e5e7eb';
+      label.style.background = insuranceEnabled ? '#f0fdf4' : '#fff';
+      updatePrices();
+      showToast(insuranceEnabled ? '🛡️ Защита на пратката добавена!' : '🛡️ Защита на пратката премахната!', 'success');
+    }
+
+    function toggleFastDelivery() {
+      fastDeliveryEnabled = document.getElementById('fastDeliveryCheck').checked;
+      const label = document.getElementById('fastDeliveryCheck').closest('label');
+      label.style.borderColor = fastDeliveryEnabled ? '#22c55e' : '#e5e7eb';
+      label.style.background = fastDeliveryEnabled ? '#f0fdf4' : '#fff';
+      updatePrices();
+      showToast(fastDeliveryEnabled ? '⚡ Бърза доставка добавена!' : '⚡ Бърза доставка премахната!', 'success');
     }
 
     // ===== FAST ORDER =====
@@ -1522,10 +1602,14 @@
         document.getElementById('emptyCart').style.display = 'none';
         document.getElementById('cartContent').style.display = 'block';
         document.getElementById('drawerFooter').style.display = 'block';
+        const deliveryOpts = document.getElementById('deliveryOptions');
+        if (deliveryOpts) deliveryOpts.style.display = 'block';
       } else {
         document.getElementById('emptyCart').style.display = 'block';
         document.getElementById('cartContent').style.display = 'none';
         document.getElementById('drawerFooter').style.display = 'none';
+        const deliveryOpts = document.getElementById('deliveryOptions');
+        if (deliveryOpts) deliveryOpts.style.display = 'none';
       }
       updatePrices();
     }
@@ -1558,6 +1642,14 @@
       const msg = document.getElementById('promoMessage');
       msg.textContent = text;
       msg.className = 'promo-message ' + (type === 'success' ? 'promo-success' : 'promo-error');
+    }
+
+    function updateOrderSummary() {
+      const insuranceRow = document.getElementById('orderInsuranceRow');
+      const fastDeliveryRow = document.getElementById('orderFastDeliveryRow');
+
+      if (insuranceRow) insuranceRow.style.display = insuranceEnabled ? 'flex' : 'none';
+      if (fastDeliveryRow) fastDeliveryRow.style.display = fastDeliveryEnabled ? 'flex' : 'none';
     }
 
     // ===== ORDER MODAL =====
@@ -1616,7 +1708,11 @@
         totalEur: parseFloat(document.getElementById('orderTotalEur').textContent) || 0,
         totalBgn: parseFloat(document.getElementById('formTotalBgn').value) || 0,
         promoCode: document.getElementById('formPromoCode').value || '',
-        note: formData.get('note') || ''
+        note: formData.get('note') || '',
+        insurance: insuranceEnabled,
+        insuranceEur: insuranceEnabled ? INSURANCE_EUR : 0,
+        fastDelivery: fastDeliveryEnabled,
+        fastDeliveryEur: fastDeliveryEnabled ? FAST_DELIVERY_EUR : 0
       };
       
       try {
@@ -1654,6 +1750,10 @@
           hiddenFormData.set('total_bgn', orderData.totalBgn.toString());
           hiddenFormData.set('promo_code', orderData.promoCode);
           hiddenFormData.set('note', orderData.note);
+          hiddenFormData.set('insurance', orderData.insurance ? 'true' : 'false');
+          hiddenFormData.set('insurance_eur', orderData.insuranceEur.toFixed(2));
+          hiddenFormData.set('fast_delivery', orderData.fastDelivery ? 'true' : 'false');
+          hiddenFormData.set('fast_delivery_eur', orderData.fastDeliveryEur.toFixed(2));
           
           await fetch('/', {
             method: 'POST',
@@ -1675,6 +1775,16 @@
         discountPercent = 10;
         currentPromoCode = '';
         selectedDeliveryMethod = null;
+        insuranceEnabled = false;
+        fastDeliveryEnabled = false;
+
+        // Reset delivery options checkboxes
+        document.getElementById('insuranceCheck').checked = false;
+        document.getElementById('fastDeliveryCheck').checked = false;
+        document.getElementById('insuranceCheck').closest('label').style.borderColor = '#e5e7eb';
+        document.getElementById('insuranceCheck').closest('label').style.background = '#fff';
+        document.getElementById('fastDeliveryCheck').closest('label').style.borderColor = '#e5e7eb';
+        document.getElementById('fastDeliveryCheck').closest('label').style.background = '#fff';
         
         // Reset delivery widget
         document.getElementById('tabOffice').classList.remove('active');

@@ -1093,7 +1093,7 @@
         </details>
         <details class="faq-item">
           <summary>Какво е условието за връщане?</summary>
-          <div class="faq-content"><b>30 дни пълно възстановяване</b> — ако продуктът е повреден или не работи правилно, върнете го за пълно възстановяване.</div>
+          <div class="faq-content">Искаме да сте напълно доволни от покупката си. Моля, имайте предвид, че всички наши продукти са реплики и като купувате от нас, вие автоматично се съгласявате с този факт. Като такива, ние приемаме връщания само ако има проблем с качеството на репликата, като например проблеми със звука или фабрично неработеща слушалка или неработещ кейс.<br><br>Всички щети, причинени от нормално износване, неправилна употреба или неправилна грижа, няма да бъдат приети. Всички връщания трябва да бъдат в първоначалното си състояние и опаковка.<br><br>За да инициирате връщане, моля, свържете се с нас на нашия телефон за връзка или mrairpod.official@gmail.com с номера на вашата поръчка и причината за връщане. След като получим вашата заявка, ще ви предоставим допълнителни инструкции как да върнете вашия артикул(и).<br><br>Възстановените суми ще бъдат върнати към първоначалния метод на плащане в рамките на 7 дни след получаване на върнатия артикул(и). Моля, имайте предвид, че разходите за доставка не се възстановяват, а разходите за връщане са отговорност на клиента.<br><br>Ако имате въпроси или притеснения относно нашата политика за възстановяване на средства, моля, не се колебайте да се свържете с нас.</div>
         </details>
       </div>
     </section>
@@ -1141,8 +1141,7 @@
           <strong>📋 Общи условия</strong>
           Всички поръчки се обработват в рамките на 1-2 работни дни. 
           Доставката се извършва с куриерска фирма Еконт. 
-          Предоставяте правото на връщане в срок от 14 дни според ЗЗП. 
-          Продуктите се предлагат с 6 месеца гаранция.<br><br>
+          Продуктите се предлагат с 6 месеца гаранция. Приемаме връщания само при фабрични дефекти (проблем със звука, неработеща слушалка или кейс). Не приемаме връщания поради нормално износване или неправилна употреба.<br><br>
           <b>Продавач:</b> AirStore Bulgaria — физическо лице<br>
           <b>Адрес:</b> гр. София, България | <b>Тел:</b> 0878 460 279 | <b>Имейл:</b> info@airstore.bg<br><br>
           <a href="#" onclick="openPrivacy();return false;">📖 Общи условия и Политика за поверителност (GDPR)</a>
@@ -1386,15 +1385,6 @@
           <div class="form-group">
             <label class="form-label">Отзив</label>
             <textarea class="form-input" id="reviewText" rows="4" placeholder="Сподели мнение..." required style="resize:vertical;min-height:80px"></textarea>
-          </div>
-          <div class="form-group">
-            <label class="form-label">📷 Снимка (по желание)</label>
-            <input type="file" class="form-input" id="reviewImage" accept="image/*" style="padding:10px;font-size:13px" onchange="previewReviewImage(this)" />
-            <div id="reviewImagePreview" style="margin-top:10px;display:none">
-              <img id="reviewPreviewImg" src="" style="max-width:100%;max-height:150px;border-radius:12px;object-fit:cover" />
-              <button type="button" onclick="removeReviewImage()" style="margin-top:6px;padding:6px 12px;background:#fee2e2;color:#ef4444;border:none;border-radius:8px;font-size:12px;cursor:pointer">🗑️ Премахни снимката</button>
-            </div>
-            <small style="color:var(--muted);font-size:11px">Макс. размер: 2MB. Снимката ще се вижда от всички клиенти.</small>
           </div>
           <button type="submit" class="btn btn-accent">⭐ Изпрати отзив</button>
         </form>
@@ -1974,7 +1964,7 @@
     }
 
     // ===== REVIEW SYSTEM =====
-    function setupStarRating() {
+        function setupStarRating() {
       document.querySelectorAll('#starRating span').forEach(star => {
         star.addEventListener('click', () => {
           currentRating = parseInt(star.dataset.rating);
@@ -2001,7 +1991,7 @@
       currentRating = 5;
     }
 
-        let isSubmittingReview = false;
+let isSubmittingReview = false;
 
     async function submitReview(e) {
       e.preventDefault();
@@ -2063,78 +2053,7 @@
         isSubmittingReview = false;
       }
     }
-    function setupStarRating() {
-      document.querySelectorAll('#starRating span').forEach(star => {
-        star.addEventListener('click', () => {
-          currentRating = parseInt(star.dataset.rating);
-          document.getElementById('reviewRating').value = currentRating;
-          updateStarDisplay(currentRating);
-        });
-      });
-    }
-
-    function updateStarDisplay(rating) {
-      document.querySelectorAll('#starRating span').forEach((star, i) => {
-        star.style.color = i < rating ? '#fbbf24' : '#e5e7eb';
-      });
-    }
-
-    function openReviewModal() {
-      document.getElementById('reviewModal').classList.add('show');
-      updateStarDisplay(5);
-    }
-
-    function closeReviewModal() {
-      document.getElementById('reviewModal').classList.remove('show');
-      document.getElementById('reviewForm').reset();
-      currentRating = 5;
-    }
-
-    async function submitReview(e) {
-      e.preventDefault();
-      
-      const reviewData = {
-        id: Date.now(),
-        name: document.getElementById('reviewName').value,
-        rating: parseInt(document.getElementById('reviewRating').value) || 5,
-        text: document.getElementById('reviewText').value,
-        verified: true,
-        date: new Date().toLocaleDateString('bg-BG'),
-        createdAt: new Date().toISOString()
-      };
-      
-      try {
-        // Save to localStorage first (always works)
-        let reviews = [];
-        const saved = localStorage.getItem('airstore_reviews');
-        if (saved) reviews = JSON.parse(saved);
-        reviews.unshift(reviewData);
-        localStorage.setItem('airstore_reviews', JSON.stringify(reviews));
-        
-        // Try Netlify function
-        try {
-          await fetch('/.netlify/functions/save-review', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(reviewData)
-          });
-        } catch (netlifyErr) {
-          console.log('Netlify function not available, saved locally');
-        }
-        
-        // Update display
-        displayReviews(reviews.slice(0, 3));
-        updateReviewStats(reviews);
-        closeReviewModal();
-        showToast('Благодарим за отзива!', 'success');
-        
-      } catch (error) {
-        console.error('Error saving review:', error);
-        showToast('Грешка при запазване на отзива', 'error');
-      }
-    }
-
-        async function loadReviews() {
+    async function loadReviews() {
       try {
         // ALWAYS try API first — new reviews from GitHub must show immediately
         const response = await fetchWithTimeout('/.netlify/functions/get-reviews?limit=100', {}, 3000);
@@ -2275,7 +2194,7 @@
     }
     function createReviewHTML(r) {
       const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
-      const imageHtml = r.image ? `<div class="review-image"><img src="${r.image}" alt="Снимка от ${r.name}" loading="lazy" onclick="openLightboxUrl('${r.image}')" /></div>` : '';
+      const imageHtml = '';
       return `
         <div class="review-card">
           <div class="review-header">
@@ -2289,8 +2208,7 @@
           </div>
           <div class="review-stars">${stars}</div>
           <div class="review-text">${r.text}</div>
-          ${imageHtml}
-        </div>
+          </div>
       `;
     }
 
@@ -2774,9 +2692,7 @@
         <p>Доставката се извършва с куриерска фирма Еконт. Плащането е с наложен платеж при получаване. 
         Клиентът има право на преглед и тест на продукта преди плащане. Доставката е безплатна за цяла България.</p>
 
-        <h3>6. Гаранция и връщане</h3>
-        <p>Предлагаме 6 месеца гаранция при оторизирани сервизи. При проблем — безплатна замяна или ремонт. 
-        Право на връщане в срок от 14 дни според Закона за защита на потребителите (ЗЗП).</p>
+        <h3>6. Гаранция и връщане</h3><p>Предлагаме 6 месеца гаранция при оторизирани сервизи. При проблем — безплатна замяна или ремонт.</p><p>Искаме да сте напълно доволни от покупката си. Моля, имайте предвид, че всички наши продукти са реплики и като купувате от нас, вие автоматично се съгласявате с този факт. Като такива, ние приемаме връщания само ако има проблем с качеството на репликата, като например проблеми със звука или фабрично неработеща слушалка или неработещ кейс.  Всички щети, причинени от нормално износване, неправилна употреба или неправилна грижа, няма да бъдат приети. Всички връщания трябва да бъдат в първоначалното си състояние и опаковка.  За да инициирате връщане, моля, свържете се с нас на нашия телефон за връзка или mrairpod.official@gmail.com с номера на вашата поръчка и причината за връщане. След като получим вашата заявка, ще ви предоставим допълнителни инструкции как да върнете вашия артикул(и).  Възстановените суми ще бъдат върнати към първоначалния метод на плащане в рамките на 7 дни след получаване на върнатия артикул(и). Моля, имайте предвид, че разходите за доставка не се възстановяват, а разходите за връщане са отговорност на клиента.  Ако имате въпроси или притеснения относно нашата политика за възстановяване на средства, моля, не се колебайте да се свържете с нас.</p>
 
         <h3>7. Контакти</h3>
         <p>За въпроси относно личните данни: <b>info@airstore.bg</b> или на телефон <b>0878 460 279</b>.</p>

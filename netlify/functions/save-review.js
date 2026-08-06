@@ -1,19 +1,14 @@
-// Netlify Function: Save review to GitHub repository as a file
-// Saves reviews as JSON files in the /data/reviews/ folder
+const fetch = require('node-fetch');
 
 exports.handler = async (event, context) => {
   const headers = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'Content-Type',
-    'Access-Control-Allow-Methods': 'POST, OPTIONS'
+    'Access-Control-Allow-Methods': 'GET, OPTIONS'
   };
 
   if (event.httpMethod === 'OPTIONS') {
     return { statusCode: 200, headers, body: '' };
-  }
-
-  if (event.httpMethod !== 'POST') {
-    return { statusCode: 405, headers, body: JSON.stringify({ error: 'Method Not Allowed' }) };
   }
 
   const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
@@ -29,81 +24,66 @@ exports.handler = async (event, context) => {
   }
 
   try {
-    const reviewData = JSON.parse(event.body);
-    
-    const review = {
-      id: Date.now(),
-      name: reviewData.name || 'Anonymous',
-      rating: parseInt(reviewData.rating) || 5,
-      text: reviewData.text || '',
-      verified: reviewData.verified || false,
-      createdAt: new Date().toISOString()
-    };
-
-    const fileName = `review-${review.id}.json`;
-    const filePath = `data/reviews/${fileName}`;
-    const content = Buffer.from(JSON.stringify(review, null, 2)).toString('base64');
-
-    // Check if file exists
-    let sha = null;
-    try {
-      const checkResponse = await fetch(
-        `https://api.github.com/repos/${GITHUB_REPO}/contents/${filePath}?ref=${GITHUB_BRANCH}`,
-        {
-          headers: {
-            'Authorization': `token ${GITHUB_TOKEN}`,
-            'Accept': 'application/vnd.github.v3+json'
-          }
-        }
-      );
-      if (checkResponse.ok) {
-        const fileData = await checkResponse.json();
-        sha = fileData.sha;
-      }
-    } catch (e) {}
-
-    // Save to GitHub
-    const response = await fetch(
-      `https://api.github.com/repos/${GITHUB_REPO}/contents/${filePath}`,
+    // Get list of files in data/reviews/
+    const listResponse = await fetch(
+      `https://api.github.com/repos/${GITHUB_REPO}/contents/data/reviews?ref=${GITHUB_BRANCH}`,
       {
-        method: 'PUT',
         headers: {
-          'Authorization': `token ${GITHUB_TOKEN}`,
+          'Authorization': `Bearer ${GITHUB_TOKEN}`,
           'Accept': 'application/vnd.github.v3+json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          message: `New review from ${review.name}`,
-          content: content,
-          branch: GITHUB_BRANCH,
-          sha: sha
-        })
+          'User-Agent': 'netlify-function'
+        }
       }
     );
 
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || 'Failed to save review');
+    if (!listResponse.ok) {
+      // Folder doesn't exist yet - return empty array
+      if (listResponse.status === 404) {
+        return {
+          statusCode: 200,
+          headers,
+          body: JSON.stringify({ success: true, reviews: [] })
+        };
+      }
+      const err = await listResponse.json();
+      throw new Error(err.message || 'Failed to list reviews');
     }
 
-    const result = await response.json();
+    const files = await listResponse.json();
+    
+    // Fetch content of each review file (max 50 to avoid timeout)
+    const reviewFiles = files
+      .filter(f => f.name.endsWith('.json'))
+      .slice(0, 50);
+
+    const reviews = [];
+    for (const file of reviewFiles) {
+      try {
+        const contentResponse = await fetch(file.download_url);
+        if (contentResponse.ok) {
+          const review = await contentResponse.json();
+          reviews.push(review);
+        }
+      } catch (e) {
+        console.log('Failed to load review:', file.name);
+      }
+    }
+
+    // Sort by date (newest first)
+    reviews.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
 
     return {
       statusCode: 200,
       headers,
-      body: JSON.stringify({
-        success: true,
-        review: review,
-        fileUrl: result.content.html_url
-      })
+      body: JSON.stringify({ success: true, reviews })
     };
 
   } catch (error) {
-    console.error('Error saving review:', error);
+    console.error('Error getting reviews:', error);
     return {
       statusCode: 500,
       headers,
-      body: JSON.stringify({ error: error.message })
+      body: JSON.stringify({ success: false, error: error.message })
     };
   }
 };

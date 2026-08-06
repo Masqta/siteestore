@@ -31,7 +31,7 @@
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image" />
   <meta property="twitter:url" content="https://airstorebulgaria.com/" />
-  <meta property="twitter:title" content="AirPods Pro 3 Реплика | AirStore Bulgaria - Най-Добра Цена 55€" />
+  <meta property="twitter:title" content="AirPods Pro 3 Реплика | AirStore Bulgaria - Най-Добра Цена 68€" />
   <meta property="twitter:description" content="⭐ Купи AirPods Pro 3 реплика на най-добра цена в България! ✅ Преглед и тест ✅ Безплатна доставка с Еконт ✅ 6 месеца гаранция" />
   <meta property="twitter:image" content="https://airstorebulgaria.com/assets/airpods.png" />
   
@@ -749,7 +749,42 @@
     /* Confetti */
     .confetti{position:fixed;width:10px;height:10px;position:absolute;animation:confetti-fall 3s ease-out forwards}
     @keyframes confetti-fall{0%{transform:translateY(-100px) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
-  </style>
+      /* Sticky Mobile CTA */
+    .sticky-cta{position:fixed;bottom:0;left:0;right:0;z-index:99;background:#fff;border-top:1px solid var(--line);padding:10px 16px;display:none;align-items:center;gap:12px;box-shadow:0 -4px 20px rgba(0,0,0,.1)}
+    .sticky-cta.show{display:flex}
+    .sticky-cta-price{flex:1}
+    .sticky-cta-price .current{font-weight:800;font-size:20px;background:linear-gradient(135deg,#22c55e,#16a34a);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .sticky-cta-price .old{color:#9ca3af;text-decoration:line-through;font-size:13px;margin-left:6px}
+    .sticky-cta-btn{background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;border:none;padding:12px 20px;border-radius:var(--pill);font-weight:700;font-size:14px;cursor:pointer;box-shadow:0 4px 15px rgba(34,197,94,.4);white-space:nowrap}
+    .sticky-cta-btn:active{transform:scale(.97)}
+    @media(min-width:768px){.sticky-cta{display:none!important}}
+
+</style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6W510CV2Z3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-6W510CV2Z3');
+  </script>
+
+  <!-- Meta Pixel (Facebook) -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', 'YOUR_PIXEL_ID');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none" 
+    src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID&ev=PageView&noscript=1"/></noscript>
+
 </head>
 <body>
 
@@ -833,7 +868,7 @@
           <span class="live-dot"></span>
           <span id="viewerCount">12</span> души разглеждат
         </div>
-        <h1>AirPods Pro 3</h1>
+        <h1>AirPods Pro 3 Реплика</h1>
         <p class="hero-desc">Премиум звук с активно шумопотискане, персонализирано пространствено аудио и до 30 часа време за работа.</p>
 
         <!-- Easter Promo Banner -->
@@ -848,7 +883,7 @@
         <div class="out-of-stock-banner" id="outOfStockBanner" style="display:none">
           <span class="oos-icon">📦</span>
           <div class="oos-title">В момента нямаме наличност</div>
-          <div class="oos-subtitle">AirPods Pro 3 са временно изчерпани</div>
+          <div class="oos-subtitle">AirPods Pro 3 Реплика са временно изчерпани</div>
           <div class="oos-restock">
             <div class="oos-restock-title">🔄 Проверете отново по-късно</div>
             <div class="oos-restock-text">Очаквайте нова доставка скоро!</div>
@@ -909,7 +944,7 @@
           <div class="package-item">
             <span class="package-icon">🎧</span>
             <div>
-              <div>AirPods Pro 3</div>
+              <div>AirPods Pro 3 Реплика</div>
               <div>С MagSafe кейс</div>
             </div>
           </div>
@@ -947,7 +982,7 @@
             <img src="assets/ours.png" alt="Нашите" style="width:200%;height:100%;object-fit:cover" />
           </div>
           <div class="comparison-handle" id="sliderHandle"></div>
-          <div class="comparison-label comparison-label-ours">НАШИТЕ - 55€</div>
+          <div class="comparison-label comparison-label-ours">НАШИТЕ - 68€</div>
           <div class="comparison-label comparison-label-theirs">ТЕХНИТЕ - 120€</div>
         </div>
       </div>
@@ -1136,7 +1171,7 @@
           <button class="remove-btn" onclick="removeFromCart()" title="Премахни">🗑️</button>
           <div class="cart-item-img" style="background:linear-gradient(135deg,#fff5f7,#ffe4ec);display:grid;place-items:center;border:2px solid #ffe4ec;border-radius:12px;overflow:hidden;min-width:70px;min-height:70px"><img src="assets/airpods_2.png" alt="AirPods Pro 3" style="width:52px;height:52px;object-fit:contain" /></div>
           <div class="cart-item-info">
-            <div class="cart-item-title">AirPods Pro 3</div>
+            <div class="cart-item-title">AirPods Pro 3 Реплика</div>
             <div class="cart-item-meta">Бял • MagSafe кейс</div>
             <div class="cart-item-price">€ <span id="cartItemPrice">68.00</span></div>
             <div class="qty-control">
@@ -1207,7 +1242,7 @@
       </div>
       <div class="modal-body">
         <div class="order-summary">
-          <div class="summary-row"><span>Продукт:</span><span>AirPods Pro 3 x<span id="orderQty">1</span></span></div>
+          <div class="summary-row"><span>Продукт:</span><span>AirPods Pro 3 Реплика x<span id="orderQty">1</span></span></div>
           <div class="summary-row" id="orderDiscountRow" style="display:none"><span>Отстъпка:</span><span style="color:var(--success)">-10%</span></div>
           <div class="summary-row" id="orderInsuranceRow" style="display:none">
             <span>🛡️ Защита на пратката:</span>
@@ -1400,6 +1435,7 @@
       updateViewerCount();
       initComparisonSlider();
       updateStockDisplay();
+      initStickyCta();
       
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -1418,6 +1454,28 @@
       document.getElementById('outOfStockBanner').style.display = 'none';
       document.getElementById('addToCartBtn').style.display = 'block';
       document.getElementById('outOfStockBtn').style.display = 'none';
+    }
+
+    function initStickyCta() {
+      const cta = document.getElementById('stickyCta');
+      if (!cta) return;
+      const hero = document.querySelector('.hero');
+      if (!hero) return;
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            const heroBottom = hero.getBoundingClientRect().bottom;
+            if (heroBottom < 0 && !cartHasItem) {
+              cta.classList.add('show');
+            } else {
+              cta.classList.remove('show');
+            }
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }, { passive: true });
     }
 
     // ===== DELIVERY WIDGET =====
@@ -1549,6 +1607,8 @@
         btn.classList.add('btn-success');
         openCart();
         showToast('Добавено в кошницата!', 'success');
+        if (typeof gtag !== 'undefined') gtag('event', 'add_to_cart', { currency: 'EUR', value: PRICE_EUR, items: [{ item_name: 'AirPods Pro 3 Реплика', price: PRICE_EUR }] });
+        if (typeof fbq !== 'undefined') fbq('track', 'AddToCart', { currency: 'EUR', value: PRICE_EUR, content_name: 'AirPods Pro 3 Реплика' });
       } else {
         openCart();
       }
@@ -1961,6 +2021,8 @@
         // 2. Show success immediately — don't wait for API
         closeReviewModal();
         showToast('⭐ Благодарим за отзива! Ще се покаже скоро.', 'success');
+        if (typeof gtag !== 'undefined') gtag('event', 'submit_review', { event_category: 'engagement', value: reviewData.rating });
+        if (typeof fbq !== 'undefined') fbq('track', 'SubmitApplication');
 
         // 3. Try API with retry (2 attempts)
         fetchWithRetry('/.netlify/functions/save-review', {
@@ -2542,6 +2604,15 @@
   
   <!-- Easter Egg Modals Container -->
   <div id="easterContainer"></div>
+
+  <!-- Sticky Mobile CTA -->
+  <div class="sticky-cta" id="stickyCta">
+    <div class="sticky-cta-price">
+      <span class="current">€68</span>
+      <span class="old">€109</span>
+    </div>
+    <button class="sticky-cta-btn" onclick="addToCart();window.scrollTo({top:0,behavior:'smooth'});">🛒 Купи сега</button>
+  </div>
 </body>
 </html>
 >

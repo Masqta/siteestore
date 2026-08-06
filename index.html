@@ -31,7 +31,7 @@
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image" />
   <meta property="twitter:url" content="https://airstorebulgaria.com/" />
-  <meta property="twitter:title" content="AirPods Pro 3 Реплика | AirStore Bulgaria - Най-Добра Цена 68€" />
+  <meta property="twitter:title" content="AirPods Pro 3 Реплика | AirStore Bulgaria - Най-Добра Цена 55€" />
   <meta property="twitter:description" content="⭐ Купи AirPods Pro 3 реплика на най-добра цена в България! ✅ Преглед и тест ✅ Безплатна доставка с Еконт ✅ 6 месеца гаранция" />
   <meta property="twitter:image" content="https://airstorebulgaria.com/assets/airpods.png" />
   
@@ -947,7 +947,7 @@
             <img src="assets/ours.png" alt="Нашите" style="width:200%;height:100%;object-fit:cover" />
           </div>
           <div class="comparison-handle" id="sliderHandle"></div>
-          <div class="comparison-label comparison-label-ours">НАШИТЕ - 68€</div>
+          <div class="comparison-label comparison-label-ours">НАШИТЕ - 55€</div>
           <div class="comparison-label comparison-label-theirs">ТЕХНИТЕ - 120€</div>
         </div>
       </div>
@@ -1664,6 +1664,14 @@
     }
 
     // Submit order
+    // Helper: fetch with timeout
+    function fetchWithTimeout(url, options = {}, timeout = 3000) {
+      return Promise.race([
+        fetch(url, options),
+        new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), timeout))
+      ]);
+    }
+
     async function submitOrder(e) {
       e.preventDefault();
       
@@ -1721,20 +1729,18 @@
         orders.unshift({...orderData, id: Date.now(), date: new Date().toISOString()});
         localStorage.setItem('airstore_orders', JSON.stringify(orders));
         
-        // Try Netlify functions if available
-        try {
-          const ghResponse = await fetch('/.netlify/functions/save-order', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(orderData)
-          });
-          if (ghResponse.ok) {
-            const ghResult = await ghResponse.json();
-            console.log('Order saved to GitHub:', ghResult);
-          }
-        } catch (ghErr) {
+        // Try Netlify functions if available (fire-and-forget, 3 sec timeout)
+        fetchWithTimeout('/.netlify/functions/save-order', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(orderData)
+        }, 3000).then(ghResponse => {
+          if (ghResponse.ok) return ghResponse.json();
+        }).then(ghResult => {
+          if (ghResult) console.log('Order saved to GitHub:', ghResult);
+        }).catch(() => {
           console.log('GitHub save not available, order saved locally');
-        }
+        });
         
         // Always submit to Netlify Forms (the main submission method)
         const netlifyForm = document.querySelector('form[name="order"]');
@@ -1849,8 +1855,18 @@
       currentRating = 5;
     }
 
-        async function submitReview(e) {
+        let isSubmittingReview = false;
+
+    async function submitReview(e) {
       e.preventDefault();
+
+      if (isSubmittingReview) return;
+      isSubmittingReview = true;
+
+      const btn = e.target.querySelector('button[type="submit"]');
+      const originalText = btn.textContent;
+      btn.textContent = '⏳ Изпраща се...';
+      btn.disabled = true;
 
       const reviewData = {
         id: Date.now(),
@@ -1863,32 +1879,34 @@
       };
 
       try {
-        // Save to LOCAL reviews (separate from API cache)
+        // 1. Save locally IMMEDIATELY (never fails)
         let localReviews = [];
         const saved = localStorage.getItem('airstore_reviews_local');
         if (saved) localReviews = JSON.parse(saved);
         localReviews.unshift(reviewData);
         localStorage.setItem('airstore_reviews_local', JSON.stringify(localReviews));
 
-        // Try Netlify function
-        try {
-          await fetch('/.netlify/functions/save-review', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(reviewData)
-          });
-        } catch (netlifyErr) {
-          console.log('Netlify function not available, saved locally');
-        }
-
-        // Refresh from API to show the new review merged with all others
-        await loadReviews();
+        // 2. Show success immediately — don't wait for API
         closeReviewModal();
-        showToast('Благодарим за отзива!', 'success');
+        showToast('⭐ Благодарим за отзива! Ще се покаже скоро.', 'success');
+
+        // 3. Try API in background (fire-and-forget, 3 sec timeout)
+        fetch('/.netlify/functions/save-review', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(reviewData)
+        }).catch(() => {});
+
+        // 4. Refresh display with local data immediately
+        await loadReviews();
 
       } catch (error) {
         console.error('Error saving review:', error);
         showToast('Грешка при запазване на отзива', 'error');
+      } finally {
+        btn.textContent = originalText;
+        btn.disabled = false;
+        isSubmittingReview = false;
       }
     }
     function setupStarRating() {
@@ -1965,7 +1983,7 @@
         async function loadReviews() {
       try {
         // ALWAYS try API first — new reviews from GitHub must show immediately
-        const response = await fetch('/.netlify/functions/get-reviews?limit=100');
+        const response = await fetchWithTimeout('/.netlify/functions/get-reviews?limit=100', {}, 3000);
         if (response.ok) {
           const result = await response.json();
           if (result.success && result.reviews && result.reviews.length > 0) {
@@ -1988,7 +2006,7 @@
         }
         throw new Error('API failed or empty');
       } catch (error) {
-        console.log('API failed, falling back:', error);
+        console.log('API failed, falling back:', error.message || error);
 
         const savedReviews = localStorage.getItem('airstore_reviews');
         if (savedReviews) {
@@ -2061,8 +2079,8 @@
 
         async function openAllReviews() {
       try {
-        // ALWAYS fetch fresh from API first
-        const response = await fetch('/.netlify/functions/get-reviews?limit=100');
+        // ALWAYS fetch fresh from API first (with timeout)
+        const response = await fetchWithTimeout('/.netlify/functions/get-reviews?limit=100', {}, 3000);
         if (response.ok) {
           const result = await response.json();
           if (result.success && result.reviews && result.reviews.length > 0) {
@@ -2091,7 +2109,7 @@
         }
         throw new Error('API failed');
       } catch (error) {
-        console.log('API failed, falling back:', error);
+        console.log('API failed, falling back:', error.message || error);
 
         const savedReviews = localStorage.getItem('airstore_reviews');
         if (savedReviews) {

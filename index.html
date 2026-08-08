@@ -1370,7 +1370,7 @@
         <button class="close-btn" onclick="closeReviewModal()">✕</button>
       </div>
       <div class="modal-body">
-        <form id="reviewForm" onsubmit="submitReview(event)">
+        <form id="reviewForm" onkeydown="if(event.key==='Enter'&&event.target.tagName!=='TEXTAREA'){event.preventDefault();event.stopPropagation();submitReview(event);return false;}">
           <div class="form-group">
             <label class="form-label">Твоето име</label>
             <input type="text" class="form-input" id="reviewName" placeholder="Въведи име" required />
@@ -1390,7 +1390,7 @@
             <label class="form-label">Отзив</label>
             <textarea class="form-input" id="reviewText" rows="4" placeholder="Сподели мнение..." required style="resize:vertical;min-height:80px"></textarea>
           </div>
-          <button type="submit" class="btn btn-accent" id="reviewSubmitBtn">⭐ Изпрати отзив</button>
+          <button type="button" class="btn btn-accent" id="reviewSubmitBtn" onclick="submitReview(event)">⭐ Изпрати отзив</button>
         </form>
       </div>
     </div>
@@ -1997,9 +1997,9 @@
 
 
     async function submitReview(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      e.stopImmediatePropagation();
+      e.preventDefault ? e.preventDefault() : (e.returnValue = false);
+      e.stopPropagation ? e.stopPropagation() : (e.cancelBubble = true);
+      if (e.stopImmediatePropagation) e.stopImmediatePropagation();
 
       const btn = document.getElementById('reviewSubmitBtn');
       const form = document.getElementById('reviewForm');
@@ -2008,7 +2008,12 @@
       if (!form || form.dataset.submitting === 'true') return;
       form.dataset.submitting = 'true';
 
-      if (btn) btn.disabled = true;
+      // Disable button and blur to prevent any further interaction
+      if (btn) {
+        btn.disabled = true;
+        btn.blur();
+      }
+      if (form) form.style.pointerEvents = 'none';
 
       const originalText = btn ? btn.textContent : '⭐ Изпрати отзив';
       if (btn) btn.textContent = '⏳ Изпраща се...';
@@ -2058,7 +2063,10 @@
         showToast('Грешка при запазване на отзива', 'error');
       } finally {
         const form = document.getElementById('reviewForm');
-        if (form) form.dataset.submitting = 'false';
+        if (form) {
+          form.dataset.submitting = 'false';
+          form.style.pointerEvents = '';
+        }
         if (btn) {
           btn.textContent = originalText;
           btn.disabled = false;

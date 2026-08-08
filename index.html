@@ -1995,15 +1995,19 @@
       currentRating = 5;
     }
 
-let isSubmittingReview = false;
 
     async function submitReview(e) {
       e.preventDefault();
       e.stopPropagation();
+      e.stopImmediatePropagation();
 
       const btn = document.getElementById('reviewSubmitBtn');
-      if (isSubmittingReview || (btn && btn.disabled)) return;
-      isSubmittingReview = true;
+      const form = document.getElementById('reviewForm');
+
+      // Hard synchronous block - prevents ANY duplicate
+      if (!form || form.dataset.submitting === 'true') return;
+      form.dataset.submitting = 'true';
+
       if (btn) btn.disabled = true;
 
       const originalText = btn ? btn.textContent : '⭐ Изпрати отзив';
@@ -2053,11 +2057,12 @@ let isSubmittingReview = false;
         console.error('Error saving review:', error);
         showToast('Грешка при запазване на отзива', 'error');
       } finally {
+        const form = document.getElementById('reviewForm');
+        if (form) form.dataset.submitting = 'false';
         if (btn) {
           btn.textContent = originalText;
           btn.disabled = false;
         }
-        isSubmittingReview = false;
       }
     }
     async function loadReviews() {

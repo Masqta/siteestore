@@ -29,17 +29,20 @@ exports.handler = async (event, context) => {
 
   try {
     const reviewData = JSON.parse(event.body);
-    
+
+    // Use client-provided id to prevent duplicates on retry
+    const reviewId = reviewData.id || Date.now();
+
     const review = {
-      id: Date.now(),
+      id: reviewId,
       name: reviewData.name || 'Anonymous',
       rating: parseInt(reviewData.rating) || 5,
       text: reviewData.text || '',
       verified: reviewData.verified !== false,
-      createdAt: new Date().toISOString()
+      createdAt: reviewData.createdAt || new Date().toISOString()
     };
 
-    const fileName = `review-${review.id}.json`;
+    const fileName = `review-${reviewId}.json`;
     const filePath = `data/reviews/${fileName}`;
     const content = Buffer.from(JSON.stringify(review, null, 2)).toString('base64');
 
@@ -64,6 +67,18 @@ exports.handler = async (event, context) => {
     const responseData = await response.json();
 
     if (!response.ok) {
+      // If file already exists (422), it's a duplicate - return success
+      if (response.status === 422 && responseData.message && responseData.message.includes('already exists')) {
+        return {
+          statusCode: 200,
+          headers,
+          body: JSON.stringify({
+            success: true,
+            review: review,
+            duplicate: true
+          })
+        };
+      }
       console.error('GitHub error:', responseData);
       throw new Error(responseData.message || `GitHub API ${response.status}`);
     }

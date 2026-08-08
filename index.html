@@ -791,6 +791,7 @@
     src="https://www.facebook.com/tr?id=1695346384904770&ev=PageView&noscript=1"/></noscript>
 
 <base target="_blank">
+<base target="_blank">
 </head>
 <body>
 
@@ -1389,7 +1390,7 @@
             <label class="form-label">Отзив</label>
             <textarea class="form-input" id="reviewText" rows="4" placeholder="Сподели мнение..." required style="resize:vertical;min-height:80px"></textarea>
           </div>
-          <button type="submit" class="btn btn-accent">⭐ Изпрати отзив</button>
+          <button type="submit" class="btn btn-accent" id="reviewSubmitBtn">⭐ Изпрати отзив</button>
         </form>
       </div>
     </div>
@@ -1998,14 +1999,15 @@ let isSubmittingReview = false;
 
     async function submitReview(e) {
       e.preventDefault();
+      e.stopPropagation();
 
-      if (isSubmittingReview) return;
+      const btn = document.getElementById('reviewSubmitBtn');
+      if (isSubmittingReview || (btn && btn.disabled)) return;
       isSubmittingReview = true;
+      if (btn) btn.disabled = true;
 
-      const btn = e.target.querySelector('button[type="submit"]');
-      const originalText = btn.textContent;
-      btn.textContent = '⏳ Изпраща се...';
-      btn.disabled = true;
+      const originalText = btn ? btn.textContent : '⭐ Изпрати отзив';
+      if (btn) btn.textContent = '⏳ Изпраща се...';
 
       const reviewData = {
         id: Date.now(),
@@ -2051,8 +2053,10 @@ let isSubmittingReview = false;
         console.error('Error saving review:', error);
         showToast('Грешка при запазване на отзива', 'error');
       } finally {
-        btn.textContent = originalText;
-        btn.disabled = false;
+        if (btn) {
+          btn.textContent = originalText;
+          btn.disabled = false;
+        }
         isSubmittingReview = false;
       }
     }
